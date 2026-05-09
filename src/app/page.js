@@ -1,9 +1,7 @@
-import Image from 'next/image';
-
 export default function Home() {
   return (
     <div>
-      <h1>Hello</h1>
+      <p className="text-white text-center pt-40">Sections</p>
     </div>
   );
 }

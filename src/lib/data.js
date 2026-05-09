@@ -11,7 +11,7 @@ export const personalInfo = {
   social: {
     github: 'https://github.com/tawchifulislam',
     linkedin: 'https://linkedin.com/in/tawchiful-islam',
-    twitter: 'https://x.com/t4wchif',
+    twitter: 'https://x.com/tawchifulislam',
   },
 };
 
