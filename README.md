@@ -1,120 +1,156 @@
-<div align="center">
-  <img src="./public/images/logo.png" alt="Logo" width="80" height="80" />
-  
-  # Tawchiful Islam — Portfolio
-  
-  **A premium, high-performance portfolio crafted with Next.js 15 and Framer Motion.**
+# 🌌 Tawchiful Islam - Portfolio
 
-[![Live Demo](https://shields.io)](https://tawchif.vercel.app)
-[![Vercel](https://shields.io)](https://vercel.com)
-[![License](https://shields.io)](LICENSE)
+<div align="center">
+
+<img src="public/images/logo.png" alt="Tawchiful Islam Logo" width="90" height="90" />
+
+### Crafting modern, responsive, and immersive web experiences.
+
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v4-38BDF8?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/FramerMotion-Animations-black?style=for-the-badge&logo=framer)](https://www.framer.com/motion/)
+[![Vercel](https://img.shields.io/badge/Deployed-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/)
+
+### 🔗 Live Website
+
+👉 **https://tawchif.vercel.app**
 
 </div>
 
 ---
 
-## 📖 Overview
+# ✨ Overview
 
-This repository contains the source code for my professional portfolio website.
-The goal was to build a highly interactive, minimalist, and recruiter-friendly
-experience that reflects my skills as a Frontend Developer.
+This is my personal developer portfolio built to showcase:
 
-### 🌟 Key Features
+- Frontend development projects
+- Modern UI/UX design skills
+- Interactive web experiences
+- Technical stack & workflow
+- My journey as a developer
 
-- **Next.js 15 Power:** Utilizing the latest App Router and Server Components
-  for optimal performance.
-- **Glassmorphism UI:** A sleek, modern dark-themed aesthetic with subtle glow
-  effects and backdrop blurs.
-- **Motion Orchestration:** Complex scroll-triggered animations and page
-  transitions using Framer Motion.
-- **Dynamic Active Section:** Real-time navigation highlighting based on user
-  scroll position.
-- **Clean Architecture:** Modular, reusable component structure for easy
-  scalability.
-- **Accessibility:** Semantic HTML and optimized for SEO and screen readers.
+The portfolio focuses on a clean dark aesthetic, glassmorphism-inspired
+components, smooth animations, and fully responsive layouts.
 
 ---
 
-## 🛠️ Tech Stack
+# ⚡ Features
 
-| Category       | Technologies                         |
-| -------------- | ------------------------------------ |
-| **Framework**  | Next.js 15 (App Router), React 19    |
-| **Styling**    | Tailwind CSS v4, Glassmorphism UI    |
-| **Animations** | Framer Motion                        |
-| **Icons**      | Lucide React, React Icons            |
-| **Forms**      | EmailJS (Direct Client-Side Mailing) |
-| **Deployment** | Vercel (CI/CD Pipeline)              |
+- Modern glassmorphism-inspired UI
+- Smooth animations with Framer Motion
+- Fully responsive design
+- Clean and scalable architecture
+- Optimized with Next.js App Router
+- Reusable component structure
+- SEO-friendly setup
+- Fast deployment with Vercel
 
 ---
 
-## 📁 Architecture
+# 🛠️ Tech Stack
+
+| Category   | Technologies              |
+| ---------- | ------------------------- |
+| Framework  | Next.js 15                |
+| Styling    | Tailwind CSS v4           |
+| Animation  | Framer Motion             |
+| Icons      | Lucide React, React Icons |
+| Fonts      | Inter, Syne               |
+| Deployment | Vercel                    |
+
+---
+
+# 📂 Project Structure
 
 ```bash
-src/
-├── app/               # Next.js App Router (Layouts, Pages, Globals)
-├── components/
-│   ├── layout/        # Shared components (Navbar, Footer)
-│   ├── sections/      # Home page sections (Hero, About, Projects, etc.)
-│   └── ui/            # Reusable UI primitives (Cards, Badges, Buttons)
-├── hooks/             # Custom React hooks (useScroll, useActiveSection)
-├── lib/               # Business logic (Constants, Content Data, Utils)
-└── public/            # Static assets (Images, Resume)
+src
+├── app
+├── components
+│   ├── layout
+│   ├── sections
+│   └── ui
+├── hooks
+└── lib
 ```
 
 ---
 
-## 🚀 Installation & Setup
+# 🚀 Getting Started
 
-1. **Clone the repo:**
-   ```bash
-   git clone https://github.com/tawchifulislam/portfolio.git
-   ```
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-3. **Environment Variables:** Create a `.env.local` file and add your EmailJS
-   keys:
-   ```env
-   NEXT_PUBLIC_EMAILJS_SERVICE_ID=...
-   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=...
-   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=...
-   ```
-4. **Run the dev server:**
-   ```bash
-   npm run dev
-   ```
+## Clone the repository
 
----
+```bash
+git clone https://github.com/tawchifulislam/portfolio.git
+```
 
-## 🤝 Contributing
+## Navigate to the project directory
 
-Contributions are always welcome! If you have any ideas to improve the design or
-code, feel free to fork the repository and create a pull request.
+```bash
+cd portfolio
+```
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## Install dependencies
+
+```bash
+npm install
+```
+
+## Run the development server
+
+```bash
+npm run dev
+```
+
+Open:
+
+```bash
+http://localhost:3000
+```
 
 ---
 
-## 🔗 Connect With Me
+# 📸 Portfolio Sections
 
-<div align="left">
-  <a href="https://github.com/tawchifulislam" target="_blank">
-    <img src="https://shields.io" alt="GitHub" />
-  </a>
-  <a href="https://linkedin.com/in/tawchiful-islam" target="_blank">
-    <img src="https://shields.io" alt="LinkedIn" />
-  </a>
-  <a href="https://x.com/tawchifulislam" target="_blank">
-    <img src="https://shields.io" alt="Twitter" />
-  </a>
+- Hero Section
+- About Me
+- Tech Stack
+- Featured Projects
+- Contact Section
+- Responsive Navbar
+- Footer
+
+---
+
+# 🌍 Deployment
+
+Deployed on **Vercel** with automatic deployment on every push.
+
+---
+
+# 📬 Connect With Me
+
+### GitHub
+
+👉 https://github.com/tawchifulislam
+
+### LinkedIn
+
+👉 https://linkedin.com/in/tawchiful-islam
+
+### Twitter / X
+
+👉 https://x.com/tawchifulislam
+
+### Email
+
+👉 tawchif04@gmail.com
+
+---
+
+<div align="center">
+
+### Built with passion, precision, and creativity.
+
+© 2026 Tawchiful Islam
+
 </div>
-
-<p align="center" style="margin-top: 40px;">
-  Developed with 💜 by <strong>Tawchiful Islam</strong>
-</p>
