@@ -41,7 +41,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative py-13 md:py-17 -mt-20 overflow-hidden px-4 sm:px-6"
+      className="relative py-13 md:py-18 -mt-20 overflow-hidden px-4 sm:px-6"
     >
       <div className="absolute top-1/2 right-0 w-72 h-72 bg-violet-600/5 rounded-full blur-[100px] pointer-events-none" />
 

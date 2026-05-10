@@ -43,7 +43,7 @@ export default function TechStack() {
   return (
     <section
       id="techstack"
-      className="relative py-16 px-4 sm:px-6 overflow-hidden"
+      className="relative py-17 px-4 sm:px-6 overflow-hidden"
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-125 bg-violet-600/3 blur-[120px] pointer-events-none" />
 

@@ -12,7 +12,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative py-17 px-4 sm:px-6 overflow-hidden"
+      className="relative py-18 px-4 sm:px-6 overflow-hidden"
     >
       <div className="absolute top-1/3 right-0 w-100 h-100 bg-violet-600/3 rounded-full blur-[120px] pointer-events-none" />
 
