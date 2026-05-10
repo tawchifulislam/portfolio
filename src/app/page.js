@@ -1,7 +1,11 @@
+import Hero from '@/components/sections/Hero';
+import About from '@/components/sections/About';
+
 export default function Home() {
   return (
     <div>
-      <p className="text-white text-center pt-40">Sections</p>
+      <Hero />
+      <About />
     </div>
   );
 }
