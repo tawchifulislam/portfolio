@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+  <img src="./public/images/logo.png" alt="Logo" width="80" height="80" />
+  
+  # Tawchiful Islam — Portfolio
+  
+  **A premium, high-performance portfolio crafted with Next.js 15 and Framer Motion.**
 
-## Getting Started
+[![Live Demo](https://shields.io)](https://tawchif.vercel.app)
+[![Vercel](https://shields.io)](https://vercel.com)
+[![License](https://shields.io)](LICENSE)
 
-First, run the development server:
+</div>
+
+---
+
+## 📖 Overview
+
+This repository contains the source code for my professional portfolio website.
+The goal was to build a highly interactive, minimalist, and recruiter-friendly
+experience that reflects my skills as a Frontend Developer.
+
+### 🌟 Key Features
+
+- **Next.js 15 Power:** Utilizing the latest App Router and Server Components
+  for optimal performance.
+- **Glassmorphism UI:** A sleek, modern dark-themed aesthetic with subtle glow
+  effects and backdrop blurs.
+- **Motion Orchestration:** Complex scroll-triggered animations and page
+  transitions using Framer Motion.
+- **Dynamic Active Section:** Real-time navigation highlighting based on user
+  scroll position.
+- **Clean Architecture:** Modular, reusable component structure for easy
+  scalability.
+- **Accessibility:** Semantic HTML and optimized for SEO and screen readers.
+
+---
+
+## 🛠️ Tech Stack
+
+| Category       | Technologies                         |
+| -------------- | ------------------------------------ |
+| **Framework**  | Next.js 15 (App Router), React 19    |
+| **Styling**    | Tailwind CSS v4, Glassmorphism UI    |
+| **Animations** | Framer Motion                        |
+| **Icons**      | Lucide React, React Icons            |
+| **Forms**      | EmailJS (Direct Client-Side Mailing) |
+| **Deployment** | Vercel (CI/CD Pipeline)              |
+
+---
+
+## 📁 Architecture
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+src/
+├── app/               # Next.js App Router (Layouts, Pages, Globals)
+├── components/
+│   ├── layout/        # Shared components (Navbar, Footer)
+│   ├── sections/      # Home page sections (Hero, About, Projects, etc.)
+│   └── ui/            # Reusable UI primitives (Cards, Badges, Buttons)
+├── hooks/             # Custom React hooks (useScroll, useActiveSection)
+├── lib/               # Business logic (Constants, Content Data, Utils)
+└── public/            # Static assets (Images, Resume)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🚀 Installation & Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Clone the repo:**
+   ```bash
+   git clone https://github.com/tawchifulislam/portfolio.git
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Environment Variables:** Create a `.env.local` file and add your EmailJS
+   keys:
+   ```env
+   NEXT_PUBLIC_EMAILJS_SERVICE_ID=...
+   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=...
+   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=...
+   ```
+4. **Run the dev server:**
+   ```bash
+   npm run dev
+   ```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🤝 Contributing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Contributions are always welcome! If you have any ideas to improve the design or
+code, feel free to fork the repository and create a pull request.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔗 Connect With Me
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<div align="left">
+  <a href="https://github.com/tawchifulislam" target="_blank">
+    <img src="https://shields.io" alt="GitHub" />
+  </a>
+  <a href="https://linkedin.com/in/tawchiful-islam" target="_blank">
+    <img src="https://shields.io" alt="LinkedIn" />
+  </a>
+  <a href="https://x.com/tawchifulislam" target="_blank">
+    <img src="https://shields.io" alt="Twitter" />
+  </a>
+</div>
+
+<p align="center" style="margin-top: 40px;">
+  Developed with 💜 by <strong>Tawchiful Islam</strong>
+</p>
