@@ -8,6 +8,7 @@ import { variants } from '@/lib/constants';
 import SectionTitle from '@/components/ui/SectionTitle';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import emailjs from '@emailjs/browser';
 
 const socialLinks = [
   {
@@ -41,13 +42,33 @@ export default function Contact() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const { name, email, message } = formData;
-    if (!name || !email || !message) return;
+    setStatus('sending');
 
-    const mailtoLink = `mailto:${personalInfo.email}?subject=Collaboration with ${name}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-    window.location.href = mailtoLink;
-    setStatus('sent');
-    setTimeout(() => setStatus(null), 3000);
+    const templateParams = {
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+    };
+
+    emailjs
+      .send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
+      )
+      .then(
+        () => {
+          setStatus('sent');
+          setFormData({ name: '', email: '', message: '' });
+          setTimeout(() => setStatus(null), 5000);
+        },
+        error => {
+          console.error('EmailJS Error:', error);
+          setStatus('error');
+          setTimeout(() => setStatus(null), 5000);
+        },
+      );
   };
 
   return (
@@ -151,6 +172,7 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Your full name"
+                    required
                     className="w-full px-5 py-4 rounded-2xl bg-white/3 border border-white/6 focus:border-violet-500/50 text-white outline-none transition-all placeholder:text-white/10"
                   />
                 </div>
@@ -164,6 +186,7 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="hello@example.com"
+                    required
                     className="w-full px-5 py-4 rounded-2xl bg-white/3 border border-white/6 focus:border-violet-500/50 text-white outline-none transition-all placeholder:text-white/10"
                   />
                 </div>
@@ -178,6 +201,7 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Tell me about your vision..."
+                  required
                   rows={5}
                   className="w-full px-5 py-4 rounded-2xl bg-white/3 border border-white/6 focus:border-violet-500/50 text-white outline-none transition-all placeholder:text-white/10 resize-none"
                 />
@@ -185,11 +209,18 @@ export default function Contact() {
 
               <motion.button
                 type="submit"
+                disabled={status === 'sending'}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center gap-3 px-8 py-5 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white text-[11px] font-black tracking-[0.2em] uppercase transition-all shadow-xl shadow-violet-600/20"
+                className="w-full flex items-center justify-center gap-3 px-8 py-5 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white text-[11px] font-black tracking-[0.2em] uppercase transition-all shadow-xl shadow-violet-600/20 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {status === 'sent' ? 'Inquiry Sent' : 'Send Inquiry'}
+                {status === 'sending'
+                  ? 'Sending...'
+                  : status === 'sent'
+                    ? 'Message Sent!'
+                    : status === 'error'
+                      ? 'Error! Try Again'
+                      : 'Send Inquiry'}
                 <ArrowUpRight size={16} />
               </motion.button>
             </form>
