@@ -19,6 +19,9 @@ export const metadata = {
   title: 'Tawchiful Islam - Frontend Developer',
   description:
     'Frontend developer from Chittagong, Bangladesh. Building clean, responsive, and user-friendly web experiences with React and Next.js.',
+  verification: {
+    google: 'google34ad16eac17c680e',
+  },
   keywords: [
     'Tawchiful Islam',
     'Frontend Developer',
