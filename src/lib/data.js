@@ -41,6 +41,7 @@ export const projects = [
     description:
       'A full-stack digital library app where users can explore books, filter by category, and borrow titles digitally. Built with Next.js API routes, MongoDB, and BetterAuth for secure authentication.',
     tags: ['Next.js', 'Tailwind CSS', 'DaisyUI', 'MongoDB', 'BetterAuth'],
+    image: '/images/projects/bookworm.png',
     liveUrl: 'https://bookworm-nxt.vercel.app',
     githubUrl: 'https://github.com/tawchifulislam/Bookworm-Nxt',
     featured: true,
@@ -51,6 +52,7 @@ export const projects = [
     description:
       'A relationship manager app to track interactions with friends — calls, texts, and video — and visualize communication patterns through interactive pie charts.',
     tags: ['React', 'React Router', 'Tailwind CSS', 'Recharts'],
+    image: '/images/projects/keenkeeper.png',
     liveUrl: 'https://keeen.netlify.app',
     githubUrl: 'https://github.com/tawchifulislam/KEEN',
     featured: true,
@@ -61,6 +63,7 @@ export const projects = [
     description:
       'A digital marketplace featuring a smart cart system, dynamic pricing plans, toast notifications, and a fully responsive layout from 320px to 1440px+.',
     tags: ['React 19', 'Vite', 'Tailwind CSS v4', 'DaisyUI v5'],
+    image: '/images/projects/digitools.png',
     liveUrl: 'https://digtools.netlify.app',
     githubUrl: 'https://github.com/tawchifulislam/DigiTools',
     featured: false,
@@ -71,6 +74,7 @@ export const projects = [
     description:
       'A minimal dark-aesthetic weather app delivering real-time conditions, 5-day forecasts, sunrise/sunset times, and city search — built with pure HTML, CSS, JS, and WeatherAPI.',
     tags: ['Vanilla JS', 'WeatherAPI', 'HTML5', 'Tailwind CSS'],
+    image: '/images/projects/meghdut.png',
     liveUrl: 'https://meghdut-weather.netlify.app',
     githubUrl: 'https://github.com/tawchifulislam/Meghdut',
     featured: false,
@@ -81,6 +85,7 @@ export const projects = [
     description:
       'A lightweight tool to search and filter GitHub repository issues by status using the GitHub REST API — built with vanilla JavaScript.',
     tags: ['Vanilla JS', 'GitHub REST API', 'HTML', 'CSS'],
+    image: '/images/projects/githubissuetracker.png',
     liveUrl: 'https://t4wchif.github.io/GitHub-Issues-Tracker/',
     githubUrl: 'https://github.com/tawchifulislam/GitHub-Issues-Tracker',
     featured: false,

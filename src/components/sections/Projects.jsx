@@ -1,6 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
 import { projects } from '@/lib/data';
 import { variants } from '@/lib/constants';
 import SectionTitle from '@/components/ui/SectionTitle';
@@ -12,70 +19,62 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative py-18 px-4 sm:px-6 overflow-hidden"
+      className="relative py-24 overflow-hidden px-4 sm:px-6"
     >
-      <div className="absolute top-1/3 right-0 w-100 h-100 bg-violet-600/3 rounded-full blur-[120px] pointer-events-none" />
-
       <div className="max-w-5xl mx-auto">
         <SectionTitle
           title="Projects"
           subtitle="A selection of things I have built so far."
         />
 
-        <div className="mt-20">
-          <div className="hidden md:flex items-start gap-6 pb-4 border-b border-white/6">
-            <span className="w-1/3 text-[9px] font-black tracking-[0.3em] uppercase text-white/15">
-              Project
-            </span>
-            <span className="flex-1 text-[9px] font-black tracking-[0.3em] uppercase text-white/15">
-              Description
-            </span>
-            <span className="w-20 text-[9px] font-black tracking-[0.3em] uppercase text-white/15 text-right">
-              Links
-            </span>
-          </div>
-
-          <motion.div
-            variants={variants.staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="flex flex-col"
-          >
-            {projects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} />
-            ))}
-          </motion.div>
-
-          <div className="border-b border-white/6" />
-        </div>
-
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={variants.fadeUp}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-16 flex justify-center"
+          className="mt-16 w-full"
         >
+          <Swiper
+            modules={[Navigation, Pagination]}
+            grabCursor={true}
+            centeredSlides={false}
+            slidesPerView="auto"
+            spaceBetween={20}
+            pagination={{ clickable: true }}
+            navigation={true}
+            className="projects-swiper pb-12!"
+          >
+            {projects.map(project => (
+              <SwiperSlide
+                key={project.id}
+                className="w-[320px]! sm:w-100! md:w-120!"
+              >
+                <ProjectCard project={project} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </motion.div>
+
+        <div className="mt-10 flex justify-center">
           <a
-            href="https://github.com/tawchifulislam"
+            href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-3 px-8 py-4 rounded-2xl bg-white/2 hover:bg-white/5 border border-white/[0.07] hover:border-violet-500/25 transition-all duration-500"
+            className="group flex items-center gap-3 px-8 py-3.5 rounded-2xl bg-white/3 border border-white/8 hover:border-violet-500/30 transition-all duration-300"
           >
             <FaGithub
-              size={15}
-              className="text-white/25 group-hover:text-white/60 transition-colors duration-300"
+              size={18}
+              className="text-white/40 group-hover:text-white"
             />
-            <span className="text-[10px] font-black tracking-[0.25em] uppercase text-white/25 group-hover:text-white/60 transition-colors duration-300">
-              View All on GitHub
+            <span className="text-[11px] font-bold uppercase tracking-widest text-white/40 group-hover:text-white">
+              View All GitHub
             </span>
             <ArrowUpRight
-              size={13}
-              className="text-white/15 group-hover:text-violet-400 transition-colors duration-300"
+              size={14}
+              className="text-white/20 group-hover:text-violet-400"
             />
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
