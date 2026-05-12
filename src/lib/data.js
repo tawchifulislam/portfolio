@@ -5,6 +5,7 @@ export const personalInfo = {
   subtitle: 'Turning ideas into clean, interactive web experiences.',
   location: 'Chittagong, Bangladesh',
   email: 'tawchif04@gmail.com',
+  phone: '+8801616241205',
   bio: "I'm a frontend developer from Chittagong, Bangladesh, passionate about crafting clean, responsive, and performant web applications. Currently expanding into full-stack development with Node.js, Express, and MongoDB — always learning, always building.",
   image: '/images/tawchif.jpg',
   resume: '/resume.pdf',
@@ -36,59 +37,119 @@ export const techStack = [
 
 export const projects = [
   {
-    id: 1,
+    id: '1',
     title: 'Bookworm',
     description:
       'A full-stack digital library app where users can explore books, filter by category, and borrow titles digitally. Built with Next.js API routes, MongoDB, and BetterAuth for secure authentication.',
+    longDescription:
+      'Bookworm is a full-stack digital library platform designed to bring the traditional library experience online. Users can browse an extensive book collection, filter by category, view detailed book information, and digitally borrow titles. The platform features a secure authentication system built with BetterAuth, ensuring user data protection and seamless login experience.',
     tags: ['Next.js', 'Tailwind CSS', 'DaisyUI', 'MongoDB', 'BetterAuth'],
     image: '/images/projects/bookworm.png',
     liveUrl: 'https://bookworm-nxt.vercel.app',
     githubUrl: 'https://github.com/tawchifulislam/Bookworm-Nxt',
     featured: true,
+    challenges: [
+      'Implementing BetterAuth for secure session management was complex as it required careful configuration with MongoDB.',
+      'Building a dynamic borrowing system that tracks book availability in real-time across multiple users.',
+      'Optimizing MongoDB queries for fast book filtering and search across large datasets.',
+    ],
+    improvements: [
+      'Add a user review and rating system for books.',
+      'Implement email notifications for due date reminders.',
+      'Add an admin dashboard for managing the book inventory.',
+    ],
   },
   {
-    id: 2,
+    id: '2',
     title: 'Keen Keeper',
     description:
       'A relationship manager app to track interactions with friends — calls, texts, and video — and visualize communication patterns through interactive pie charts.',
+    longDescription:
+      'Keen Keeper is a relationship management web app that helps users maintain meaningful connections with friends and family. It allows users to log interactions — phone calls, text messages, and video calls — and visualize their communication patterns through interactive pie charts powered by Recharts. The app encourages intentional relationship building by making communication habits visible.',
     tags: ['React', 'React Router', 'Tailwind CSS', 'Recharts'],
     image: '/images/projects/keenkeeper.png',
     liveUrl: 'https://keeen.netlify.app',
     githubUrl: 'https://github.com/tawchifulislam/KEEN',
     featured: true,
+    challenges: [
+      'Designing an intuitive UI that makes logging interactions quick and frictionless.',
+      'Implementing dynamic chart updates using Recharts whenever new interaction data is added.',
+      'Managing complex state across multiple components without a global state manager.',
+    ],
+    improvements: [
+      "Add push notification reminders to reach out to friends you haven't contacted in a while.",
+      'Integrate a calendar view to schedule future interactions.',
+      'Add cloud sync so data persists across devices.',
+    ],
   },
   {
-    id: 3,
+    id: '3',
     title: 'DigiTools',
     description:
       'A digital marketplace featuring a smart cart system, dynamic pricing plans, toast notifications, and a fully responsive layout from 320px to 1440px+.',
+    longDescription:
+      'DigiTools is a digital product marketplace built with React 19 and Vite. It features a fully functional smart cart system where users can add or remove products, view cart totals, and proceed to checkout. The platform includes dynamic pricing plans, real-time toast notifications using React-Toastify, and a scroll-aware navbar. The design is fully responsive from 320px to 1440px+.',
     tags: ['React 19', 'Vite', 'Tailwind CSS v4', 'DaisyUI v5'],
     image: '/images/projects/digitools.png',
     liveUrl: 'https://digtools.netlify.app',
     githubUrl: 'https://github.com/tawchifulislam/DigiTools',
     featured: false,
+    challenges: [
+      'Building a smart cart system that updates in real-time across the navbar and cart section simultaneously.',
+      'Implementing a scroll-aware navbar that changes style based on scroll position without performance issues.',
+      'Ensuring pixel-perfect responsiveness across all screen sizes from 320px to 1440px+.',
+    ],
+    improvements: [
+      'Add a payment gateway integration for actual transactions.',
+      'Implement a product search and filter system.',
+      'Add user authentication for personalized cart persistence.',
+    ],
   },
   {
-    id: 4,
+    id: '4',
     title: 'Meghdut',
     description:
       'A minimal dark-aesthetic weather app delivering real-time conditions, 5-day forecasts, sunrise/sunset times, and city search — built with pure HTML, CSS, JS, and WeatherAPI.',
+    longDescription:
+      'Meghdut is a beautifully designed weather application with a dark glassmorphism aesthetic. It fetches real-time weather data using the WeatherAPI and displays current conditions, a 5-day forecast, humidity, wind speed, and sunrise/sunset times. Users can search for any city worldwide and get instant weather updates. Built entirely with vanilla JavaScript without any frameworks.',
     tags: ['Vanilla JS', 'WeatherAPI', 'HTML5', 'Tailwind CSS'],
     image: '/images/projects/meghdut.png',
     liveUrl: 'https://meghdut-weather.netlify.app',
     githubUrl: 'https://github.com/tawchifulislam/Meghdut',
     featured: false,
+    challenges: [
+      'Handling API rate limits and error states gracefully when the WeatherAPI returns errors for invalid city names.',
+      'Creating a smooth glassmorphism UI using only vanilla CSS without any component library.',
+      'Managing asynchronous API calls and updating the DOM dynamically without a framework.',
+    ],
+    improvements: [
+      "Add geolocation support to auto-detect the user's city on load.",
+      'Implement an hourly forecast view in addition to the 5-day forecast.',
+      'Add weather-based background animations that change with conditions.',
+    ],
   },
   {
-    id: 5,
+    id: '5',
     title: 'GitHub Issues Tracker',
     description:
-      'A lightweight tool to search and filter GitHub repository issues by status using the GitHub REST API — built with vanilla JavaScript.',
+      'A lightweight tool to search and filter GitHub repository issues by status using the GitHub REST API — built with vanilla JavaScript.Built entirely with vanilla JavaScript, HTML, and CSS.',
+    longDescription:
+      'GitHub Issues Tracker is a developer utility tool that allows users to search any public GitHub repository and view its issues filtered by status — open or closed. It uses the GitHub REST API to fetch real-time issue data and displays it in a clean, readable format. Built entirely with vanilla JavaScript, HTML, and CSS without any external libraries.',
     tags: ['Vanilla JS', 'GitHub REST API', 'HTML', 'CSS'],
     image: '/images/projects/githubissuetracker.png',
     liveUrl: 'https://t4wchif.github.io/GitHub-Issues-Tracker/',
     githubUrl: 'https://github.com/tawchifulislam/GitHub-Issues-Tracker',
     featured: false,
+    challenges: [
+      'Handling GitHub API rate limiting for unauthenticated requests — limited to 60 requests per hour.',
+      'Implementing real-time search and filter without any debouncing causing excessive API calls.',
+      'Designing a clean UI that works well with varying amounts of issue data.',
+    ],
+    improvements: [
+      'Add GitHub OAuth authentication to increase API rate limits.',
+      'Implement pagination for repositories with large numbers of issues.',
+      'Add issue label filtering and sorting by date or comments.',
+    ],
   },
 ];
 

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, ArrowUpRight } from 'lucide-react';
+import { Mail, MapPin, Phone, ArrowUpRight } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
 import { variants } from '@/lib/constants';
 import SectionTitle from '@/components/ui/SectionTitle';
@@ -12,19 +12,40 @@ import emailjs from '@emailjs/browser';
 
 const socialLinks = [
   {
-    icon: <FaGithub size={18} />,
+    icon: <FaGithub size={16} />,
     href: personalInfo.social.github,
     label: 'GitHub',
   },
   {
-    icon: <FaLinkedin size={18} />,
+    icon: <FaLinkedin size={16} />,
     href: personalInfo.social.linkedin,
     label: 'LinkedIn',
   },
   {
-    icon: <FaXTwitter size={18} />,
+    icon: <FaXTwitter size={16} />,
     href: personalInfo.social.twitter,
     label: 'Twitter',
+  },
+];
+
+const contactItems = [
+  {
+    icon: <Mail size={18} />,
+    label: 'Email Me',
+    value: personalInfo.email,
+    href: 'mailto:' + personalInfo.email,
+  },
+  {
+    icon: <Phone size={18} />,
+    label: 'Phone',
+    value: personalInfo.phone,
+    href: 'tel:' + personalInfo.phone,
+  },
+  {
+    icon: <MapPin size={18} />,
+    label: 'Location',
+    value: personalInfo.location,
+    href: null,
   },
 ];
 
@@ -34,14 +55,19 @@ export default function Contact() {
     email: '',
     message: '',
   });
+
   const [status, setStatus] = useState(null);
 
   const handleChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
+
     setStatus('sending');
 
     const templateParams = {
@@ -60,12 +86,20 @@ export default function Contact() {
       .then(
         () => {
           setStatus('sent');
-          setFormData({ name: '', email: '', message: '' });
+
+          setFormData({
+            name: '',
+            email: '',
+            message: '',
+          });
+
           setTimeout(() => setStatus(null), 5000);
         },
         error => {
           console.error('EmailJS Error:', error);
+
           setStatus('error');
+
           setTimeout(() => setStatus(null), 5000);
         },
       );
@@ -74,9 +108,9 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-17 px-4 sm:px-6 overflow-hidden"
+      className="relative py-24 px-4 sm:px-6 overflow-hidden"
     >
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-full max-w-5xl h-100 bg-violet-600/2 blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-100 bg-violet-600/3 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto">
         <SectionTitle
@@ -84,72 +118,102 @@ export default function Contact() {
           subtitle="Let's build something exceptional together. I'm currently open for new opportunities."
         />
 
-        <div className="mt-20 grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+        <div className="mt-16 grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch">
+          {/* Left */}
           <motion.div
             variants={variants.slideLeft}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="lg:col-span-2 flex flex-col gap-10"
+            className="lg:col-span-2 flex flex-col gap-4"
           >
-            <div className="space-y-4">
-              <h3 className="text-3xl font-bold text-white">
-                Contact <span className="text-violet-500">Information.</span>
+            {/* Header */}
+            <div className="p-6 rounded-3xl bg-white/2 border border-white/[0.07]">
+              <h3 className="text-2xl font-bold font-[--font-syne] text-white mb-2">
+                Contact <span className="text-violet-400">Information.</span>
               </h3>
-              <p className="text-white/30 text-sm leading-relaxed max-w-xs">
-                Feel free to reach out for collaborations or just a friendly
-                hello.
+
+              <p className="text-white/30 text-sm leading-relaxed">
+                Feel free to reach out for collaborations, opportunities, or
+                just a friendly hello.
               </p>
             </div>
 
-            <div className="space-y-4">
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="group flex items-center gap-5 p-5 rounded-3xl bg-white/2 border border-white/5 hover:border-violet-500/30 transition-all duration-500"
-              >
-                <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-violet-500/10 text-violet-400 group-hover:bg-violet-500 group-hover:text-white transition-all">
-                  <Mail size={20} />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold tracking-[0.2em] text-white/20 uppercase mb-1">
-                    Email Me
-                  </p>
-                  <p className="text-sm text-white/60 font-medium">
-                    {personalInfo.email}
-                  </p>
-                </div>
-              </a>
+            {/* Contact items */}
+            <div className="flex flex-col gap-3 flex-1">
+              {contactItems.map(item => (
+                <div key={item.label}>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      className="group flex items-center gap-4 p-4 rounded-2xl bg-white/2 border border-white/6 hover:border-violet-500/25 transition-all duration-500 w-full"
+                    >
+                      <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-violet-500/10 text-violet-400 group-hover:bg-violet-500 group-hover:text-white transition-all duration-300 shrink-0">
+                        {item.icon}
+                      </div>
 
-              <div className="flex items-center gap-5 p-5 rounded-3xl bg-white/2 border border-white/5">
-                <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/5 text-white/40">
-                  <MapPin size={20} />
+                      <div>
+                        <p className="text-[9px] font-black tracking-[0.2em] text-white/20 uppercase mb-0.5">
+                          {item.label}
+                        </p>
+
+                        <p className="text-sm text-white/55 group-hover:text-white/80 transition-colors duration-300">
+                          {item.value}
+                        </p>
+                      </div>
+                    </a>
+                  ) : (
+                    <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/2 border border-white/6">
+                      <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 text-white/30 shrink-0">
+                        {item.icon}
+                      </div>
+
+                      <div>
+                        <p className="text-[9px] font-black tracking-[0.2em] text-white/20 uppercase mb-0.5">
+                          {item.label}
+                        </p>
+
+                        <p className="text-sm text-white/55">{item.value}</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <p className="text-[10px] font-bold tracking-[0.2em] text-white/20 uppercase mb-1">
-                    Location
-                  </p>
-                  <p className="text-sm text-white/60 font-medium">
-                    {personalInfo.location}
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
 
-            <div className="flex gap-3">
-              {socialLinks.map(social => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/3 border border-white/8 text-white/20 hover:text-violet-400 hover:border-violet-500/40 hover:bg-violet-500/5 transition-all duration-300"
-                >
-                  {social.icon}
-                </a>
-              ))}
+            {/* Social + availability */}
+            <div className="p-5 rounded-2xl bg-white/2 border border-white/6 flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <p className="text-[9px] font-black tracking-[0.2em] uppercase text-white/20">
+                  Find me on
+                </p>
+
+                <span className="flex items-center gap-1.5 text-[9px] font-bold tracking-widest uppercase text-emerald-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Available
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {socialLinks.map(social => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/3 border border-white/6 text-white/25 hover:text-violet-400 hover:border-violet-500/30 hover:bg-violet-500/5 transition-all duration-300 text-xs font-medium"
+                  >
+                    {social.icon}
+
+                    <span className="hidden sm:inline">{social.label}</span>
+                  </a>
+                ))}
+              </div>
             </div>
           </motion.div>
 
+          {/* Right — Form */}
           <motion.div
             variants={variants.slideRight}
             initial="hidden"
@@ -159,13 +223,14 @@ export default function Contact() {
           >
             <form
               onSubmit={handleSubmit}
-              className="p-8 rounded-[2.5rem] bg-white/2 border border-white/8 backdrop-blur-3xl shadow-2xl space-y-6"
+              className="h-full p-8 rounded-3xl bg-white/2 border border-white/8 backdrop-blur-xl flex flex-col gap-6"
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold tracking-[0.2em] text-white/20 uppercase ml-1">
+                  <label className="text-[9px] font-black tracking-[0.2em] text-white/20 uppercase ml-1">
                     Name
                   </label>
+
                   <input
                     type="text"
                     name="name"
@@ -173,13 +238,15 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="Your full name"
                     required
-                    className="w-full px-5 py-4 rounded-2xl bg-white/3 border border-white/6 focus:border-violet-500/50 text-white outline-none transition-all placeholder:text-white/10"
+                    className="w-full px-5 py-4 rounded-2xl bg-white/3 border border-white/6 focus:border-violet-500/50 text-white/80 outline-none transition-all placeholder:text-white/10 text-sm"
                   />
                 </div>
+
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold tracking-[0.2em] text-white/20 uppercase ml-1">
+                  <label className="text-[9px] font-black tracking-[0.2em] text-white/20 uppercase ml-1">
                     Email
                   </label>
+
                   <input
                     type="email"
                     name="email"
@@ -187,23 +254,23 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="hello@example.com"
                     required
-                    className="w-full px-5 py-4 rounded-2xl bg-white/3 border border-white/6 focus:border-violet-500/50 text-white outline-none transition-all placeholder:text-white/10"
+                    className="w-full px-5 py-4 rounded-2xl bg-white/3 border border-white/6 focus:border-violet-500/50 text-white/80 outline-none transition-all placeholder:text-white/10 text-sm"
                   />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold tracking-[0.2em] text-white/20 uppercase ml-1">
+              <div className="space-y-2 flex-1 flex flex-col">
+                <label className="text-[9px] font-black tracking-[0.2em] text-white/20 uppercase ml-1">
                   Message
                 </label>
+
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Tell me about your vision..."
                   required
-                  rows={5}
-                  className="w-full px-5 py-4 rounded-2xl bg-white/3 border border-white/6 focus:border-violet-500/50 text-white outline-none transition-all placeholder:text-white/10 resize-none"
+                  className="w-full flex-1 min-h-45 px-5 py-4 rounded-2xl bg-white/3 border border-white/6 focus:border-violet-500/50 text-white/80 outline-none transition-all placeholder:text-white/10 resize-none text-sm"
                 />
               </div>
 
@@ -212,16 +279,17 @@ export default function Contact() {
                 disabled={status === 'sending'}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center gap-3 px-8 py-5 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white text-[11px] font-black tracking-[0.2em] uppercase transition-all shadow-xl shadow-violet-600/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white text-[10px] font-black tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_0_30px_rgba(124,58,237,0.25)] disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {status === 'sending'
                   ? 'Sending...'
                   : status === 'sent'
-                    ? 'Message Sent!'
+                    ? 'Message Sent! ✓'
                     : status === 'error'
                       ? 'Error! Try Again'
                       : 'Send Inquiry'}
-                <ArrowUpRight size={16} />
+
+                <ArrowUpRight size={15} />
               </motion.button>
             </form>
           </motion.div>
