@@ -1,23 +1,55 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import { navLinks } from '@/lib/data';
 import { useScrollProgress } from '@/hooks/useScrollProgress';
-import { useActiveSection } from '@/hooks/useActiveSection';
 import { scrollToSection } from '@/lib/utils';
 import { SECTION_IDS } from '@/lib/constants';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeHash, setActiveHash] = useState('home');
   const scrollProgress = useScrollProgress();
-  const activeSection = useActiveSection(Object.values(SECTION_IDS));
   const isScrolled = scrollProgress > 2;
 
+  useEffect(() => {
+    const handleUrlAndHighlight = () => {
+      const sections = Object.values(SECTION_IDS);
+      let current = 'home';
+
+      for (const id of sections) {
+        const element = document.getElementById(id);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 160 && rect.bottom >= 160) {
+            current = id;
+            break;
+          }
+        }
+      }
+
+      setActiveHash(current);
+      const newHash =
+        current === 'home' || current === 'hero'
+          ? window.location.pathname
+          : `#${current}`;
+      if (window.location.hash !== newHash) {
+        window.history.replaceState(null, '', newHash);
+      }
+    };
+
+    window.addEventListener('scroll', handleUrlAndHighlight);
+    return () => window.removeEventListener('scroll', handleUrlAndHighlight);
+  }, []);
+
   const handleNavClick = href => {
-    scrollToSection(href.replace('#', ''));
+    const id = href.replace('#', '');
+    scrollToSection(id);
+    setActiveHash(id);
+    window.history.pushState(null, '', href);
     setIsOpen(false);
   };
 
@@ -37,7 +69,7 @@ export default function Navbar() {
           }`}
         >
           <motion.button
-            onClick={() => scrollToSection('home')}
+            onClick={() => handleNavClick('#home')}
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.94 }}
             className="relative w-8 h-8"
@@ -53,7 +85,7 @@ export default function Navbar() {
           <ul className="hidden md:flex items-center gap-1 bg-white/4 rounded-xl px-2 py-1.5 border border-white/6">
             {navLinks.map(link => {
               const id = link.href.replace('#', '');
-              const isActive = activeSection === id;
+              const isActive = activeHash === id;
               return (
                 <li key={link.name}>
                   <button
@@ -109,7 +141,6 @@ export default function Navbar() {
             </AnimatePresence>
           </button>
         </div>
-
         <div
           className="absolute bottom-0 left-1/2 -translate-x-1/2 h-px bg-linear-to-r from-transparent via-violet-400 to-transparent transition-all duration-300"
           style={{ width: `${scrollProgress}%`, opacity: isScrolled ? 1 : 0 }}
@@ -134,12 +165,12 @@ export default function Navbar() {
               className="fixed top-20 right-6 z-50 w-48 rounded-2xl bg-[#0d0d12]/90 backdrop-blur-2xl border border-white/8 shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] md:hidden overflow-hidden"
             >
               <ul className="flex flex-col p-2">
-                {navLinks.map((link, i) => (
+                {navLinks.map(link => (
                   <li key={link.name}>
                     <button
                       onClick={() => handleNavClick(link.href)}
                       className={`w-full text-left px-4 py-3 text-[10px] font-semibold tracking-[0.2em] uppercase rounded-xl transition-all duration-200 ${
-                        activeSection === link.href.replace('#', '')
+                        activeHash === link.href.replace('#', '')
                           ? 'text-white bg-white/10 border border-white/5'
                           : 'text-white/20 hover:text-white hover:bg-white/5'
                       }`}
