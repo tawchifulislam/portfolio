@@ -57,19 +57,15 @@ const traits = [
 export default function About() {
   return (
     <section id="about" className="relative overflow-hidden py-18 px-4 sm:px-6">
-      {/* Background Glow */}
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-125 h-125 bg-violet-600/5 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* 5xl Standard Container */}
       <div className="max-w-5xl mx-auto relative z-10">
         <SectionTitle
           title="About Me"
           subtitle="A little bit about who I am and what I do."
         />
 
-        {/* Main Grid */}
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-6 xl:gap-8 items-stretch">
-          {/* LEFT SIDE */}
           <motion.div
             variants={variants.slideLeft}
             initial="hidden"
@@ -77,7 +73,6 @@ export default function About() {
             viewport={{ once: true }}
             className="flex flex-col gap-5 h-full"
           >
-            {/* Code Card */}
             <div className="p-6 sm:p-7 rounded-4xl bg-white/2.5 border border-white/[0.07] backdrop-blur-2xl shadow-[0_0_40px_rgba(255,255,255,0.02)]">
               <div className="flex items-center gap-2 mb-6 pb-4 border-b border-white/5">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
@@ -115,7 +110,6 @@ export default function About() {
               </div>
             </div>
 
-            {/* Stats */}
             <div className="grid grid-cols-3 gap-3 sm:gap-4">
               {stats.map(stat => (
                 <div
@@ -133,7 +127,6 @@ export default function About() {
               ))}
             </div>
 
-            {/* Info Cards */}
             <div className="flex flex-col gap-3">
               {[
                 {
@@ -164,7 +157,6 @@ export default function About() {
               ))}
             </div>
 
-            {/* CTA */}
             <motion.button
               onClick={() => scrollToSection('contact')}
               whileHover={{ scale: 1.02 }}
@@ -185,19 +177,17 @@ export default function About() {
             className="h-full"
           >
             <div className="h-full p-6 sm:p-8 rounded-4xl bg-white/2.5 border border-white/[0.07] backdrop-blur-2xl flex flex-col justify-between">
-              {/* Heading + Bio */}
               <div>
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-[--font-syne] text-white leading-tight">
-                  Frontend Developer,
+                  Full-Stack Developer,
                   <span className="block mt-2 text-violet-400">
-                    building toward Full Stack.
+                    building toward Mastery.
                   </span>
                 </h3>
 
-                {/* Bio */}
                 <div className="mt-7 sm:mt-8 space-y-5 text-white/40 leading-relaxed text-sm sm:text-[15px]">
                   <p>
-                    My formal programming journey began in 2025 — but the
+                    My formal programming journey began in 2025 - but the
                     curiosity and passion for it started long before. I had been
                     exploring, reading, and absorbing everything I could about
                     software development before writing my first line of code.
@@ -208,20 +198,19 @@ export default function About() {
                     <span className="text-white/75 font-medium">
                       problem solving
                     </span>{' '}
-                    — that moment when a complex challenge finally clicks into
+                    - that moment when a complex challenge finally clicks into
                     place. My goal is to use programming as a tool to solve
                     real-world problems that actually matter to people.
                   </p>
 
                   <p>
                     Outside of code, I enjoy reading books across a wide range
-                    of genres, and I love playing football — it keeps me sharp,
+                    of genres, and I love playing football - it keeps me sharp,
                     both mentally and physically.
                   </p>
                 </div>
               </div>
 
-              {/* Traits */}
               <div className="mt-10 flex flex-col gap-3">
                 {traits.map(item => (
                   <div

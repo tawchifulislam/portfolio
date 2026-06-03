@@ -119,7 +119,6 @@ export default function Contact() {
         />
 
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch">
-          {/* Left */}
           <motion.div
             variants={variants.slideLeft}
             initial="hidden"
@@ -127,7 +126,6 @@ export default function Contact() {
             viewport={{ once: true }}
             className="lg:col-span-2 flex flex-col gap-4"
           >
-            {/* Header */}
             <div className="p-6 rounded-3xl bg-white/2 border border-white/[0.07]">
               <h3 className="text-2xl font-bold font-[--font-syne] text-white mb-2">
                 Contact <span className="text-violet-400">Information.</span>
@@ -181,7 +179,6 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* Social + availability */}
             <div className="p-5 rounded-2xl bg-white/2 border border-white/6 flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <p className="text-[9px] font-black tracking-[0.2em] uppercase text-white/20">
@@ -213,7 +210,6 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* Right — Form */}
           <motion.div
             variants={variants.slideRight}
             initial="hidden"

@@ -42,9 +42,9 @@ export default function Hero() {
             transition={{ delay: 0.2 }}
             className="flex flex-col gap-2"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-[var(--font-syne)] text-white leading-tight tracking-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
               Hi, I&apos;m{' '}
-              <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
                 Tawchiful
               </span>
             </h1>
@@ -84,7 +84,7 @@ export default function Hero() {
               download
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-white/60 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] backdrop-blur-sm transition-all duration-300"
+              className="flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-white/4 hover:bg-white/8 border border-white/8 text-white/60 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] backdrop-blur-sm transition-all duration-300"
             >
               <Download size={14} />
               Resume
@@ -142,7 +142,7 @@ export default function Hero() {
         >
           <div className="absolute w-72 h-72 bg-violet-600/20 rounded-full blur-[100px]" />
 
-          <div className="relative w-64 h-80 md:w-80 md:h-[420px] rounded-[3rem] overflow-hidden border border-white/[0.08] bg-white/[0.02] shadow-2xl">
+          <div className="relative w-64 h-80 md:w-80 md:h-105 rounded-[3rem] overflow-hidden border border-white/8 bg-white/2 shadow-2xl">
             <Image
               src={personalInfo.image}
               alt={personalInfo.name}
@@ -163,7 +163,7 @@ export default function Hero() {
               Stack
             </p>
             <p className="text-sm font-bold text-white tracking-tight">
-              Frontend Dev 🚀
+              Full-Stack Developer
             </p>
           </motion.div>
         </motion.div>
