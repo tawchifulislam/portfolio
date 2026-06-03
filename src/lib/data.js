@@ -1,12 +1,12 @@
 export const personalInfo = {
   name: 'Tawchiful Islam',
   shortName: 'Tawchif',
-  title: 'Frontend Developer',
+  title: 'Full-Stack Developer',
   subtitle: 'Turning ideas into clean, interactive web experiences.',
   location: 'Chittagong, Bangladesh',
   email: 'tawchif04@gmail.com',
   phone: '+8801616241205',
-  bio: "I'm a frontend developer from Chittagong, Bangladesh, passionate about crafting clean, responsive, and performant web applications. Currently expanding into full-stack development with Node.js, Express, and MongoDB — always learning, always building.",
+  bio: "I'm a full-stack developer from Chittagong, Bangladesh, passionate about crafting clean, responsive, and performant web applications. Currently expanding into full-stack development with Node.js, Express, and MongoDB — always learning, always building.",
   image: '/images/tawchif.jpg',
   resume: '/resume.pdf',
   social: {

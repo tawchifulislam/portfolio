@@ -18,7 +18,11 @@ const codeLines = [
   { token: 'const', name: ' developer', color: 'text-violet-400' },
   { token: '=', name: ' {', color: 'text-white/40' },
   { token: '  name:', name: ' "Tawchiful"', color: 'text-emerald-400' },
-  { token: '  role:', name: ' "Frontend Dev"', color: 'text-emerald-400' },
+  {
+    token: '  role:',
+    name: ' "Full-Stack Developer"',
+    color: 'text-emerald-400',
+  },
   {
     token: '  stack:',
     name: ' ["React", "Next.js"]',
@@ -26,7 +30,7 @@ const codeLines = [
   },
   {
     token: '  status:',
-    name: ' "Building 🚀"',
+    name: ' "Building"',
     color: 'text-sky-400',
   },
   { token: '}', name: '', color: 'text-white/40' },
