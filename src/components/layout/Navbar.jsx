@@ -62,7 +62,7 @@ export default function Navbar() {
         className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 pt-4"
       >
         <div
-          className={`w-full max-w-5xl flex items-center justify-between px-5 h-14 rounded-2xl transition-all duration-500 ${
+          className={`w-full max-w-7xl flex items-center justify-between px-5 h-14 rounded-2xl transition-all duration-500 ${
             isScrolled
               ? 'bg-white/6 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.07)]'
               : 'bg-white/3 backdrop-blur-md border border-white/6'

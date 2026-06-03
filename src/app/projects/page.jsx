@@ -21,7 +21,7 @@ export default function Projects() {
       id="projects"
       className="relative py-24 overflow-hidden px-4 sm:px-6"
     >
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <SectionTitle
           title="Projects"
           subtitle="A selection of things I have built so far."

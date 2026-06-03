@@ -22,7 +22,7 @@ export default function ProjectDetail({ project }) {
       <div className="absolute bottom-1/3 right-0 w-64 h-64 bg-indigo-600/3 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative w-full pt-28 pb-16 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
@@ -116,7 +116,7 @@ export default function ProjectDetail({ project }) {
         transition={{ delay: 0.2, duration: 0.6 }}
         className="relative w-full px-4 sm:px-6 mb-20"
       >
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="relative w-full aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border border-white/8 shadow-[0_40px_100px_rgba(0,0,0,0.6)]">
             <Image
               src={project.image}
@@ -131,7 +131,7 @@ export default function ProjectDetail({ project }) {
         </div>
       </motion.div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-32">
         <motion.div
           variants={variants.fadeUp}
           initial="hidden"

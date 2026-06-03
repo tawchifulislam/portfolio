@@ -59,7 +59,7 @@ export default function About() {
     <section id="about" className="relative overflow-hidden py-18 px-4 sm:px-6">
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-125 h-125 bg-violet-600/5 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
         <SectionTitle
           title="About Me"
           subtitle="A little bit about who I am and what I do."
@@ -168,7 +168,6 @@ export default function About() {
             </motion.button>
           </motion.div>
 
-          {/* RIGHT SIDE */}
           <motion.div
             variants={variants.slideRight}
             initial="hidden"

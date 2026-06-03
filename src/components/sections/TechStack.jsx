@@ -45,9 +45,9 @@ export default function TechStack() {
       id="techstack"
       className="relative py-17 px-4 sm:px-6 overflow-hidden"
     >
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-125 bg-violet-600/3 blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl h-125 bg-violet-600/3 blur-[120px] pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <SectionTitle
           title="Tech Stack"
           subtitle="A collection of tools and technologies I use to bring ideas to life."

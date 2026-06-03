@@ -13,15 +13,15 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-8 lg:px-12"
     >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-[120px]" />
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-600/8 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 py-20 md:py-0">
-        <div className="flex flex-col gap-6 order-2 md:order-1 items-center md:items-start text-center md:text-left">
+      <div className="relative w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 py-20 md:py-0">
+        <div className="flex flex-col gap-6 order-2 md:order-1 items-center md:items-start text-center md:text-left max-w-xl">
           <motion.div
             variants={variants.fadeUp}
             initial="hidden"
@@ -78,7 +78,6 @@ export default function Hero() {
             >
               View Projects
             </motion.button>
-
             <motion.a
               href={personalInfo.resume}
               download
@@ -86,8 +85,7 @@ export default function Hero() {
               whileTap={{ scale: 0.97 }}
               className="flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-white/4 hover:bg-white/8 border border-white/8 text-white/60 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] backdrop-blur-sm transition-all duration-300"
             >
-              <Download size={14} />
-              Resume
+              <Download size={14} /> Resume
             </motion.a>
           </motion.div>
 
@@ -140,24 +138,24 @@ export default function Hero() {
           transition={{ delay: 0.3 }}
           className="relative flex justify-center items-center order-1 md:order-2"
         >
-          <div className="absolute w-72 h-72 bg-violet-600/20 rounded-full blur-[100px]" />
+          <div className="absolute w-96 h-96 bg-violet-600/10 rounded-full blur-[120px]" />
 
-          <div className="relative w-64 h-80 md:w-80 md:h-105 rounded-[3rem] overflow-hidden border border-white/8 bg-white/2 shadow-2xl">
+          <div className="relative w-72 h-80 sm:w-88 sm:h-96 md:w-96 md:h-105 lg:w-450px lg:h-480px rounded-4xl overflow-hidden border border-white/8 bg-white/2 shadow-2xl">
             <Image
               src={personalInfo.image}
               alt={personalInfo.name}
               fill
-              className="object-cover object-top scale-105 hover:scale-100 transition-transform duration-500"
+              className="object-cover object-center scale-100 hover:scale-105 transition-transform duration-500"
               priority
             />
-            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/10 to-transparent" />
           </div>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.8 }}
-            className="absolute -bottom-6 -left-6 px-5 py-4 rounded-3xl bg-[#0a0a0b]/80 backdrop-blur-2xl border border-white/8 shadow-2xl"
+            className="absolute -bottom-4 left-4 lg:left-6 px-5 py-4 rounded-3xl bg-[#0a0a0b]/90 backdrop-blur-2xl border border-white/8 shadow-2xl"
           >
             <p className="text-[9px] text-white/20 tracking-[0.3em] uppercase mb-1">
               Stack

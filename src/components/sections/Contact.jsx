@@ -112,7 +112,7 @@ export default function Contact() {
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-100 bg-violet-600/3 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <SectionTitle
           title="Get In Touch"
           subtitle="Let's build something exceptional together. I'm currently open for new opportunities."
