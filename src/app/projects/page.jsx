@@ -57,7 +57,7 @@ export default function Projects() {
 
         <div className="mt-10 flex justify-center">
           <a
-            href="https://github.com"
+            href="https://github.com/tawchifulislam?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-3 px-8 py-3.5 rounded-2xl bg-white/3 border border-white/8 hover:border-violet-500/30 transition-all duration-300"
