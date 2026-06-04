@@ -44,7 +44,7 @@ export const metadata = {
     siteName: 'Tawchiful Islam',
     images: [
       {
-        url: '/images/tawchif.jpg',
+        url: '/images/tawchif.png',
         width: 1200,
         height: 630,
         alt: 'Tawchiful Islam - Full-Stack Developer',
@@ -57,7 +57,7 @@ export const metadata = {
     description:
       'Full-stack developer from Chittagong, Bangladesh. Building clean, responsive, and user-friendly web experiences with React, Next.js, Node.js, and more.',
     creator: '@tawchifulislam',
-    images: ['/images/tawchif.jpg'],
+    images: ['/images/tawchif.png'],
   },
   icons: {
     icon: [

@@ -45,7 +45,7 @@ const traits = [
   {
     icon: <Zap size={15} />,
     title: 'Modern Stack',
-    desc: 'React, Next.js, Tailwind — always up to date.',
+    desc: 'React, Next.js, Tailwind - always up to date.',
   },
   {
     icon: <BookOpen size={15} />,

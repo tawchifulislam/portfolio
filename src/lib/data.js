@@ -6,8 +6,8 @@ export const personalInfo = {
   location: 'Chittagong, Bangladesh',
   email: 'tawchif04@gmail.com',
   phone: '+8801616241205',
-  bio: "I'm a full-stack developer from Chittagong, Bangladesh, passionate about crafting clean, responsive, and performant web applications. Currently expanding into full-stack development with Node.js, Express, and MongoDB — always learning, always building.",
-  image: '/images/tawchif.jpg',
+  bio: "I'm a full-stack developer from Chittagong, Bangladesh, passionate about crafting clean, responsive, and performant web applications. Currently expanding into full-stack development with Node.js, Express, and MongoDB - always learning, always building.",
+  image: '/images/tawchif.png',
   resume: '/resume.pdf',
   social: {
     github: 'https://github.com/tawchifulislam',
@@ -63,7 +63,7 @@ export const projects = [
     id: '2',
     title: 'Keen Keeper',
     description:
-      'A relationship manager app to track interactions with friends — calls, texts, and video — and visualize communication patterns through interactive pie charts.',
+      'A relationship manager app to track interactions with friends - calls, texts, and video — and visualize communication patterns through interactive pie charts.',
     longDescription:
       'Keen Keeper is a relationship management web app that helps users maintain meaningful connections with friends and family. It allows users to log interactions — phone calls, text messages, and video calls — and visualize their communication patterns through interactive pie charts powered by Recharts. The app encourages intentional relationship building by making communication habits visible.',
     tags: ['React', 'React Router', 'Tailwind CSS', 'Recharts'],
