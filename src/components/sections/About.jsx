@@ -25,7 +25,7 @@ const codeLines = [
   },
   {
     token: '  stack:',
-    name: ' ["React", "Next.js"]',
+    name: ' ["React", "Next.js", "Express.js", "MongoDB"]',
     color: 'text-amber-400',
   },
   {
