@@ -97,7 +97,7 @@ export const projects = [
     description:
       'A relationship manager app to track interactions with friends - calls, texts, and video — and visualize communication patterns through interactive pie charts.',
     longDescription:
-      'Keen Keeper is a relationship management web app that helps users maintain meaningful connections with friends and family. It allows users to log interactions — phone calls, text messages, and video calls — and visualize their communication patterns through interactive pie charts powered by Recharts. The app encourages intentional relationship building by making communication habits visible.',
+      'Keen Keeper is a relationship management web app that helps users maintain meaningful connections with friends and family. It allows users to log interactions - phone calls, text messages, and video calls - and visualize their communication patterns through interactive pie charts powered by Recharts. The app encourages intentional relationship building by making communication habits visible.',
     tags: ['React', 'React Router', 'Tailwind CSS', 'Recharts'],
     image: '/images/projects/keenkeeper.png',
     liveUrl: 'https://keeen.netlify.app',
