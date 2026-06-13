@@ -38,6 +38,38 @@ export const techStack = [
 export const projects = [
   {
     id: '1',
+    title: 'Healync',
+    description:
+      'A full-stack doctor appointment booking platform that streamlines specialist discovery and consultation scheduling. Built with Next.js, Node.js, MongoDB, and BetterAuth for a seamless digital-first patient experience.',
+    longDescription:
+      'Healync is a full-stack healthcare platform designed to replace manual hospital visits with a modern, digital-first approach to medical appointments. Patients can browse verified specialists across multiple medical fields, book appointments directly, and even request a trained Medical Companion for in-person support during hospital visits, tests, and prescription reviews. The platform also delivers curated daily health tips covering nutrition, vision care, bone health, and lifestyle habits to promote preventive healthcare awareness. Secure session management is handled by BetterAuth, ensuring a safe and smooth experience for every user,',
+    tags: [
+      'Next.js',
+      'JavaScript',
+      'Node.js',
+      'Express.js',
+      'MongoDB',
+      'Mongoose',
+      'BetterAuth',
+    ],
+    image: '/images/projects/healync.png',
+    liveUrl: 'https://healync.vercel.app',
+    githubUrl: 'https://github.com/tawchifulislam/healnyc',
+    serverUrl: 'https://github.com/tawchifulislam/healnyc-server',
+    featured: true,
+    challenges: [
+      'Designing a real-time appointment scheduling system that prevents double-booking and accurately reflects specialist availability across time zones.',
+      'Integrating the Medical Companion request flow into the booking pipeline while keeping the user experience intuitive and friction-free.',
+      'Configuring BetterAuth with a separate Node.js/Express backend and MongoDB to maintain secure, consistent session management across client and server.',
+    ],
+    improvements: [
+      'Add an in-app chat or video consultation feature for remote appointments.',
+      'Implement automated appointment reminders and follow-up notifications via email or SMS.',
+      'Build a dedicated admin and doctor dashboard for managing schedules, patient records, and companion assignments.',
+    ],
+  },
+  {
+    id: '2',
     title: 'Bookworm',
     description:
       'A full-stack digital library app where users can explore books, filter by category, and borrow titles digitally. Built with Next.js API routes, MongoDB, and BetterAuth for secure authentication.',
@@ -60,7 +92,7 @@ export const projects = [
     ],
   },
   {
-    id: '2',
+    id: '3',
     title: 'Keen Keeper',
     description:
       'A relationship manager app to track interactions with friends - calls, texts, and video — and visualize communication patterns through interactive pie charts.',
@@ -83,7 +115,7 @@ export const projects = [
     ],
   },
   {
-    id: '3',
+    id: '4',
     title: 'DigiTools',
     description:
       'A digital marketplace featuring a smart cart system, dynamic pricing plans, toast notifications, and a fully responsive layout from 320px to 1440px+.',
@@ -106,7 +138,7 @@ export const projects = [
     ],
   },
   {
-    id: '4',
+    id: '5',
     title: 'Meghdut',
     description:
       'A minimal dark-aesthetic weather app delivering real-time conditions, 5-day forecasts, sunrise/sunset times, and city search — built with pure HTML, CSS, JS, and WeatherAPI.',
@@ -129,7 +161,7 @@ export const projects = [
     ],
   },
   {
-    id: '5',
+    id: '6',
     title: 'GitHub Issues Tracker',
     description:
       'A lightweight tool to search and filter GitHub repository issues by status using the GitHub REST API — built with vanilla JavaScript.Built entirely with vanilla JavaScript, HTML, and CSS.',
