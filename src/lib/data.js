@@ -95,10 +95,10 @@ export const projects = [
     id: '3',
     title: 'Keen Keeper',
     description:
-      'A relationship manager app to track interactions with friends - calls, texts, and video — and visualize communication patterns through interactive pie charts.',
+      'A relationship manager app to track interactions with friends-calls, texts, and video-visualizing communication patterns through interactive pie charts and sending automated reminders for friends you haven`t spoken to in a while.',
     longDescription:
       'Keen Keeper is a relationship management web app that helps users maintain meaningful connections with friends and family. It allows users to log interactions - phone calls, text messages, and video calls - and visualize their communication patterns through interactive pie charts powered by Recharts. The app encourages intentional relationship building by making communication habits visible.',
-    tags: ['React', 'React Router', 'Tailwind CSS', 'Recharts'],
+    tags: ['React', 'React Router', 'Tailwind CSS', 'Recharts', 'Context API'],
     image: '/images/projects/keenkeeper.png',
     liveUrl: 'https://keeen.netlify.app',
     githubUrl: 'https://github.com/tawchifulislam/KEEN',
@@ -141,7 +141,7 @@ export const projects = [
     id: '5',
     title: 'Meghdut',
     description:
-      'A minimal dark-aesthetic weather app delivering real-time conditions, 5-day forecasts, sunrise/sunset times, and city search — built with pure HTML, CSS, JS, and WeatherAPI.',
+      'A minimal dark-aesthetic weather app delivering real-time conditions, 5-day forecasts, sunrise/sunset times, and city search - built with pure HTML, CSS, JS, and WeatherAPI.',
     longDescription:
       'Meghdut is a beautifully designed weather application with a dark glassmorphism aesthetic. It fetches real-time weather data using the WeatherAPI and displays current conditions, a 5-day forecast, humidity, wind speed, and sunrise/sunset times. Users can search for any city worldwide and get instant weather updates. Built entirely with vanilla JavaScript without any frameworks.',
     tags: ['Vanilla JS', 'WeatherAPI', 'HTML5', 'Tailwind CSS'],
@@ -164,16 +164,16 @@ export const projects = [
     id: '6',
     title: 'GitHub Issues Tracker',
     description:
-      'A lightweight tool to search and filter GitHub repository issues by status using the GitHub REST API — built with vanilla JavaScript.Built entirely with vanilla JavaScript, HTML, and CSS.',
+      'A lightweight tool to search and filter GitHub repository issues by status using the GitHub REST API - built with vanilla JavaScript.Built entirely with vanilla JavaScript, HTML, and CSS.',
     longDescription:
-      'GitHub Issues Tracker is a developer utility tool that allows users to search any public GitHub repository and view its issues filtered by status — open or closed. It uses the GitHub REST API to fetch real-time issue data and displays it in a clean, readable format. Built entirely with vanilla JavaScript, HTML, and CSS without any external libraries.',
+      'GitHub Issues Tracker is a developer utility tool that allows users to search any public GitHub repository and view its issues filtered by status - open or closed. It uses the GitHub REST API to fetch real-time issue data and displays it in a clean, readable format. Built entirely with vanilla JavaScript, HTML, and CSS without any external libraries.',
     tags: ['Vanilla JS', 'GitHub REST API', 'HTML', 'CSS'],
     image: '/images/projects/githubissuetracker.png',
     liveUrl: 'https://t4wchif.github.io/GitHub-Issues-Tracker/',
     githubUrl: 'https://github.com/tawchifulislam/GitHub-Issues-Tracker',
     featured: false,
     challenges: [
-      'Handling GitHub API rate limiting for unauthenticated requests — limited to 60 requests per hour.',
+      'Handling GitHub API rate limiting for unauthenticated requests - limited to 60 requests per hour.',
       'Implementing real-time search and filter without any debouncing causing excessive API calls.',
       'Designing a clean UI that works well with varying amounts of issue data.',
     ],
