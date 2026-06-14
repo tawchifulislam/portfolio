@@ -11,7 +11,7 @@ import { scrollToSection } from '@/lib/utils';
 const stats = [
   { label: 'Projects', value: '5+' },
   { label: 'Technologies', value: '15+' },
-  { label: 'Hours of Coding', value: '630+' },
+  { label: 'Hours of Coding', value: '1000+' },
 ];
 
 const codeLines = [
