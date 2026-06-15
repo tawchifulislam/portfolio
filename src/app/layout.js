@@ -2,7 +2,6 @@ import { Inter, Syne } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import Script from 'next/script';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -107,7 +106,7 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${syne.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#0a0a0f] text-white">
-        <Script
+        <script
           id="google-schema-markup"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
