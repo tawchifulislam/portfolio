@@ -160,29 +160,6 @@ export const projects = [
       'Add weather-based background animations that change with conditions.',
     ],
   },
-  {
-    id: '6',
-    title: 'GitHub Issues Tracker',
-    description:
-      'A lightweight tool to search and filter GitHub repository issues by status using the GitHub REST API - built with vanilla JavaScript.Built entirely with vanilla JavaScript, HTML, and CSS.',
-    longDescription:
-      'GitHub Issues Tracker is a developer utility tool that allows users to search any public GitHub repository and view its issues filtered by status - open or closed. It uses the GitHub REST API to fetch real-time issue data and displays it in a clean, readable format. Built entirely with vanilla JavaScript, HTML, and CSS without any external libraries.',
-    tags: ['Vanilla JS', 'GitHub REST API', 'HTML', 'CSS'],
-    image: '/images/projects/githubissuetracker.png',
-    liveUrl: 'https://t4wchif.github.io/GitHub-Issues-Tracker/',
-    githubUrl: 'https://github.com/tawchifulislam/GitHub-Issues-Tracker',
-    featured: false,
-    challenges: [
-      'Handling GitHub API rate limiting for unauthenticated requests - limited to 60 requests per hour.',
-      'Implementing real-time search and filter without any debouncing causing excessive API calls.',
-      'Designing a clean UI that works well with varying amounts of issue data.',
-    ],
-    improvements: [
-      'Add GitHub OAuth authentication to increase API rate limits.',
-      'Implement pagination for repositories with large numbers of issues.',
-      'Add issue label filtering and sorting by date or comments.',
-    ],
-  },
 ];
 
 export const navLinks = [
