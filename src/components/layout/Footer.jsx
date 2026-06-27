@@ -59,7 +59,7 @@ export default function Footer() {
           </motion.button>
 
           <p className="text-[11px] text-white/20 tracking-widest uppercase font-medium text-center">
-            © {currentYear} — Developed by Tawchiful Islam
+            © {currentYear} - Developed by Tawchiful Islam
           </p>
 
           <div className="flex items-center gap-1 bg-white/4 rounded-xl px-2 py-1.5 border border-white/6">

@@ -8,7 +8,8 @@ export const personalInfo = {
   phone: '+8801616241205',
   bio: "I'm a full-stack developer from Chittagong, Bangladesh, passionate about crafting clean, responsive, and performant web applications. Currently expanding into full-stack development with Node.js, Express, and MongoDB - always learning, always building.",
   image: '/images/tawchif.png',
-  resume: '/resume.pdf',
+  resume:
+    'https://drive.google.com/file/d/137fe6Z1fmbpzrGc7KesccAiNwvhW3vmy/view?usp=drive_link',
   social: {
     github: 'https://github.com/tawchifulislam',
     linkedin: 'https://linkedin.com/in/tawchiful-islam',
@@ -38,11 +39,44 @@ export const techStack = [
 export const projects = [
   {
     id: '1',
+    title: 'Brawnix',
+    description:
+      'A full-stack, role-based gym and fitness class management platform connecting members, trainers, and administrators in a single ecosystem - digitizing class discovery, booking, payment, and community engagement.',
+    longDescription:
+      'Brawnix is a full-stack, role-based gym and fitness class management platform that connects members, trainers, and administrators in a single ecosystem - digitizing class discovery, booking, payment, and community engagement that traditional gyms manage manually or through disconnected tools. The platform features three-tier role-based access control with isolated dashboards, Stripe-powered payments, a community forum with nested comment threads, and a real-time analytics dashboard for admins.',
+    tags: [
+      'Next.js',
+      'React',
+      'Node.js',
+      'Express.js',
+      'MongoDB',
+      'BetterAuth',
+      'Stripe',
+      'Framer Motion',
+    ],
+    image: '/images/projects/brawnix.png',
+    liveUrl: 'https://brawnix.vercel.app',
+    githubUrl: 'https://github.com/tawchifulislam/brawnix-client',
+    serverUrl: 'https://github.com/tawchifulislam/brawnix-server',
+    featured: true,
+    challenges: [
+      'Designing a three-tier role-based access control system (Member, Trainer, Admin) with isolated dashboards and protected routes enforced via JWT verification on every API request.',
+      'Integrating Stripe payments into the class booking flow while keeping the checkout experience smooth and reliable.',
+      'Implementing server-side pagination, search, and category filtering directly with MongoDB queries for efficient data handling at scale.',
+    ],
+    improvements: [
+      'Add a live class scheduling calendar with recurring session support.',
+      'Implement push notifications for class approvals and trainer responses.',
+      'Expand the analytics dashboard with revenue and retention insights.',
+    ],
+  },
+  {
+    id: '2',
     title: 'Healync',
     description:
-      'A full-stack doctor appointment booking platform that streamlines specialist discovery and consultation scheduling. Built with Next.js, Node.js, MongoDB, and BetterAuth for a seamless digital-first patient experience.',
+      'A full-stack doctor appointment booking platform that bridges the gap between patients and verified medical specialists, combining appointment management, preventive health awareness, and personalized in-hospital assistance.',
     longDescription:
-      'Healync is a full-stack healthcare platform designed to replace manual hospital visits with a modern, digital-first approach to medical appointments. Patients can browse verified specialists across multiple medical fields, book appointments directly, and even request a trained Medical Companion for in-person support during hospital visits, tests, and prescription reviews. The platform also delivers curated daily health tips covering nutrition, vision care, bone health, and lifestyle habits to promote preventive healthcare awareness. Secure session management is handled by BetterAuth, ensuring a safe and smooth experience for every user,',
+      'Healync is a full-stack healthcare platform designed to replace manual hospital visits with a modern, digital-first approach to medical appointments. Patients can browse verified specialists across multiple medical fields, book appointments through a secure, role-protected flow, and manage their schedule in real time. The platform also offers an on-demand Medical Companion service, automated email appointment reminders via Nodemailer and node-cron, and curated daily health tips to promote preventive healthcare awareness.',
     tags: [
       'Next.js',
       'JavaScript',
@@ -51,62 +85,40 @@ export const projects = [
       'MongoDB',
       'Mongoose',
       'BetterAuth',
+      'Nodemailer',
     ],
     image: '/images/projects/healync.png',
     liveUrl: 'https://healync.vercel.app',
-    githubUrl: 'https://github.com/tawchifulislam/healnyc',
-    serverUrl: 'https://github.com/tawchifulislam/healnyc-server',
+    githubUrl: 'https://github.com/tawchifulislam/healync-client',
+    serverUrl: 'https://github.com/tawchifulislam/healync-server',
     featured: true,
     challenges: [
-      'Designing a real-time appointment scheduling system that prevents double-booking and accurately reflects specialist availability across time zones.',
-      'Integrating the Medical Companion request flow into the booking pipeline while keeping the user experience intuitive and friction-free.',
-      'Configuring BetterAuth with a separate Node.js/Express backend and MongoDB to maintain secure, consistent session management across client and server.',
+      'Designing a real-time appointment management dashboard that lets patients view, update, or cancel bookings instantly without page reloads.',
+      'Integrating the on-demand Medical Companion request flow into the booking pipeline while keeping the user experience intuitive and friction-free.',
+      'Building an automated email reminder system with Nodemailer and scheduled cron jobs to proactively notify patients and reduce no-shows.',
     ],
     improvements: [
       'Add an in-app chat or video consultation feature for remote appointments.',
-      'Implement automated appointment reminders and follow-up notifications via email or SMS.',
+      'Implement SMS-based reminders alongside the existing email system.',
       'Build a dedicated admin and doctor dashboard for managing schedules, patient records, and companion assignments.',
     ],
   },
   {
-    id: '2',
-    title: 'Bookworm',
-    description:
-      'A full-stack digital library app where users can explore books, filter by category, and borrow titles digitally. Built with Next.js API routes, MongoDB, and BetterAuth for secure authentication.',
-    longDescription:
-      'Bookworm is a full-stack digital library platform designed to bring the traditional library experience online. Users can browse an extensive book collection, filter by category, view detailed book information, and digitally borrow titles. The platform features a secure authentication system built with BetterAuth, ensuring user data protection and seamless login experience.',
-    tags: ['Next.js', 'Tailwind CSS', 'DaisyUI', 'MongoDB', 'BetterAuth'],
-    image: '/images/projects/bookworm.png',
-    liveUrl: 'https://bookworm-nxt.vercel.app',
-    githubUrl: 'https://github.com/tawchifulislam/Bookworm-Nxt',
-    featured: true,
-    challenges: [
-      'Implementing BetterAuth for secure session management was complex as it required careful configuration with MongoDB.',
-      'Building a dynamic borrowing system that tracks book availability in real-time across multiple users.',
-      'Optimizing MongoDB queries for fast book filtering and search across large datasets.',
-    ],
-    improvements: [
-      'Add a user review and rating system for books.',
-      'Implement email notifications for due date reminders.',
-      'Add an admin dashboard for managing the book inventory.',
-    ],
-  },
-  {
     id: '3',
-    title: 'Keen Keeper',
+    title: 'BondTrace',
     description:
-      'A relationship manager app to track interactions with friends-calls, texts, and video-visualizing communication patterns through interactive pie charts and sending automated reminders for friends you haven`t spoken to in a while.',
+      'A relationship management app that tracks how recently each friend has been contacted, flags relationships at risk of fading, and logs every call, text, and video interaction in an organized, visual timeline.',
     longDescription:
-      'Keen Keeper is a relationship management web app that helps users maintain meaningful connections with friends and family. It allows users to log interactions - phone calls, text messages, and video calls - and visualize their communication patterns through interactive pie charts powered by Recharts. The app encourages intentional relationship building by making communication habits visible.',
-    tags: ['React', 'React Router', 'Tailwind CSS', 'Recharts', 'Context API'],
-    image: '/images/projects/keenkeeper.png',
-    liveUrl: 'https://keeen.netlify.app',
-    githubUrl: 'https://github.com/tawchifulislam/KEEN',
+      'BondTrace is a relationship management app designed to help users stay consistently connected with the people who matter most in their lives. The app tracks how recently each friend has been contacted, flags relationships that are at risk of fading, and logs every call, text, and video interaction in an organized timeline. A dedicated analytics page visualizes interaction patterns through charts, helping users instantly see how much attention they have given to each relationship - turning everyday communication habits into clear, measurable insights.',
+    tags: ['React.js', 'Vite', 'React Router DOM', 'Recharts', 'Tailwind CSS'],
+    image: '/images/projects/bondtrace.png',
+    liveUrl: 'https://bondtrace.netlify.app',
+    githubUrl: 'https://github.com/tawchifulislam/BondTrace',
     featured: true,
     challenges: [
-      'Designing an intuitive UI that makes logging interactions quick and frictionless.',
-      'Implementing dynamic chart updates using Recharts whenever new interaction data is added.',
-      'Managing complex state across multiple components without a global state manager.',
+      'Designing status indicators that accurately highlight relationships needing attention based on contact recency.',
+      'Implementing a visual timeline that logs and organizes every call, text, and video interaction clearly.',
+      'Building an analytics page with charts that update dynamically as new interaction data is logged.',
     ],
     improvements: [
       "Add push notification reminders to reach out to friends you haven't contacted in a while.",
