@@ -30,7 +30,7 @@ const codeLines = [
   },
   {
     token: '  status:',
-    name: ' "Building"',
+    name: ' "Open for Innovation"',
     color: 'text-sky-400',
   },
   { token: '}', name: '', color: 'text-white/40' },
