@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowDown, Download } from 'lucide-react';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { ArrowDown } from 'lucide-react';
+import { FaEye, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { personalInfo } from '@/lib/data';
 import { scrollToSection } from '@/lib/utils';
@@ -80,12 +80,13 @@ export default function Hero() {
             </motion.button>
             <motion.a
               href={personalInfo.resume}
-              download
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className="flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-white/4 hover:bg-white/8 border border-white/8 text-white/60 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] backdrop-blur-sm transition-all duration-300"
             >
-              <Download size={14} /> Resume
+              <FaEye size={14} /> Resume
             </motion.a>
           </motion.div>
 
