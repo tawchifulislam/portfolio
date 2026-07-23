@@ -120,7 +120,7 @@ export const projects = [
     image: '/images/projects/bondtrace.png',
     liveUrl: 'https://bondtrace.netlify.app',
     githubUrl: 'https://github.com/tawchifulislam/BondTrace',
-    featured: true,
+    featured: false,
     challenges: [
       'Designing status indicators that accurately highlight relationships needing attention based on contact recency.',
       'Implementing a visual timeline that logs and organizes every call, text, and video interaction clearly.',
@@ -134,29 +134,6 @@ export const projects = [
   },
   {
     id: '4',
-    title: 'DigiTools',
-    description:
-      'A digital marketplace featuring a smart cart system, dynamic pricing plans, toast notifications, and a fully responsive layout from 320px to 1440px+.',
-    longDescription:
-      'DigiTools is a digital product marketplace built with React 19 and Vite. It features a fully functional smart cart system where users can add or remove products, view cart totals, and proceed to checkout. The platform includes dynamic pricing plans, real-time toast notifications using React-Toastify, and a scroll-aware navbar. The design is fully responsive from 320px to 1440px+.',
-    tags: ['React 19', 'Vite', 'Tailwind CSS v4', 'DaisyUI v5'],
-    image: '/images/projects/digitools.png',
-    liveUrl: 'https://digtools.netlify.app',
-    githubUrl: 'https://github.com/tawchifulislam/DigiTools',
-    featured: false,
-    challenges: [
-      'Building a smart cart system that updates in real-time across the navbar and cart section simultaneously.',
-      'Implementing a scroll-aware navbar that changes style based on scroll position without performance issues.',
-      'Ensuring pixel-perfect responsiveness across all screen sizes from 320px to 1440px+.',
-    ],
-    improvements: [
-      'Add a payment gateway integration for actual transactions.',
-      'Implement a product search and filter system.',
-      'Add user authentication for personalized cart persistence.',
-    ],
-  },
-  {
-    id: '5',
     title: 'Meghdut',
     description:
       'A minimal dark-aesthetic weather app delivering real-time conditions, 5-day forecasts, sunrise/sunset times, and city search - built with pure HTML, CSS, JS, and WeatherAPI.',
