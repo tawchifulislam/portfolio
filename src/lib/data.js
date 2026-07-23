@@ -21,10 +21,14 @@ export const techStack = [
   { name: 'HTML5', category: 'core' },
   { name: 'CSS3', category: 'core' },
   { name: 'JavaScript', category: 'core' },
+  { name: 'TypeScript', category: 'core' },
+  { name: 'Prisma', category: 'core' },
   { name: 'React', category: 'frontend' },
   { name: 'Next.js', category: 'frontend' },
   { name: 'Tailwind CSS', category: 'frontend' },
   { name: 'Framer Motion', category: 'frontend' },
+  { name: 'Zustand', category: 'frontend' },
+  { name: 'Shadcn', category: 'frontend' },
   { name: 'Node.js', category: 'backend' },
   { name: 'Express.js', category: 'backend' },
   { name: 'MongoDB', category: 'backend' },
@@ -34,6 +38,8 @@ export const techStack = [
   { name: 'VS Code', category: 'tools' },
   { name: 'Vercel', category: 'tools' },
   { name: 'Netlify', category: 'tools' },
+  { name: 'Docker', category: 'tools' },
+  { name: 'Render', category: 'tools' },
 ];
 
 export const projects = [
