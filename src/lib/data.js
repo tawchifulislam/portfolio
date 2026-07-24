@@ -111,6 +111,39 @@ export const projects = [
   },
   {
     id: '3',
+    title: 'Roamly',
+    description:
+      'A full-stack travel discovery platform that helps users explore destinations, view real traveler-driven trip ratings, and get personalized travel suggestions through an integrated AI chat assistant.',
+    longDescription:
+      'Roamly is a full-stack travel discovery platform built to solve decision fatigue when planning trips - instead of sifting through generic listings, users can explore destinations backed by real trip ratings and chat with an AI assistant powered by Google Gemini for personalized recommendations. The platform includes Google OAuth authentication via BetterAuth, a live trip rating system with real-time data fetching, and a fully independent frontend/backend deployment architecture.',
+    tags: [
+      'Next.js',
+      'TypeScript',
+      'Node.js',
+      'Express.js',
+      'MongoDB',
+      'BetterAuth',
+      'Gemini API',
+      'Recharts',
+    ],
+    image: '/images/projects/roamly.png',
+    liveUrl: 'https://roamly.vercel.app',
+    githubUrl: 'https://github.com/tawchifulislam/roamly-client',
+    serverUrl: 'https://github.com/tawchifulislam/roamly-server',
+    featured: true,
+    challenges: [
+      'Resolving cross-domain cookie authentication issues in production by implementing a Next.js rewrite proxy so all API calls appear same-origin to the browser.',
+      'Integrating the Gemini API to power a conversational AI assistant that gives genuinely useful, context-aware travel suggestions.',
+      'Replacing an initial recommendation-engine concept with a trip rating system for more trustworthy, user-driven signal, based on clarified requirements.',
+    ],
+    improvements: [
+      'Add collaborative trip planning where multiple users can build an itinerary together.',
+      'Introduce personalized destination feeds based on past ratings and chat history.',
+      'Expand the AI assistant to generate full day-by-day itineraries.',
+    ],
+  },
+  {
+    id: '4',
     title: 'Meghdut',
     description:
       'A minimal dark-aesthetic weather app delivering real-time conditions, 5-day forecasts, sunrise/sunset times, and city search - built with pure HTML, CSS, JS, and WeatherAPI.',
@@ -130,6 +163,39 @@ export const projects = [
       "Add geolocation support to auto-detect the user's city on load.",
       'Implement an hourly forecast view in addition to the 5-day forecast.',
       'Add weather-based background animations that change with conditions.',
+    ],
+  },
+  {
+    id: '5',
+    title: 'DaanBaksho',
+    description:
+      'A full-stack crowdfunding platform built around a credit economy, connecting supporters, creators, and admins in a transparent fundraising ecosystem.',
+    longDescription:
+      'DaanBaksho is a full-stack crowdfunding platform where Creators launch campaigns, Supporters contribute through a credit-based economy, and Admins oversee platform activity - all secured through a custom JWT authentication flow. The platform integrates Stripe (test mode) for credit purchases and imgBB for campaign image hosting, with role-specific dashboards tailored to each user type.',
+    tags: [
+      'Next.js',
+      'JavaScript',
+      'Node.js',
+      'Express.js',
+      'MongoDB',
+      'BetterAuth',
+      'Stripe',
+      'JWT',
+    ],
+    image: '/images/projects/daanbaksho.png',
+    liveUrl: 'https://daanbaksho.vercel.app',
+    githubUrl: 'https://github.com/tawchifulislam/daanbaksho-client',
+    serverUrl: 'https://github.com/tawchifulislam/daanbaksho-server',
+    featured: false,
+    challenges: [
+      'Replacing the BetterAuth JWT plugin (which threw Base64 errors) with a custom /api/token route issuing HMAC-signed JWTs via jsonwebtoken.',
+      'Fixing an infinite redirect loop in the axios interceptor caused by improper handling of 401/403 responses.',
+      'Designing a credit-based economy that ties Stripe test-mode payments directly to campaign contributions across three distinct user roles.',
+    ],
+    improvements: [
+      'Add campaign progress notifications for supporters who back a project.',
+      'Implement a public leaderboard of top-funded campaigns.',
+      'Add withdrawal requests and payout tracking for creators.',
     ],
   },
 ];
