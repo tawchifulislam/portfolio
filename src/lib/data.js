@@ -146,9 +146,9 @@ export const projects = [
     id: '4',
     title: 'Meghdut',
     description:
-      'A minimal dark-aesthetic weather app delivering real-time conditions, 5-day forecasts, sunrise/sunset times, and city search - built with pure HTML, CSS, JS, and WeatherAPI.',
+      'A minimal dark-aesthetic weather app delivering real-time conditions, 3-day forecasts, sunrise/sunset times, and city search - built with pure HTML, CSS, JS, and WeatherAPI.',
     longDescription:
-      'Meghdut is a beautifully designed weather application with a dark glassmorphism aesthetic. It fetches real-time weather data using the WeatherAPI and displays current conditions, a 5-day forecast, humidity, wind speed, and sunrise/sunset times. Users can search for any city worldwide and get instant weather updates. Built entirely with vanilla JavaScript without any frameworks.',
+      'Meghdut is a beautifully designed weather application with a dark glassmorphism aesthetic. It fetches real-time weather data using the WeatherAPI and displays current conditions, a 3-day forecast, humidity, wind speed, and sunrise/sunset times. Users can search for any city worldwide and get instant weather updates. Built entirely with vanilla JavaScript without any frameworks.',
     tags: ['Vanilla JS', 'WeatherAPI', 'HTML5', 'Tailwind CSS'],
     image: '/images/projects/meghdut.png',
     liveUrl: 'https://meghdut.vercel.app',
@@ -161,7 +161,7 @@ export const projects = [
     ],
     improvements: [
       "Add geolocation support to auto-detect the user's city on load.",
-      'Implement an hourly forecast view in addition to the 5-day forecast.',
+      'Implement an hourly forecast view in addition to the 3-day forecast.',
       'Add weather-based background animations that change with conditions.',
     ],
   },
