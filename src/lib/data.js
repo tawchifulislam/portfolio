@@ -111,29 +111,6 @@ export const projects = [
   },
   {
     id: '3',
-    title: 'BondTrace',
-    description:
-      'A relationship management app that tracks how recently each friend has been contacted, flags relationships at risk of fading, and logs every call, text, and video interaction in an organized, visual timeline.',
-    longDescription:
-      'BondTrace is a relationship management app designed to help users stay consistently connected with the people who matter most in their lives. The app tracks how recently each friend has been contacted, flags relationships that are at risk of fading, and logs every call, text, and video interaction in an organized timeline. A dedicated analytics page visualizes interaction patterns through charts, helping users instantly see how much attention they have given to each relationship - turning everyday communication habits into clear, measurable insights.',
-    tags: ['React.js', 'Vite', 'React Router DOM', 'Recharts', 'Tailwind CSS'],
-    image: '/images/projects/bondtrace.png',
-    liveUrl: 'https://bondtrace.netlify.app',
-    githubUrl: 'https://github.com/tawchifulislam/BondTrace',
-    featured: false,
-    challenges: [
-      'Designing status indicators that accurately highlight relationships needing attention based on contact recency.',
-      'Implementing a visual timeline that logs and organizes every call, text, and video interaction clearly.',
-      'Building an analytics page with charts that update dynamically as new interaction data is logged.',
-    ],
-    improvements: [
-      "Add push notification reminders to reach out to friends you haven't contacted in a while.",
-      'Integrate a calendar view to schedule future interactions.',
-      'Add cloud sync so data persists across devices.',
-    ],
-  },
-  {
-    id: '4',
     title: 'Meghdut',
     description:
       'A minimal dark-aesthetic weather app delivering real-time conditions, 5-day forecasts, sunrise/sunset times, and city search - built with pure HTML, CSS, JS, and WeatherAPI.',
