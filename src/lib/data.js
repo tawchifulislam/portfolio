@@ -151,7 +151,7 @@ export const projects = [
       'Meghdut is a beautifully designed weather application with a dark glassmorphism aesthetic. It fetches real-time weather data using the WeatherAPI and displays current conditions, a 5-day forecast, humidity, wind speed, and sunrise/sunset times. Users can search for any city worldwide and get instant weather updates. Built entirely with vanilla JavaScript without any frameworks.',
     tags: ['Vanilla JS', 'WeatherAPI', 'HTML5', 'Tailwind CSS'],
     image: '/images/projects/meghdut.png',
-    liveUrl: 'https://meghdut-weather.netlify.app',
+    liveUrl: 'https://meghdut.vercel.app',
     githubUrl: 'https://github.com/tawchifulislam/Meghdut',
     featured: false,
     challenges: [
