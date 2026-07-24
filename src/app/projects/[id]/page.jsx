@@ -22,9 +22,19 @@ export async function generateMetadata({ params }) {
 
 export default async function ProjectPage({ params }) {
   const { id } = await params;
-  const project = projects.find(p => p.id === id);
+  const currentIndex = projects.findIndex(p => p.id === id);
+  const project = projects[currentIndex];
 
   if (!project) notFound();
 
-  return <ProjectDetail project={project} />;
+  const nextProject = projects[(currentIndex + 1) % projects.length];
+
+  return (
+    <ProjectDetail
+      project={project}
+      index={currentIndex + 1}
+      total={projects.length}
+      nextProject={nextProject}
+    />
+  );
 }
