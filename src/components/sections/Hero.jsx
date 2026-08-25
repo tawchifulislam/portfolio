@@ -95,7 +95,7 @@ export default function Hero() {
             initial="hidden"
             animate="visible"
             transition={{ delay: 0.5 }}
-            className="flex items-center gap-5 pt-4"
+            className="flex items-center gap-5 pt-4 pb-16 md:pb-0"
           >
             {[
               {
@@ -170,7 +170,7 @@ export default function Hero() {
 
       <motion.button
         onClick={() => scrollToSection('about')}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-white/10 hover:text-white/40 transition-all duration-300"
+        className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-white/10 hover:text-white/40 transition-all duration-300"
       >
         <span className="text-[9px] tracking-[0.3em] uppercase font-bold">
           Scroll
