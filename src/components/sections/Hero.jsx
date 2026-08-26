@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowDown } from 'lucide-react';
 import { FaEye, FaGithub, FaLinkedin } from 'react-icons/fa';
@@ -10,18 +11,38 @@ import { scrollToSection } from '@/lib/utils';
 import { variants } from '@/lib/constants';
 
 export default function Hero() {
+  const sectionRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '12%']);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const scrollOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-8 lg:px-12"
     >
-      <div className="absolute inset-0 pointer-events-none">
+      <motion.div
+        style={{ y: useTransform(scrollYProgress, [0, 1], ['0%', '30%']) }}
+        className="absolute inset-0 pointer-events-none"
+      >
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-[120px]" />
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-600/8 rounded-full blur-[100px]" />
-      </div>
+      </motion.div>
 
       <div className="relative w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 py-20 md:py-0">
-        <div className="flex flex-col gap-6 order-2 md:order-1 items-center md:items-start text-center md:text-left max-w-xl">
+
+        <motion.div
+          style={{ y: textY, opacity: textOpacity }}
+          className="flex flex-col gap-6 order-2 md:order-1 items-center md:items-start text-center md:text-left max-w-xl"
+        >
           <motion.div
             variants={variants.fadeUp}
             initial="hidden"
@@ -98,24 +119,12 @@ export default function Hero() {
             className="flex items-center gap-5 pt-4 pb-16 md:pb-0"
           >
             {[
-              {
-                icon: <FaGithub size={18} />,
-                href: personalInfo.social.github,
-                label: 'GitHub',
-              },
-              {
-                icon: <FaLinkedin size={18} />,
-                href: personalInfo.social.linkedin,
-                label: 'LinkedIn',
-              },
-              {
-                icon: <FaXTwitter size={18} />,
-                href: personalInfo.social.twitter,
-                label: 'Twitter',
-              },
+              { icon: <FaGithub size={18} />, href: personalInfo.social.github, label: 'GitHub' },
+              { icon: <FaLinkedin size={18} />, href: personalInfo.social.linkedin, label: 'LinkedIn' },
+              { icon: <FaXTwitter size={18} />, href: personalInfo.social.twitter, label: 'Twitter' },
             ].map(social => (
-              <a
-                key={social.label}
+              
+              <a  key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -130,7 +139,7 @@ export default function Hero() {
               {personalInfo.location}
             </span>
           </motion.div>
-        </div>
+        </motion.div>
 
         <motion.div
           variants={variants.slideRight}
@@ -141,7 +150,10 @@ export default function Hero() {
         >
           <div className="absolute w-96 h-96 bg-violet-600/10 rounded-full blur-[120px]" />
 
-          <div className="relative w-72 h-80 sm:w-88 sm:h-96 md:w-96 md:h-105 lg:w-450px lg:h-480px rounded-4xl overflow-hidden border border-white/8 bg-white/2 shadow-2xl">
+          <motion.div
+            style={{ y: imageY }}
+            className="relative w-72 h-80 sm:w-88 sm:h-96 md:w-96 md:h-105 lg:w-450px lg:h-480px rounded-4xl overflow-hidden border border-white/8 bg-white/2 shadow-2xl"
+          >
             <Image
               src={personalInfo.image}
               alt={personalInfo.name}
@@ -150,12 +162,13 @@ export default function Hero() {
               priority
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/10 to-transparent" />
-          </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.8 }}
+            style={{ y: imageY }}
             className="absolute -bottom-4 left-4 lg:left-6 px-5 py-4 rounded-3xl bg-[#0a0a0b]/90 backdrop-blur-2xl border border-white/8 shadow-2xl"
           >
             <p className="text-[9px] text-white/20 tracking-[0.3em] uppercase mb-1">
@@ -170,14 +183,19 @@ export default function Hero() {
 
       <motion.button
         onClick={() => scrollToSection('about')}
-        className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-white/10 hover:text-white/40 transition-all duration-300"
+        style={{ opacity: scrollOpacity }}
+        className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-white/10 hover:text-white/40 transition-colors duration-300"
       >
         <span className="text-[9px] tracking-[0.3em] uppercase font-bold">
           Scroll
         </span>
-        <div className="p-2 rounded-full border border-white/5">
+        <motion.div
+          animate={{ y: [0, 5, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+          className="p-2 rounded-full border border-white/5"
+        >
           <ArrowDown size={12} />
-        </div>
+        </motion.div>
       </motion.button>
     </section>
   );
