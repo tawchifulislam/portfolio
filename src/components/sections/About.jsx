@@ -5,8 +5,8 @@ import { MapPin, Mail, Globe, Code2, Zap, BookOpen } from 'lucide-react';
 
 import { personalInfo } from '@/lib/data';
 import { variants } from '@/lib/constants';
-import SectionTitle from '@/components/ui/SectionTitle';
 import { scrollToSection } from '@/lib/utils';
+import SectionTitle from '../ui/SectionTitle';
 
 const stats = [
   { label: 'Projects', value: '5+' },

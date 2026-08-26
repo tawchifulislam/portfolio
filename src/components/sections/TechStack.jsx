@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { techStack } from '@/lib/data';
-import SectionTitle from '@/components/ui/SectionTitle';
+import SectionTitle from '../ui/SectionTitle';
 
 const categories = [
   {

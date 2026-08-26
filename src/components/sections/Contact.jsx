@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone, ArrowUpRight } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
 import { variants } from '@/lib/constants';
-import SectionTitle from '@/components/ui/SectionTitle';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import emailjs from '@emailjs/browser';
+import SectionTitle from '../ui/SectionTitle';
 
 const socialLinks = [
   {

@@ -1,10 +1,10 @@
 'use client';
 
 import { projects } from '@/lib/data';
-import SectionTitle from '@/components/ui/SectionTitle';
 import ProjectStack from '@/components/ui/ProjectCard';
 import { FaGithub } from 'react-icons/fa';
 import { ArrowUpRight } from 'lucide-react';
+import SectionTitle from '@/components/ui/SectionTitle';
 
 export default function Projects() {
   return (
