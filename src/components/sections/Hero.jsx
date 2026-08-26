@@ -74,7 +74,7 @@ export default function Hero() {
               onClick={() => scrollToSection('projects')}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="px-8 py-3.5 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 shadow-[0_0_30px_rgba(124,58,237,0.3)]"
+              className="relative overflow-hidden px-8 py-3.5 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 shadow-[0_0_30px_rgba(124,58,237,0.3)] before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:bg-linear-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-700 before:ease-in-out"
             >
               View Projects
             </motion.button>
@@ -84,7 +84,7 @@ export default function Hero() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-white/4 hover:bg-white/8 border border-white/8 text-white/60 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] backdrop-blur-sm transition-all duration-300"
+              className="relative overflow-hidden flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-white/4 hover:bg-white/8 border border-white/8 text-white/60 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] backdrop-blur-sm transition-all duration-300 before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:bg-linear-to-r before:from-transparent before:via-white/10 before:to-transparent before:transition-transform before:duration-700 before:ease-in-out"
             >
               <FaEye size={14} /> Resume
             </motion.a>
