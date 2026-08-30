@@ -74,7 +74,7 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Dot — fast, precise */}
+      {/* Dot - fast, precise */}
       <motion.div
         style={{ x: dotX, y: dotY }}
         animate={{
@@ -85,7 +85,7 @@ export default function CustomCursor() {
         className="fixed top-0 left-0 w-2 h-2 rounded-full bg-white pointer-events-none z-99999 -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
       />
 
-      {/* Ring — slow, lags behind */}
+      {/* Ring - slow, lags behind */}
       <motion.div
         style={{ x: ringX, y: ringY }}
         animate={{

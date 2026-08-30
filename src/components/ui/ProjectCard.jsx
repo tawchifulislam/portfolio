@@ -42,7 +42,7 @@ export default function ProjectStack({ projects }) {
     <div className="relative w-full">
       {/* Stack area */}
       <div className="relative h-130 sm:h-140 flex items-center justify-center">
-        {/* Background cards — stack effect */}
+        {/* Background cards - stack effect */}
         {[-2, -1, 1, 2].map(offset => {
           const idx = (current + offset + projects.length) % projects.length;
           const style = getCardStyle(offset);
