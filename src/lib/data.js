@@ -5,7 +5,6 @@ export const personalInfo = {
   subtitle: 'Turning ideas into clean, interactive web experiences.',
   location: 'Chittagong, Bangladesh',
   email: 'tawchif04@gmail.com',
-  phone: '+8801616241205',
   bio: "I'm a full-stack developer from Chittagong, Bangladesh. I build across the entire stack - React and Next.js on the frontend, Node.js, Express, and MongoDB on the backend. I care about the details: clean architecture, readable code, and interfaces that actually feel good to use.",
   image: '/images/tawchif.png',
   resume:

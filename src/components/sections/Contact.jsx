@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, ArrowUpRight } from 'lucide-react';
+import { Mail, MapPin, ArrowUpRight } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
 import { variants } from '@/lib/constants';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
@@ -34,12 +34,6 @@ const contactItems = [
     label: 'Email Me',
     value: personalInfo.email,
     href: 'mailto:' + personalInfo.email,
-  },
-  {
-    icon: <Phone size={18} />,
-    label: 'Phone',
-    value: personalInfo.phone,
-    href: 'tel:' + personalInfo.phone,
   },
   {
     icon: <MapPin size={18} />,
