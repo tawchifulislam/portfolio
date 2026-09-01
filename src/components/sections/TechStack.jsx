@@ -95,7 +95,7 @@ export default function TechStack() {
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 bg-violet-600/3 blur-[120px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <SectionTitle
           title="Tech Stack"
           subtitle="A collection of tools and technologies I use to bring ideas to life."

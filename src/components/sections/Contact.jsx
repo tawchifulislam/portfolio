@@ -11,9 +11,21 @@ import emailjs from '@emailjs/browser';
 import SectionTitle from '../ui/SectionTitle';
 
 const socialLinks = [
-  { icon: <FaGithub size={16} />, href: personalInfo.social.github, label: 'GitHub' },
-  { icon: <FaLinkedin size={16} />, href: personalInfo.social.linkedin, label: 'LinkedIn' },
-  { icon: <FaXTwitter size={16} />, href: personalInfo.social.twitter, label: 'Twitter' },
+  {
+    icon: <FaGithub size={16} />,
+    href: personalInfo.social.github,
+    label: 'GitHub',
+  },
+  {
+    icon: <FaLinkedin size={16} />,
+    href: personalInfo.social.linkedin,
+    label: 'LinkedIn',
+  },
+  {
+    icon: <FaXTwitter size={16} />,
+    href: personalInfo.social.twitter,
+    label: 'Twitter',
+  },
 ];
 
 const contactItems = [
@@ -32,7 +44,11 @@ const contactItems = [
 ];
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
   const [status, setStatus] = useState(null);
 
   const handleChange = e => {
@@ -46,7 +62,11 @@ export default function Contact() {
       .send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-        { name: formData.name, email: formData.email, message: formData.message },
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
       )
       .then(
@@ -70,14 +90,13 @@ export default function Contact() {
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-100 bg-violet-600/3 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <SectionTitle
           title="Get In Touch"
           subtitle="Let's build something exceptional together. I'm currently open for new opportunities."
         />
 
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
-
           {/* Left */}
           <motion.div
             variants={variants.slideLeft}
@@ -89,16 +108,15 @@ export default function Contact() {
             {/* Header card */}
             <div className="p-7 rounded-3xl bg-white/2 border border-white/[0.07]">
               <h3 className="text-2xl font-bold font-[--font-syne] text-white mb-3">
-                Contact{' '}
-                <span className="text-violet-400">Information.</span>
+                Contact <span className="text-violet-400">Information.</span>
               </h3>
               <p className="text-white/30 text-sm leading-relaxed">
-                Feel free to reach out for collaborations,
-                opportunities, or just a friendly hello.
+                Feel free to reach out for collaborations, opportunities, or
+                just a friendly hello.
               </p>
             </div>
 
-            {/* Contact items — flex-1 so they stretch */}
+            {/* Contact items - flex-1 so they stretch */}
             <div className="flex flex-col gap-3 flex-1">
               {contactItems.map(item => (
                 <div key={item.label} className="flex-1">
@@ -164,7 +182,7 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* Right — Form */}
+          {/* Right - Form */}
           <motion.div
             variants={variants.slideRight}
             initial="hidden"

@@ -14,7 +14,7 @@ export default function Projects() {
     >
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-150 h-100 bg-violet-600/4 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <SectionTitle
           title="Projects"
           subtitle="A selection of things I have built so far."
