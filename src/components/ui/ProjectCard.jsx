@@ -2,7 +2,12 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
-import { ExternalLink, ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react';
+import {
+  ExternalLink,
+  ArrowUpRight,
+  ArrowLeft,
+  ArrowRight,
+} from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,24 +17,27 @@ export default function ProjectStack({ projects }) {
   const [direction, setDirection] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  const go = useCallback((index, dir) => {
-    if (isAnimating) return;
-    setDirection(dir);
-    setCurrent(index);
-  }, [isAnimating]);
+  const go = useCallback(
+    (index, dir) => {
+      if (isAnimating) return;
+      setDirection(dir);
+      setCurrent(index);
+    },
+    [isAnimating],
+  );
 
   const prev = useCallback(
     () => go(current === 0 ? projects.length - 1 : current - 1, -1),
-    [current, go, projects.length]
+    [current, go, projects.length],
   );
   const next = useCallback(
     () => go(current === projects.length - 1 ? 0 : current + 1, 1),
-    [current, go, projects.length]
+    [current, go, projects.length],
   );
 
   // Keyboard navigation
   useEffect(() => {
-    const handleKey = (e) => {
+    const handleKey = e => {
       if (e.key === 'ArrowLeft') prev();
       if (e.key === 'ArrowRight') next();
     };
@@ -40,14 +48,13 @@ export default function ProjectStack({ projects }) {
   const project = projects[current];
 
   const slideVariants = {
-    enter: (dir) => ({ x: dir * 80, opacity: 0, scale: 0.98 }),
+    enter: dir => ({ x: dir * 80, opacity: 0, scale: 0.98 }),
     center: { x: 0, opacity: 1, scale: 1 },
-    exit: (dir) => ({ x: dir * -80, opacity: 0, scale: 0.98 }),
+    exit: dir => ({ x: dir * -80, opacity: 0, scale: 0.98 }),
   };
 
   return (
     <div className="relative w-full">
-
       {/* Main card */}
       <div className="relative overflow-hidden rounded-3xl border border-white/8 bg-[#0c0c0f]">
         <AnimatePresence
@@ -83,9 +90,12 @@ export default function ProjectStack({ projects }) {
                   <span className="px-3 py-1.5 rounded-full text-[9px] font-black tracking-widest uppercase bg-violet-600 text-white shadow-lg">
                     Featured
                   </span>
-                ) : <span />}
+                ) : (
+                  <span />
+                )}
                 <span className="px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[10px] font-black text-white/50 tracking-widest">
-                  {String(current + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+                  {String(current + 1).padStart(2, '0')} /{' '}
+                  {String(projects.length).padStart(2, '0')}
                 </span>
               </div>
             </div>
@@ -93,7 +103,6 @@ export default function ProjectStack({ projects }) {
             {/* Content */}
             <div className="p-7 md:p-8">
               <div className="flex flex-col sm:flex-row sm:items-start gap-5 sm:gap-8">
-
                 {/* Left — title + desc */}
                 <div className="flex-1 min-w-0">
                   <h3 className="text-2xl md:text-3xl font-bold font-[--font-syne] text-white tracking-tight mb-3">
@@ -132,7 +141,6 @@ export default function ProjectStack({ projects }) {
                   </Link>
 
                   <div className="flex items-center gap-3">
-                    
                     <a
                       href={project.liveUrl}
                       target="_blank"
@@ -142,8 +150,9 @@ export default function ProjectStack({ projects }) {
                     >
                       <ExternalLink size={15} />
                     </a>
-                    
-                    <a  href={project.githubUrl}
+
+                    <a
+                      href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/4 border border-white/[0.07] text-white/25 hover:text-white hover:border-white/20 transition-all duration-300"
@@ -161,7 +170,6 @@ export default function ProjectStack({ projects }) {
 
       {/* Navigation */}
       <div className="flex items-center justify-between mt-5 px-1">
-
         {/* Prev */}
         <motion.button
           onClick={prev}
@@ -202,11 +210,6 @@ export default function ProjectStack({ projects }) {
           <ArrowRight size={14} />
         </motion.button>
       </div>
-
-      {/* Keyboard hint */}
-      <p className="text-center text-[9px] text-white/10 tracking-widest uppercase mt-4">
-        Use ← → keys to navigate
-      </p>
     </div>
   );
 }
