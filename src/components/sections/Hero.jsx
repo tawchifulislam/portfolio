@@ -1,202 +1,136 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowDown } from 'lucide-react';
-import { FaEye, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import { FaEye } from 'react-icons/fa';
 import { personalInfo } from '@/lib/data';
 import { scrollToSection } from '@/lib/utils';
-import { variants } from '@/lib/constants';
+import { variants, SHEET_NUMBERS, TOTAL_SHEETS } from '@/lib/constants';
+import CornerMarks from '@/components/ui/CornerMarks';
+import TitleBlock from '@/components/ui/TitleBlock';
+
+const socials = [
+  {
+    icon: <FaGithub size={16} />,
+    href: personalInfo.social.github,
+    label: 'GitHub',
+  },
+  {
+    icon: <FaLinkedin size={16} />,
+    href: personalInfo.social.linkedin,
+    label: 'LinkedIn',
+  },
+  {
+    icon: <FaXTwitter size={16} />,
+    href: personalInfo.social.twitter,
+    label: 'Twitter',
+  },
+];
 
 export default function Hero() {
-  const sectionRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end start'],
-  });
-
-  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '12%']);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const scrollOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-
   return (
-    <section
-      ref={sectionRef}
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-8 lg:px-12"
-    >
-      <motion.div
-        style={{ y: useTransform(scrollYProgress, [0, 1], ['0%', '30%']) }}
-        className="absolute inset-0 pointer-events-none"
+    <>
+      <section
+        id="home"
+        className="relative min-h-screen flex items-center px-4 sm:px-8 lg:px-12 py-28"
       >
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-600/8 rounded-full blur-[100px]" />
-      </motion.div>
-
-      <div className="relative w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 py-20 md:py-0">
-
-        <motion.div
-          style={{ y: textY, opacity: textOpacity }}
-          className="flex flex-col gap-6 order-2 md:order-1 items-center md:items-start text-center md:text-left max-w-xl"
-        >
-          <motion.div
-            variants={variants.fadeUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.1 }}
-            className="w-fit"
-          >
-            <span className="flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase bg-violet-500/10 border border-violet-500/20 text-violet-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
-              Available for work
-            </span>
-          </motion.div>
+        <div className="sheet blueprint-grid w-full max-w-7xl mx-auto">
+          <CornerMarks />
 
           <motion.div
-            variants={variants.fadeUp}
+            variants={variants.staggerContainer}
             initial="hidden"
             animate="visible"
-            transition={{ delay: 0.2 }}
-            className="flex flex-col gap-2"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 p-8 sm:p-12 lg:p-16"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
-              Hi, I&apos;m{' '}
-              <span className="bg-linear-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
-                Tawchiful
-              </span>
-            </h1>
-            <h2 className="text-lg md:text-xl font-medium text-white/30 tracking-widest uppercase">
-              {personalInfo.title}
-            </h2>
-          </motion.div>
-
-          <motion.p
-            variants={variants.fadeUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.3 }}
-            className="text-white/40 text-sm md:text-base leading-relaxed max-w-md"
-          >
-            {personalInfo.bio}
-          </motion.p>
-
-          <motion.div
-            variants={variants.fadeUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.4 }}
-            className="flex flex-wrap items-center justify-center md:justify-start gap-4"
-          >
-            <motion.button
-              onClick={() => scrollToSection('projects')}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="relative overflow-hidden px-8 py-3.5 rounded-2xl bg-violet-600 hover:bg-violet-500 text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 shadow-[0_0_30px_rgba(124,58,237,0.3)] before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:bg-linear-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-700 before:ease-in-out"
-            >
-              View Projects
-            </motion.button>
-            <motion.a
-              href={personalInfo.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="relative overflow-hidden flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-white/4 hover:bg-white/8 border border-white/8 text-white/60 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] backdrop-blur-sm transition-all duration-300 before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:bg-linear-to-r before:from-transparent before:via-white/10 before:to-transparent before:transition-transform before:duration-700 before:ease-in-out"
-            >
-              <FaEye size={14} /> Resume
-            </motion.a>
-          </motion.div>
-
-          <motion.div
-            variants={variants.fadeUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.5 }}
-            className="flex items-center gap-5 pt-4 pb-16 md:pb-0"
-          >
-            {[
-              { icon: <FaGithub size={18} />, href: personalInfo.social.github, label: 'GitHub' },
-              { icon: <FaLinkedin size={18} />, href: personalInfo.social.linkedin, label: 'LinkedIn' },
-              { icon: <FaXTwitter size={18} />, href: personalInfo.social.twitter, label: 'Twitter' },
-            ].map(social => (
-              
-              <a  key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.label}
-                className="text-white/20 hover:text-white transition-colors duration-300"
+            <div className="lg:col-span-7 flex flex-col justify-center gap-6">
+              <motion.p
+                variants={variants.staggerItem}
+                className="font-mono text-xs tracking-wide text-brass"
               >
-                {social.icon}
-              </a>
-            ))}
-            <div className="w-px h-4 bg-white/10" />
-            <span className="text-[10px] text-white/20 tracking-[0.2em] uppercase font-medium">
-              {personalInfo.location}
-            </span>
+                {personalInfo.title} / {personalInfo.location}
+              </motion.p>
+
+              <motion.h1
+                variants={variants.staggerItem}
+                className="font-display text-display font-semibold text-paper leading-[0.95] tracking-tight"
+              >
+                {personalInfo.name}
+              </motion.h1>
+
+              <motion.p
+                variants={variants.staggerItem}
+                className="measure-lg text-sm sm:text-base text-muted leading-relaxed"
+              >
+                {personalInfo.bio}
+              </motion.p>
+
+              <motion.div
+                variants={variants.staggerItem}
+                className="flex flex-wrap items-center gap-4 mt-2"
+              >
+                <button
+                  onClick={() => scrollToSection('projects')}
+                  className="px-7 py-3 bg-brass text-ink text-xs font-medium tracking-wide hover:bg-paper transition-colors duration-300"
+                >
+                  View Projects
+                </button>
+                <a
+                  href={personalInfo.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-7 py-3 border border-line text-muted text-xs font-medium tracking-wide hover:border-faint hover:text-paper transition-colors duration-300"
+                >
+                  <FaEye size={13} /> Resume
+                </a>
+              </motion.div>
+
+              <motion.div
+                variants={variants.staggerItem}
+                className="flex items-center gap-5 mt-4"
+              >
+                {socials.map(social => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="text-muted hover:text-paper transition-colors duration-300"
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </motion.div>
+            </div>
+
+            <motion.div
+              variants={variants.staggerItem}
+              className="lg:col-span-5 flex items-center justify-center"
+            >
+              <div className="relative w-full max-w-sm aspect-3/4 border border-line">
+                <Image
+                  src={personalInfo.image}
+                  alt={personalInfo.name}
+                  fill
+                  className="object-cover grayscale-[0.15]"
+                  priority
+                />
+                <span className="absolute top-3 left-3 w-3 h-3 bg-brass" />
+                <span className="absolute bottom-3 right-3 w-3 h-3 bg-brass" />
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
 
-        <motion.div
-          variants={variants.slideRight}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.3 }}
-          className="relative flex justify-center items-center order-1 md:order-2"
-        >
-          <div className="absolute w-96 h-96 bg-violet-600/10 rounded-full blur-[120px]" />
-
-          <motion.div
-            style={{ y: imageY }}
-            className="relative w-72 h-80 sm:w-88 sm:h-96 md:w-96 md:h-105 lg:w-450px lg:h-480px rounded-4xl overflow-hidden border border-white/8 bg-white/2 shadow-2xl"
-          >
-            <Image
-              src={personalInfo.image}
-              alt={personalInfo.name}
-              fill
-              className="object-cover object-center scale-100 hover:scale-105 transition-transform duration-500"
-              priority
-            />
-            <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/10 to-transparent" />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8 }}
-            style={{ y: imageY }}
-            className="absolute -bottom-4 left-4 lg:left-6 px-5 py-4 rounded-3xl bg-[#0a0a0b]/90 backdrop-blur-2xl border border-white/8 shadow-2xl"
-          >
-            <p className="text-[9px] text-white/20 tracking-[0.3em] uppercase mb-1">
-              Stack
-            </p>
-            <p className="text-sm font-bold text-white tracking-tight">
-              Full-Stack Developer
-            </p>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      <motion.button
-        onClick={() => scrollToSection('about')}
-        style={{ opacity: scrollOpacity }}
-        className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-white/10 hover:text-white/40 transition-colors duration-300"
-      >
-        <span className="text-[9px] tracking-[0.3em] uppercase font-bold">
-          Scroll
-        </span>
-        <motion.div
-          animate={{ y: [0, 5, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-          className="p-2 rounded-full border border-white/5"
-        >
-          <ArrowDown size={12} />
-        </motion.div>
-      </motion.button>
-    </section>
+          <TitleBlock
+            sheetNumber={SHEET_NUMBERS.home}
+            total={TOTAL_SHEETS}
+            status="AVAILABLE"
+          />
+        </div>
+      </section>
+    </>
   );
 }
