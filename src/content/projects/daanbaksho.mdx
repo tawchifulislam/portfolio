@@ -1,0 +1,56 @@
+---
+slug: 'daanbaksho'
+title: 'DaanBaksho'
+summary:
+  'A full-stack crowdfunding platform built around a credit economy for
+  supporters, creators, and admins.'
+tags:
+  [
+    'Next.js',
+    'JavaScript',
+    'Node.js',
+    'Express.js',
+    'MongoDB',
+    'BetterAuth',
+    'Stripe',
+    'JWT',
+  ]
+image: '/images/projects/daanbaksho.png'
+liveUrl: 'https://daanbaksho.vercel.app'
+githubUrl: 'https://github.com/tawchifulislam/daanbaksho-client'
+serverUrl: 'https://github.com/tawchifulislam/daanbaksho-server'
+featured: false
+order: 5
+---
+
+## Problem
+
+Crowdfunding needs a transparent way to connect supporters, creators, and admins
+around a shared, trackable economy.
+
+## Approach
+
+Creators launch campaigns, supporters contribute through a credit based economy,
+and admins oversee platform activity, all secured through a custom JWT
+authentication flow. Stripe in test mode handles credit purchases, and imgBB
+hosts campaign images.
+
+## Key Decisions
+
+- Replaced the BetterAuth JWT plugin, which threw Base64 errors, with a custom
+  `/api/token` route issuing HMAC signed JWTs via `jsonwebtoken`.
+- Fixed an infinite redirect loop in the axios interceptor caused by improper
+  handling of 401 and 403 responses.
+- Designed a credit based economy that ties Stripe test mode payments directly
+  to campaign contributions across three distinct user roles.
+
+## Outcome
+
+A role based crowdfunding platform running on a custom authentication layer
+built to work around a library limitation.
+
+## What's Next
+
+- Campaign progress notifications for supporters who back a project.
+- A public leaderboard of top funded campaigns.
+- Withdrawal requests and payout tracking for creators.
