@@ -3,21 +3,25 @@
 import { motion } from 'framer-motion';
 import { variants } from '@/lib/constants';
 
-export default function TechBadge({ name, category }) {
-  const categoryColors = {
-    core: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-    frontend: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
-    backend: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-    tools: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
-  };
+const categoryCodes = {
+  core: 'CO',
+  frontend: 'FE',
+  backend: 'BE',
+  tools: 'TL',
+};
 
+export default function TechBadge({ name, category }) {
   return (
-    <motion.span
+    <motion.div
       variants={variants.staggerItem}
-      whileHover={{ scale: 1.05 }}
-      className={`px-4 py-2 rounded-full text-sm font-medium border ${categoryColors[category]} cursor-default`}
+      className="group flex items-center gap-2.5 py-2 border-b border-line last:border-b-0"
     >
-      {name}
-    </motion.span>
+      <span className="flex items-center justify-center w-7 h-7 shrink-0 border border-line font-mono text-[10px] text-muted group-hover:border-brass group-hover:text-brass transition-colors duration-300">
+        {categoryCodes[category]}
+      </span>
+      <span className="text-sm text-paper/80 group-hover:text-paper transition-colors duration-300">
+        {name}
+      </span>
+    </motion.div>
   );
 }
