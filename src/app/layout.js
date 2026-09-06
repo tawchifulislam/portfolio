@@ -1,18 +1,26 @@
-import { Inter, Syne } from 'next/font/google';
+import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CustomCursor from '@/components/ui/CustomCursor';
 
-const inter = Inter({
-  variable: '--font-inter',
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-space-grotesk',
   subsets: ['latin'],
   display: 'swap',
 });
 
-const syne = Syne({
-  variable: '--font-syne',
+const plexSans = IBM_Plex_Sans({
+  variable: '--font-plex-sans',
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
+});
+
+const plexMono = IBM_Plex_Mono({
+  variable: '--font-plex-mono',
+  subsets: ['latin'],
+  weight: ['400', '500'],
   display: 'swap',
 });
 
@@ -72,6 +80,7 @@ export const metadata = {
     apple: [{ url: '/apple-touch-icon.png' }],
   },
 };
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -104,10 +113,10 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${syne.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body
-        className="min-h-full flex flex-col bg-[#0a0a0f] text-white cursor-none"
+        className="min-h-full flex flex-col bg-ink text-paper cursor-none"
         suppressHydrationWarning
       >
         <script
