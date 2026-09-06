@@ -8,6 +8,7 @@ import { SECTION_IDS } from '@/lib/constants';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useScrollProgress } from '@/hooks/useScrollProgress';
 import { scrollToSection } from '@/lib/utils';
+import LogoMark from '@/components/ui/LogoMark';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,9 +35,11 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16">
           <button
             onClick={() => handleNavClick('#home')}
-            className="font-mono text-sm text-paper hover:text-brass transition-colors duration-300"
+            aria-label="Go to home"
+            className="flex items-center gap-2.5 text-paper hover:text-brass transition-colors duration-300"
           >
-            TI/01
+            <LogoMark className="w-6 h-6" />
+            <span className="font-mono text-xs">TI/01</span>
           </button>
 
           <ul className="hidden md:flex items-center gap-1">

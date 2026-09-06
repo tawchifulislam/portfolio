@@ -5,12 +5,29 @@ import { FaXTwitter } from 'react-icons/fa6';
 import { Mail } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
 import { scrollToSection } from '@/lib/utils';
+import LogoMark from '@/components/ui/LogoMark';
 
 const socialLinks = [
-  { icon: <FaGithub size={14} />, href: personalInfo.social.github, label: 'GitHub' },
-  { icon: <FaLinkedin size={14} />, href: personalInfo.social.linkedin, label: 'LinkedIn' },
-  { icon: <FaXTwitter size={14} />, href: personalInfo.social.twitter, label: 'Twitter' },
-  { icon: <Mail size={14} />, href: `mailto:${personalInfo.email}`, label: 'Email' },
+  {
+    icon: <FaGithub size={14} />,
+    href: personalInfo.social.github,
+    label: 'GitHub',
+  },
+  {
+    icon: <FaLinkedin size={14} />,
+    href: personalInfo.social.linkedin,
+    label: 'LinkedIn',
+  },
+  {
+    icon: <FaXTwitter size={14} />,
+    href: personalInfo.social.twitter,
+    label: 'Twitter',
+  },
+  {
+    icon: <Mail size={14} />,
+    href: `mailto:${personalInfo.email}`,
+    label: 'Email',
+  },
 ];
 
 export default function Footer() {
@@ -21,9 +38,11 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 py-6">
         <button
           onClick={() => scrollToSection('home')}
-          className="font-mono text-xs text-muted hover:text-paper transition-colors duration-300"
+          aria-label="Go to home"
+          className="flex items-center gap-2.5 text-muted hover:text-paper transition-colors duration-300"
         >
-          TI/01
+          <LogoMark className="w-5 h-5" />
+          <span className="font-mono text-xs">TI/01</span>
         </button>
 
         <p className="font-mono text-[11px] text-faint text-center">
