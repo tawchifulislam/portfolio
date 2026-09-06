@@ -2,15 +2,18 @@ import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
 import TechStack from '@/components/sections/TechStack';
 import Contact from '@/components/sections/Contact';
-import Projects from './projects/page';
+import Projects from '@/components/sections/Projects';
+import { getAllProjectsMeta } from '@/lib/projects';
 
 export default function Home() {
+  const projects = getAllProjectsMeta();
+
   return (
     <div>
       <Hero />
       <About />
       <TechStack />
-      <Projects />
+      <Projects projects={projects} />
       <Contact />
     </div>
   );
