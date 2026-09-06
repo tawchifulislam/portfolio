@@ -6,6 +6,7 @@ import {
   getAdjacentProject,
 } from '@/lib/projects';
 import { mdxComponents } from '@/components/mdx/MDXComponents';
+import { SITE_URL } from '@/lib/constants';
 import ProjectDetail from './ProjectDetail';
 
 export async function generateStaticParams() {
@@ -34,14 +35,36 @@ export default async function ProjectPage({ params }) {
   if (!project) notFound();
 
   const nextProject = getAdjacentProject(slug);
+  const meta = project.frontmatter;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: meta.title,
+    description: meta.summary,
+    url: `${SITE_URL}/projects/${slug}`,
+    image: `${SITE_URL}${meta.image}`,
+    keywords: meta.tags?.join(', '),
+    author: {
+      '@type': 'Person',
+      name: 'Tawchiful Islam',
+      url: SITE_URL,
+    },
+  };
 
   return (
-    <ProjectDetail
-      meta={project.frontmatter}
-      content={project.content}
-      index={index + 1}
-      total={projects.length}
-      nextProject={nextProject}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ProjectDetail
+        meta={meta}
+        content={project.content}
+        index={index + 1}
+        total={projects.length}
+        nextProject={nextProject}
+      />
+    </>
   );
 }
