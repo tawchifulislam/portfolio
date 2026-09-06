@@ -3,6 +3,8 @@ import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CustomCursor from '@/components/ui/CustomCursor';
+import { personalInfo } from '@/lib/data';
+import { SITE_URL } from '@/lib/constants';
 
 const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
@@ -43,13 +45,20 @@ export const metadata = {
     'Web Developer Bangladesh',
     'Chittagong Developer',
   ],
-  authors: [{ name: 'Tawchiful Islam', url: 'https://tawchif.vercel.app' }],
+  authors: [{ name: 'Tawchiful Islam', url: SITE_URL }],
   creator: 'Tawchiful Islam',
-  metadataBase: new URL('https://tawchif.vercel.app'),
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: SITE_URL,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://tawchif.vercel.app',
+    url: SITE_URL,
     title: 'Tawchiful Islam - Full-Stack Developer',
     description:
       'Full-stack developer from Chittagong, Bangladesh. Building clean, responsive, and user-friendly web experiences with React, Next.js, Node.js, and more.',
@@ -100,13 +109,18 @@ const jsonLd = {
     'Taosiful',
     'Tawsiful',
   ],
-  url: 'https://tawchif.vercel.app',
+  url: SITE_URL,
   jobTitle: 'Full-Stack Developer',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Chittagong',
     addressCountry: 'Bangladesh',
   },
+  sameAs: [
+    personalInfo.social.github,
+    personalInfo.social.linkedin,
+    personalInfo.social.twitter,
+  ],
 };
 
 export default function RootLayout({ children }) {
