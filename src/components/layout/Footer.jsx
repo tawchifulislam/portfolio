@@ -39,10 +39,9 @@ export default function Footer() {
         <button
           onClick={() => scrollToSection('home')}
           aria-label="Go to home"
-          className="flex items-center gap-2.5 text-muted hover:text-paper transition-colors duration-300"
+          className="text-muted hover:text-paper transition-colors duration-300"
         >
           <LogoMark className="w-5 h-5" />
-          <span className="font-mono text-xs">TI/01</span>
         </button>
 
         <p className="font-mono text-[11px] text-faint text-center">

@@ -36,10 +36,9 @@ export default function Navbar() {
           <button
             onClick={() => handleNavClick('#home')}
             aria-label="Go to home"
-            className="flex items-center gap-2.5 text-paper hover:text-brass transition-colors duration-300"
+            className="text-paper hover:text-brass transition-colors duration-300"
           >
             <LogoMark className="w-6 h-6" />
-            <span className="font-mono text-xs">TI/01</span>
           </button>
 
           <ul className="hidden md:flex items-center gap-1">
