@@ -2,10 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { techStack } from '@/lib/data';
-import { variants, SHEET_NUMBERS, TOTAL_SHEETS } from '@/lib/constants';
+import { variants } from '@/lib/constants';
 import SectionTitle from '@/components/ui/SectionTitle';
 import CornerMarks from '@/components/ui/CornerMarks';
-import TitleBlock from '@/components/ui/TitleBlock';
 import {
   SiCss,
   SiDocker,
@@ -67,7 +66,7 @@ export default function TechStack() {
       <div className="max-w-7xl mx-auto">
         <SectionTitle
           title="Tech Stack"
-          subtitle="A legend of the tools and technologies I use to bring ideas to life."
+          subtitle="Tools and technologies I use to bring ideas to life."
         />
 
         <div className="sheet">
@@ -123,11 +122,6 @@ export default function TechStack() {
               );
             })}
           </motion.div>
-
-          <TitleBlock
-            sheetNumber={SHEET_NUMBERS.techstack}
-            total={TOTAL_SHEETS}
-          />
         </div>
       </div>
     </section>
