@@ -18,6 +18,8 @@ export default function CustomCursor() {
   useEffect(() => {
     if (window.matchMedia('(pointer: coarse)').matches) return;
 
+    document.body.classList.add('cursor-none');
+
     const handleMouseMove = e => {
       mouseX.current = e.clientX;
       mouseY.current = e.clientY;
@@ -48,6 +50,7 @@ export default function CustomCursor() {
     const timer = setTimeout(addHoverListeners, 500);
 
     return () => {
+      document.body.classList.remove('cursor-none');
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);

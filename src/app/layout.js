@@ -130,7 +130,7 @@ export default function RootLayout({ children }) {
       className={`${spaceGrotesk.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body
-        className="min-h-full flex flex-col bg-ink text-paper cursor-none"
+        className="min-h-full flex flex-col bg-ink text-paper"
         suppressHydrationWarning
       >
         <script
