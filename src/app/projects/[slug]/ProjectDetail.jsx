@@ -57,7 +57,7 @@ export default function ProjectDetail({
                   {String(index).padStart(2, '0')} /{' '}
                   {String(total).padStart(2, '0')}
                 </span>
-                {meta.featured && <span className="text-brass">FEATURED</span>}
+                {meta.featured && <span className="text-brass">Featured</span>}
               </div>
 
               <h1 className="font-display text-h1 font-semibold text-paper leading-[1.05]">
@@ -122,7 +122,7 @@ export default function ProjectDetail({
           <div className="p-8 sm:p-10 border-t border-line">{content}</div>
 
           <TitleBlock
-            sheetNumber={String(index).padStart(2, '0')}
+            index={String(index).padStart(2, '0')}
             total={String(total).padStart(2, '0')}
           />
         </div>
