@@ -1,10 +1,7 @@
 import { FaGithub } from 'react-icons/fa';
 import { ArrowUpRight } from 'lucide-react';
-import { SHEET_NUMBERS, TOTAL_SHEETS } from '@/lib/constants';
 import ProjectStack from '@/components/ui/ProjectCard';
 import SectionTitle from '@/components/ui/SectionTitle';
-import CornerMarks from '@/components/ui/CornerMarks';
-import TitleBlock from '@/components/ui/TitleBlock';
 
 export default function Projects({ projects }) {
   return (
@@ -21,14 +18,12 @@ export default function Projects({ projects }) {
           </div>
         </div>
 
-        <div className="sheet mt-6">
-          <CornerMarks />
-
+        <div className="flex justify-center mt-8">
           <a
             href="https://github.com/tawchifulislam?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center justify-center gap-3 px-8 py-6 text-muted hover:text-paper transition-colors duration-300"
+            className="group flex items-center gap-3 text-muted hover:text-paper transition-colors duration-300"
           >
             <FaGithub size={16} />
             <span className="text-xs font-medium tracking-wide">
@@ -39,10 +34,6 @@ export default function Projects({ projects }) {
               className="text-faint group-hover:text-brass transition-colors duration-300"
             />
           </a>
-          <TitleBlock
-            sheetNumber={SHEET_NUMBERS.projects}
-            total={TOTAL_SHEETS}
-          />
         </div>
       </div>
     </section>
