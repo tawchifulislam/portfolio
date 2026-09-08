@@ -126,9 +126,9 @@ export default function ProjectStack({ projects }) {
         </AnimatePresence>
 
         <TitleBlock
-          sheetNumber={String(current + 1).padStart(2, '0')}
+          index={String(current + 1).padStart(2, '0')}
           total={String(projects.length).padStart(2, '0')}
-          status={project.featured ? 'FEATURED' : null}
+          status={project.featured ? 'Featured' : null}
           action={
             <div className="flex items-center gap-2">
               <button
