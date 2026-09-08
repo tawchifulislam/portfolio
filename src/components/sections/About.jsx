@@ -3,11 +3,10 @@
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Globe } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
-import { variants, SHEET_NUMBERS, TOTAL_SHEETS } from '@/lib/constants';
+import { variants } from '@/lib/constants';
 import { scrollToSection } from '@/lib/utils';
 import SectionTitle from '@/components/ui/SectionTitle';
 import CornerMarks from '@/components/ui/CornerMarks';
-import TitleBlock from '@/components/ui/TitleBlock';
 
 const specs = [
   { label: 'Role', value: personalInfo.title },
@@ -54,7 +53,6 @@ export default function About() {
           <CornerMarks />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:divide-x lg:divide-line">
-            {/* Left: Specification Sheet */}
             <motion.div
               variants={variants.slideLeft}
               initial="hidden"
@@ -64,7 +62,7 @@ export default function About() {
             >
               <div>
                 <p className="font-mono text-[11px] tracking-wide text-faint mb-4">
-                  SPEC SHEET
+                  QUICK FACTS
                 </p>
                 <div className="flex flex-col">
                   {specs.map(spec => (
@@ -107,7 +105,6 @@ export default function About() {
               </button>
             </motion.div>
 
-            {/* Right: Bio + measurements + focuses */}
             <motion.div
               variants={variants.slideRight}
               initial="hidden"
@@ -168,8 +165,6 @@ export default function About() {
               </div>
             </motion.div>
           </div>
-
-          <TitleBlock sheetNumber={SHEET_NUMBERS.about} total={TOTAL_SHEETS} />
         </div>
       </div>
     </section>
