@@ -1,0 +1,37 @@
+---
+slug: 'tfknowledge'
+title: 'Thirsty for Knowledge'
+summary: 'A bilingual, minimalist blog platform where readers vote on what gets written next.'
+tags: ['Next.js', 'Express.js', 'MongoDB', 'BetterAuth', 'Tiptap', 'Tailwind CSS']
+image: '/images/projects/tfknowledge.png'
+liveUrl: 'https://tfknowledge.vercel.app'
+githubUrl: 'https://github.com/tawchifulislam/tfknowledge-client'
+serverUrl: 'https://github.com/tawchifulislam/tfknowledge-server'
+featured: true
+order: 1
+---
+
+## Problem
+
+Most blogs are one-directional: an author writes, readers consume, and there's no real channel for readers to shape what comes next. Thirsty for Knowledge was built to close that gap for research-driven, long-form writing.
+
+## Approach
+
+Admins publish long-form articles through a rich text editor, and readers engage through likes, threaded comments, and shares. A separate topic request board lets readers pitch ideas and upvote or downvote existing ones, giving the author a ranked signal for what to write next. Google OAuth via BetterAuth handles authentication with role-based access separating admin and reader permissions.
+
+## Key Decisions
+
+- Denormalized author name and image directly onto comment and topic request documents at creation time, after discovering BetterAuth's user collection isn't a registered Mongoose model and can't be `.populate()`d.
+- Wrote a small custom sanitization middleware after `express-mongo-sanitize` turned out to be incompatible with Express 5's read-only `req.query`, avoiding a third-party dependency for a problem solvable in a few lines.
+- Added a per-post `language` field with a client-side `<html lang>` switcher instead of pulling in a full i18n framework, since the site serves genuinely bilingual (Bengali/English) content post-by-post rather than a fully translated UI.
+- Configured cross-domain cookies (`sameSite: none`, `secure: true`) to fix OAuth session handling once the frontend and backend moved to separate production domains.
+
+## Outcome
+
+A fully deployed, production-ready blog platform with content moderation tools, a voting-driven topic pipeline, and SEO fundamentals (structured data, sitemap, dynamic per-post metadata) in place from day one.
+
+## What's Next
+
+- Real-time comment and vote updates with Socket.io.
+- AI-generated summaries for longer research articles.
+- An admin analytics dashboard tracking post performance and engagement trends.
