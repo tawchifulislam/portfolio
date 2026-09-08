@@ -26,6 +26,10 @@ const plexMono = IBM_Plex_Mono({
   display: 'swap',
 });
 
+export const viewport = {
+  themeColor: '#0b1420',
+};
+
 export const metadata = {
   title: 'Tawchiful Islam - Full-Stack Developer',
   description:
