@@ -8,16 +8,6 @@ export const SECTION_IDS = {
   contact: 'contact',
 };
 
-export const SHEET_NUMBERS = {
-  home: '01',
-  about: '02',
-  techstack: '03',
-  projects: '04',
-  contact: '05',
-};
-
-export const TOTAL_SHEETS = '05';
-
 export const EASE = [0.22, 1, 0.36, 1];
 
 export const variants = {
