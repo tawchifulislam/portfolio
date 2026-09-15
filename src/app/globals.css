@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 
-/* Fonts registered in app/layout.js via next/font/google */
 @theme {
   --color-ink: #0b1420;
   --color-panel: #121c2b;
@@ -31,6 +30,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
 }
 
 body {
@@ -76,7 +76,6 @@ body {
   }
 }
 
-/* Blueprint grid-paper background */
 .blueprint-grid {
   background-image:
     linear-gradient(rgba(237, 232, 220, 0.045) 1px, transparent 1px),
@@ -92,7 +91,6 @@ body {
   border-radius: var(--radius-sheet);
 }
 
-/* Corner crop mark - position via top/left/right/bottom utilities */
 .reg-mark {
   position: absolute;
   width: 14px;
