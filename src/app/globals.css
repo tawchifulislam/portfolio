@@ -92,7 +92,7 @@ body {
   border-radius: var(--radius-sheet);
 }
 
-/* Corner crop mark — position via top/left/right/bottom utilities */
+/* Corner crop mark - position via top/left/right/bottom utilities */
 .reg-mark {
   position: absolute;
   width: 14px;
