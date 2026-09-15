@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://tawchif.vercel.app/sitemap.xml

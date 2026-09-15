@@ -3,6 +3,7 @@ import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CustomCursor from '@/components/ui/CustomCursor';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 import { personalInfo } from '@/lib/data';
 import { SITE_URL } from '@/lib/constants';
 
@@ -146,6 +147,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );
