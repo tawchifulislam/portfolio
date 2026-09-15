@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { navLinks } from '@/lib/data';
-import { SECTION_IDS } from '@/lib/constants';
+import { SECTION_ID_LIST } from '@/lib/constants';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useScrollProgress } from '@/hooks/useScrollProgress';
 import { scrollToSection } from '@/lib/utils';
@@ -13,7 +13,7 @@ import LogoMark from '@/components/ui/LogoMark';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const scrollProgress = useScrollProgress();
-  const activeSection = useActiveSection(Object.values(SECTION_IDS));
+  const activeSection = useActiveSection(SECTION_ID_LIST);
   const isScrolled = scrollProgress > 2;
 
   const handleNavClick = href => {
