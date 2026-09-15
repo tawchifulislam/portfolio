@@ -8,6 +8,8 @@ export const SECTION_IDS = {
   contact: 'contact',
 };
 
+export const SECTION_ID_LIST = Object.values(SECTION_IDS);
+
 export const EASE = [0.22, 1, 0.36, 1];
 
 export const variants = {
