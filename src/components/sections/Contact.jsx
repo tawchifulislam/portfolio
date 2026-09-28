@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin, Calendar } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
 import { variants } from '@/lib/constants';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
@@ -16,6 +16,8 @@ const socialLinks = [
   { icon: <FaLinkedin size={14} />, href: personalInfo.social.linkedin, label: 'LinkedIn' },
   { icon: <FaXTwitter size={14} />, href: personalInfo.social.twitter, label: 'Twitter' },
 ];
+
+const BOOKING_URL = 'https://cal.com/tawchifulislam/15min';
 
 const statusLabels = {
   idle: 'Send Inquiry',
@@ -106,6 +108,23 @@ export default function Contact() {
                     </p>
                   </div>
                 </div>
+
+                <a
+                  href={BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3"
+                >
+                  <span className="w-9 h-9 flex items-center justify-center border border-line text-brass group-hover:border-brass-dim transition-colors duration-300">
+                    <Calendar size={14} />
+                  </span>
+                  <div>
+                    <p className="font-mono text-[10px] text-faint">BOOK A CALL</p>
+                    <p className="text-sm text-paper/80 group-hover:text-paper transition-colors duration-300">
+                      15 min intro on Google Meet
+                    </p>
+                  </div>
+                </a>
               </div>
 
               <div className="mt-auto flex items-center gap-2">
