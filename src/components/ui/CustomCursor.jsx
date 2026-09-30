@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useSpring } from 'framer-motion';
 
+const HOVERABLE_SELECTOR =
+  'a, button, [role="button"], input, textarea, select, label';
+
 export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -33,28 +36,26 @@ export default function CustomCursor() {
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
-    const addHoverListeners = () => {
-      const hoverables = document.querySelectorAll(
-        'a, button, [role="button"], input, textarea, select, label',
-      );
-      hoverables.forEach(el => {
-        el.addEventListener('mouseenter', () => setIsHovered(true));
-        el.addEventListener('mouseleave', () => setIsHovered(false));
-      });
+    const handleMouseOver = e => {
+      if (e.target.closest(HOVERABLE_SELECTOR)) setIsHovered(true);
+    };
+    const handleMouseOut = e => {
+      if (e.target.closest(HOVERABLE_SELECTOR)) setIsHovered(false);
     };
 
     window.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
-
-    const timer = setTimeout(addHoverListeners, 500);
+    document.addEventListener('mouseover', handleMouseOver);
+    document.addEventListener('mouseout', handleMouseOut);
 
     return () => {
       document.body.classList.remove('cursor-none');
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
-      clearTimeout(timer);
+      document.removeEventListener('mouseover', handleMouseOver);
+      document.removeEventListener('mouseout', handleMouseOut);
     };
   }, [crossX, crossY, ringX, ringY]);
 
@@ -70,6 +71,7 @@ export default function CustomCursor() {
         style={{ x: crossX, y: crossY }}
         animate={{ opacity: isVisible ? 1 : 0 }}
         transition={{ duration: 0.2 }}
+        aria-hidden="true"
         className="fixed top-0 left-0 pointer-events-none z-99999 -translate-x-1/2 -translate-y-1/2"
       >
         <div className="relative w-2.5 h-2.5">
@@ -92,6 +94,7 @@ export default function CustomCursor() {
           scale: { type: 'spring', stiffness: 200, damping: 16 },
           borderColor: { duration: 0.2 },
         }}
+        aria-hidden="true"
         className="fixed top-0 left-0 w-7 h-7 border pointer-events-none z-99998 -translate-x-1/2 -translate-y-1/2"
       />
     </>
