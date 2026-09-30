@@ -76,7 +76,6 @@ export default function Hero() {
               >
                 View Projects
               </button>
-
               <a
                 href={personalInfo.resume}
                 target="_blank"
@@ -115,6 +114,7 @@ export default function Hero() {
                 src={personalInfo.image}
                 alt={personalInfo.name}
                 fill
+                sizes="(min-width: 400px) 384px, 100vw"
                 className="object-cover grayscale-[0.15]"
                 priority
               />
