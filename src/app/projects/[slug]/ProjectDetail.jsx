@@ -85,7 +85,6 @@ export default function ProjectDetail({
                 >
                   <ExternalLink size={13} /> Live Demo
                 </a>
-
                 <a
                   href={meta.githubUrl}
                   target="_blank"
@@ -112,6 +111,7 @@ export default function ProjectDetail({
                   src={meta.image}
                   alt={meta.title}
                   fill
+                  sizes="(min-width: 1024px) 550px, 100vw"
                   className="object-cover object-top"
                   priority
                 />
