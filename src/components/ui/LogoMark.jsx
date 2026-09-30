@@ -4,6 +4,7 @@ export default function LogoMark({ className = 'w-8 h-8' }) {
       viewBox="0 0 100 100"
       className={className}
       fill="none"
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
     >
       <rect x="14" y="15" width="72" height="6" fill="currentColor" />
