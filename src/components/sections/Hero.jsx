@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Mail } from 'lucide-react';
-import { FaGithub, FaLinkedin, FaEye } from 'react-icons/fa';
+import { Mail, ExternalLink } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { personalInfo } from '@/lib/data';
 import { scrollToSection } from '@/lib/utils';
@@ -12,14 +12,20 @@ import CornerMarks from '@/components/ui/CornerMarks';
 import TitleBlock from '@/components/ui/TitleBlock';
 
 const socials = [
-  { icon: <FaGithub size={16} />, href: personalInfo.social.github, label: 'GitHub' },
-  { icon: <FaLinkedin size={16} />, href: personalInfo.social.linkedin, label: 'LinkedIn' },
-  { icon: <FaXTwitter size={16} />, href: personalInfo.social.twitter, label: 'Twitter' },
   {
-    icon: <FaEye size={16} />,
-    href: personalInfo.resume,
-    label: 'Resume',
-    external: true,
+    icon: <FaGithub size={16} />,
+    href: personalInfo.social.github,
+    label: 'GitHub',
+  },
+  {
+    icon: <FaLinkedin size={16} />,
+    href: personalInfo.social.linkedin,
+    label: 'LinkedIn',
+  },
+  {
+    icon: <FaXTwitter size={16} />,
+    href: personalInfo.social.twitter,
+    label: 'Twitter',
   },
 ];
 
@@ -80,21 +86,36 @@ export default function Hero() {
 
             <motion.div
               variants={variants.staggerItem}
-              className="flex items-center gap-5 mt-4"
+              className="flex flex-wrap items-center gap-5 mt-4"
             >
-              {socials.map(social => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target={social.external ? '_blank' : undefined}
-                  rel={social.external ? 'noopener noreferrer' : undefined}
-                  aria-label={social.label}
-                  className="text-muted hover:text-paper transition-colors duration-300"
-                >
-                  {social.icon}
-                </a>
-              ))}
+              <div className="flex items-center gap-5">
+                {socials.map(social => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="text-muted hover:text-paper transition-colors duration-300"
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
+
               <div className="w-px h-4 bg-line" />
+
+              <a
+                href={personalInfo.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs font-medium text-muted hover:text-paper transition-colors duration-300"
+              >
+                Resume <ExternalLink size={12} />
+              </a>
+
+              <div className="w-px h-4 bg-line" />
+
               <span className="font-mono text-[10px] text-faint tracking-wide">
                 {personalInfo.location}
               </span>
