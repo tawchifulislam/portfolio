@@ -2,9 +2,9 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { Mail } from 'lucide-react';
+import { FaGithub, FaLinkedin, FaEye } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { FaEye } from 'react-icons/fa';
 import { personalInfo } from '@/lib/data';
 import { scrollToSection } from '@/lib/utils';
 import { variants } from '@/lib/constants';
@@ -12,20 +12,14 @@ import CornerMarks from '@/components/ui/CornerMarks';
 import TitleBlock from '@/components/ui/TitleBlock';
 
 const socials = [
+  { icon: <FaGithub size={16} />, href: personalInfo.social.github, label: 'GitHub' },
+  { icon: <FaLinkedin size={16} />, href: personalInfo.social.linkedin, label: 'LinkedIn' },
+  { icon: <FaXTwitter size={16} />, href: personalInfo.social.twitter, label: 'Twitter' },
   {
-    icon: <FaGithub size={16} />,
-    href: personalInfo.social.github,
-    label: 'GitHub',
-  },
-  {
-    icon: <FaLinkedin size={16} />,
-    href: personalInfo.social.linkedin,
-    label: 'LinkedIn',
-  },
-  {
-    icon: <FaXTwitter size={16} />,
-    href: personalInfo.social.twitter,
-    label: 'Twitter',
+    icon: <FaEye size={16} />,
+    href: personalInfo.resume,
+    label: 'Resume',
+    external: true,
   },
 ];
 
@@ -76,14 +70,12 @@ export default function Hero() {
               >
                 View Projects
               </button>
-              <a
-                href={personalInfo.resume}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => scrollToSection('contact')}
                 className="flex items-center gap-2 px-7 py-3 border border-line text-muted text-xs font-medium tracking-wide hover:border-faint hover:text-paper transition-colors duration-300"
               >
-                <FaEye size={13} /> Resume
-              </a>
+                <Mail size={13} /> Contact
+              </button>
             </motion.div>
 
             <motion.div
@@ -94,14 +86,18 @@ export default function Hero() {
                 <a
                   key={social.label}
                   href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={social.external ? '_blank' : undefined}
+                  rel={social.external ? 'noopener noreferrer' : undefined}
                   aria-label={social.label}
                   className="text-muted hover:text-paper transition-colors duration-300"
                 >
                   {social.icon}
                 </a>
               ))}
+              <div className="w-px h-4 bg-line" />
+              <span className="font-mono text-[10px] text-faint tracking-wide">
+                {personalInfo.location}
+              </span>
             </motion.div>
           </div>
 
