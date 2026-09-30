@@ -64,6 +64,7 @@ export default function ProjectStack({ projects }) {
                 src={project.image}
                 alt={project.title}
                 fill
+                sizes="(min-width: 672px) 672px, 100vw"
                 className="object-cover object-top grayscale-[0.3] hover:grayscale-0 transition-all duration-700"
                 priority
               />
@@ -108,7 +109,6 @@ export default function ProjectStack({ projects }) {
                     >
                       <ExternalLink size={14} />
                     </a>
-
                     <a
                       href={project.githubUrl}
                       target="_blank"
