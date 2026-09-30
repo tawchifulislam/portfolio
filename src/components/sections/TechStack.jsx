@@ -108,6 +108,7 @@ export default function TechStack() {
                           {Icon && (
                             <Icon
                               size={14}
+                              aria-hidden="true"
                               className="text-faint group-hover:text-brass transition-colors duration-300"
                             />
                           )}
