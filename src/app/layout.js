@@ -6,6 +6,7 @@ import CustomCursor from '@/components/ui/CustomCursor';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 import { personalInfo } from '@/lib/data';
 import { SITE_URL } from '@/lib/constants';
+import { Analytics } from '@vercel/analytics/next';
 
 const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
@@ -148,6 +149,7 @@ export default function RootLayout({ children }) {
         <main className="flex-1">{children}</main>
         <Footer />
         <ScrollToTop />
+        <Analytics />
       </body>
     </html>
   );
