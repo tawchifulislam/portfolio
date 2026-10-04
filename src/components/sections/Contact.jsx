@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Calendar } from 'lucide-react';
+import { Mail, MapPin } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
 import { variants } from '@/lib/constants';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
@@ -12,36 +12,110 @@ import SectionTitle from '@/components/ui/SectionTitle';
 import CornerMarks from '@/components/ui/CornerMarks';
 
 const socialLinks = [
-  { icon: <FaGithub size={14} />, href: personalInfo.social.github, label: 'GitHub' },
-  { icon: <FaLinkedin size={14} />, href: personalInfo.social.linkedin, label: 'LinkedIn' },
-  { icon: <FaXTwitter size={14} />, href: personalInfo.social.twitter, label: 'Twitter' },
+  {
+    icon: <FaGithub size={14} />,
+    href: personalInfo.social.github,
+    label: 'GitHub',
+  },
+  {
+    icon: <FaLinkedin size={14} />,
+    href: personalInfo.social.linkedin,
+    label: 'LinkedIn',
+  },
+  {
+    icon: <FaXTwitter size={14} />,
+    href: personalInfo.social.twitter,
+    label: 'Twitter',
+  },
 ];
 
-const BOOKING_URL = 'https://cal.com/tawchifulislam/15min';
+const MESSAGE_MAX_LENGTH = 1000;
 
 const statusLabels = {
   idle: 'Send Inquiry',
   sending: 'Sending...',
   sent: 'Message Sent',
   error: 'Error, Try Again',
+  offline: 'No Connection',
+  invalid: 'Check Details Below',
 };
 
+function validate({ name, email, message }) {
+  const errors = {};
+  const trimmedName = name.trim();
+  const trimmedEmail = email.trim();
+  const trimmedMessage = message.trim();
+
+  if (trimmedName.length < 2) {
+    errors.name = 'Enter your full name.';
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+    errors.email = 'Enter a valid email address.';
+  }
+  if (trimmedMessage.length < 10) {
+    errors.message = 'Message is too short.';
+  }
+
+  return errors;
+}
+
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle');
+  const [isOnline, setIsOnline] = useState(true);
+
+  useEffect(() => {
+    const updateOnlineStatus = () => setIsOnline(navigator.onLine);
+    updateOnlineStatus();
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    return () => {
+      window.removeEventListener('online', updateOnlineStatus);
+      window.removeEventListener('offline', updateOnlineStatus);
+    };
+  }, []);
 
   const handleChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === 'message' && value.length > MESSAGE_MAX_LENGTH) return;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
   };
 
   const handleSubmit = e => {
     e.preventDefault();
+
+    const validationErrors = validate(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      setStatus('invalid');
+      setTimeout(() => setStatus('idle'), 3000);
+      return;
+    }
+
+    if (!navigator.onLine) {
+      setStatus('offline');
+      setTimeout(() => setStatus('idle'), 4000);
+      return;
+    }
+
     setStatus('sending');
     emailjs
       .send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-        formData,
+        {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+        },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
       )
       .then(
@@ -52,7 +126,7 @@ export default function Contact() {
         },
         error => {
           console.error('EmailJS Error:', error);
-          setStatus('error');
+          setStatus(navigator.onLine ? 'error' : 'offline');
           setTimeout(() => setStatus('idle'), 5000);
         },
       );
@@ -108,23 +182,6 @@ export default function Contact() {
                     </p>
                   </div>
                 </div>
-
-                <a
-                  href={BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-3"
-                >
-                  <span className="w-9 h-9 flex items-center justify-center border border-line text-brass group-hover:border-brass-dim transition-colors duration-300">
-                    <Calendar size={14} />
-                  </span>
-                  <div>
-                    <p className="font-mono text-[10px] text-faint">BOOK A CALL</p>
-                    <p className="text-sm text-paper/80 group-hover:text-paper transition-colors duration-300">
-                      15 min intro on Google Meet
-                    </p>
-                  </div>
-                </a>
               </div>
 
               <div className="mt-auto flex items-center gap-2">
@@ -150,7 +207,17 @@ export default function Contact() {
               viewport={{ once: true }}
               className="lg:col-span-8 p-8 sm:p-10"
             >
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              {!isOnline && (
+                <p className="mb-5 text-xs text-red-400 border border-red-400/30 bg-red-400/5 px-4 py-2.5">
+                  You are currently offline. Reconnect to send a message.
+                </p>
+              )}
+
+              <form
+                onSubmit={handleSubmit}
+                noValidate
+                className="flex flex-col gap-6"
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="flex flex-col gap-2">
                     <label className="font-mono text-[10px] text-faint">
@@ -163,8 +230,15 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="Your full name"
                       required
-                      className="bg-transparent border-b border-line focus:border-brass py-2 text-sm text-paper outline-none transition-colors placeholder:text-faint"
+                      className={`bg-transparent border-b py-2 text-sm text-paper outline-none transition-colors placeholder:text-faint ${
+                        errors.name
+                          ? 'border-red-400 focus:border-red-400'
+                          : 'border-line focus:border-brass'
+                      }`}
                     />
+                    {errors.name && (
+                      <p className="text-[11px] text-red-400">{errors.name}</p>
+                    )}
                   </div>
                   <div className="flex flex-col gap-2">
                     <label className="font-mono text-[10px] text-faint">
@@ -177,15 +251,27 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="hello@example.com"
                       required
-                      className="bg-transparent border-b border-line focus:border-brass py-2 text-sm text-paper outline-none transition-colors placeholder:text-faint"
+                      className={`bg-transparent border-b py-2 text-sm text-paper outline-none transition-colors placeholder:text-faint ${
+                        errors.email
+                          ? 'border-red-400 focus:border-red-400'
+                          : 'border-line focus:border-brass'
+                      }`}
                     />
+                    {errors.email && (
+                      <p className="text-[11px] text-red-400">{errors.email}</p>
+                    )}
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="font-mono text-[10px] text-faint">
-                    MESSAGE
-                  </label>
+                  <div className="flex items-baseline justify-between">
+                    <label className="font-mono text-[10px] text-faint">
+                      MESSAGE
+                    </label>
+                    <span className="font-mono text-[10px] text-faint">
+                      {formData.message.length}/{MESSAGE_MAX_LENGTH}
+                    </span>
+                  </div>
                   <textarea
                     name="message"
                     value={formData.message}
@@ -193,13 +279,21 @@ export default function Contact() {
                     placeholder="Tell me about your vision..."
                     required
                     rows={5}
-                    className="bg-transparent border-b border-line focus:border-brass py-2 text-sm text-paper outline-none transition-colors placeholder:text-faint resize-none"
+                    maxLength={MESSAGE_MAX_LENGTH}
+                    className={`bg-transparent border-b py-2 text-sm text-paper outline-none transition-colors placeholder:text-faint resize-none ${
+                      errors.message
+                        ? 'border-red-400 focus:border-red-400'
+                        : 'border-line focus:border-brass'
+                    }`}
                   />
+                  {errors.message && (
+                    <p className="text-[11px] text-red-400">{errors.message}</p>
+                  )}
                 </div>
 
                 <button
                   type="submit"
-                  disabled={status === 'sending'}
+                  disabled={status === 'sending' || !isOnline}
                   className="self-start px-7 py-3 bg-brass text-ink text-xs font-medium tracking-wide hover:bg-paper transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {statusLabels[status]}
