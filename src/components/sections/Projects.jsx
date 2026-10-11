@@ -1,6 +1,6 @@
 import { FaGithub } from 'react-icons/fa';
 import { ArrowUpRight } from 'lucide-react';
-import ProjectStack from '@/components/ui/ProjectCard';
+import ProjectDeck from '@/components/ui/ProjectDeck';
 import SectionTitle from '@/components/ui/SectionTitle';
 
 export default function Projects({ projects }) {
@@ -14,7 +14,7 @@ export default function Projects({ projects }) {
 
         <div className="flex justify-center">
           <div className="w-full max-w-2xl">
-            <ProjectStack projects={projects} />
+            <ProjectDeck projects={projects} />
           </div>
         </div>
 
