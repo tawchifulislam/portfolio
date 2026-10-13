@@ -1,4 +1,8 @@
-import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
+import {
+  Bricolage_Grotesque,
+  IBM_Plex_Sans,
+  IBM_Plex_Mono,
+} from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -6,10 +10,9 @@ import CustomCursor from '@/components/ui/CustomCursor';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 import { personalInfo } from '@/lib/data';
 import { SITE_URL } from '@/lib/constants';
-import { Analytics } from '@vercel/analytics/next';
 
-const spaceGrotesk = Space_Grotesk({
-  variable: '--font-space-grotesk',
+const bricolage = Bricolage_Grotesque({
+  variable: '--font-bricolage',
   subsets: ['latin'],
   display: 'swap',
 });
@@ -17,7 +20,7 @@ const spaceGrotesk = Space_Grotesk({
 const plexSans = IBM_Plex_Sans({
   variable: '--font-plex-sans',
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500'],
   display: 'swap',
 });
 
@@ -29,7 +32,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const viewport = {
-  themeColor: '#0b1420',
+  themeColor: '#0b1220',
 };
 
 export const metadata = {
@@ -84,7 +87,7 @@ export const metadata = {
     description:
       'Full-stack developer from Chittagong, Bangladesh. Building clean, responsive, and user-friendly web experiences with React, Next.js, Node.js, and more.',
     creator: '@tawchifulislam',
-    images: ['/images/tawchif.webp'],
+    images: ['/images/tawchif.png'],
   },
   icons: {
     icon: [
@@ -133,7 +136,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${bricolage.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body
         className="min-h-full flex flex-col bg-ink text-paper"
@@ -149,7 +152,6 @@ export default function RootLayout({ children }) {
         <main className="flex-1">{children}</main>
         <Footer />
         <ScrollToTop />
-        <Analytics />
       </body>
     </html>
   );
