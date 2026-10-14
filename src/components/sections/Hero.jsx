@@ -21,13 +21,18 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="px-5 pb-14 pt-28 sm:px-8 lg:px-14 lg:pb-20 lg:pt-32"
+      className="relative overflow-hidden px-5 pb-14 pt-28 sm:px-8 lg:px-14 lg:pb-20 lg:pt-32"
     >
+      <div
+        aria-hidden="true"
+        className="dot-grid pointer-events-none absolute inset-0"
+      />
+
       <motion.div
         variants={variants.staggerContainer}
         initial={reduceMotion ? false : 'hidden'}
         animate="visible"
-        className="mx-auto grid max-w-340 grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14"
+        className="relative mx-auto grid max-w-340 grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14"
       >
         <div>
           <motion.span
@@ -45,7 +50,9 @@ export default function Hero() {
             variants={variants.staggerItem}
             className="mb-5 mt-6 font-display text-display leading-[1.04] tracking-[-0.02em]"
           >
-            {personalInfo.headline}
+            Hi, I&apos;m Tawchiful. I build{' '}
+            <span className="sketch-underline text-brass">whole products</span>,
+            front to back.
           </motion.h1>
 
           <motion.p
@@ -89,39 +96,38 @@ export default function Hero() {
 
         <motion.div
           variants={variants.staggerItem}
-          className="relative flex justify-center p-5"
+          className="flex justify-center p-5"
         >
-          <div
-            aria-hidden="true"
-            className="absolute right-4 top-0 aspect-square w-4/5 max-w-75 rounded-full bg-brass opacity-[0.16] sm:right-7.5"
-          />
+          <div className="relative w-full max-w-85">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-24 -top-20 h-80 w-80 bg-[radial-gradient(closest-side,rgba(227,161,58,0.26),transparent)]"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 -translate-y-4 translate-x-4 rounded-t-[200px] rounded-b-[28px] border border-brass/45"
+            />
 
-          <div className="relative aspect-34/43 w-full max-w-85 overflow-hidden rounded-t-[200px] rounded-b-[28px] border border-line-2 bg-panel-2">
-            {photoFailed ? (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-display text-[6rem] font-bold text-brass">
-                  TI
-                </span>
-              </div>
-            ) : (
-              <Image
-                src={personalInfo.image}
-                alt={personalInfo.name}
-                fill
-                sizes="(min-width: 400px) 340px, 90vw"
-                priority
-                onError={() => setPhotoFailed(true)}
-                className="object-cover object-top"
-              />
-            )}
+            <div className="relative aspect-34/43 overflow-hidden rounded-t-[200px] rounded-b-[28px] border border-line-2 bg-panel-2">
+              {photoFailed ? (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-display text-[6rem] font-bold text-brass">
+                    TI
+                  </span>
+                </div>
+              ) : (
+                <Image
+                  src={personalInfo.image}
+                  alt={personalInfo.name}
+                  fill
+                  sizes="(min-width: 400px) 340px, 90vw"
+                  priority
+                  onError={() => setPhotoFailed(true)}
+                  className="object-cover object-top"
+                />
+              )}
+            </div>
           </div>
-
-          <aside className="card absolute bottom-0 left-0 max-w-62.5 px-5 py-4 shadow-[0_12px_32px_rgba(0,0,0,0.4)]">
-            <p className="eyebrow mb-1">Recently completed</p>
-            <p className="text-sm leading-snug text-paper/80">
-              {personalInfo.justFinished}
-            </p>
-          </aside>
         </motion.div>
       </motion.div>
     </section>

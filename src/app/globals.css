@@ -159,6 +159,35 @@
     color: var(--color-brass-hover);
   }
 
+  .dot-grid {
+    background-image: radial-gradient(
+      rgba(241, 235, 221, 0.13) 1px,
+      transparent 1.4px
+    );
+    background-size: 26px 26px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 75% 85% at 50% 35%,
+      #000 25%,
+      transparent 78%
+    );
+    mask-image: radial-gradient(
+      ellipse 75% 85% at 50% 35%,
+      #000 25%,
+      transparent 78%
+    );
+  }
+
+  .sketch-underline {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 7C30 2 60 11 100 6S170 3 198 8' fill='none' stroke='%23e3a13a' stroke-width='3' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 100% 0.32em;
+    padding-bottom: 0.1em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    animation: sketch-draw 0.9s 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
   .measure {
     max-width: 62ch;
   }
@@ -235,5 +264,14 @@
     border: 1px solid var(--color-brass-dim);
     border-radius: var(--radius-tag);
     padding: 0.3rem 0.6rem;
+  }
+}
+
+@keyframes sketch-draw {
+  from {
+    background-size: 0% 0.32em;
+  }
+  to {
+    background-size: 100% 0.32em;
   }
 }
