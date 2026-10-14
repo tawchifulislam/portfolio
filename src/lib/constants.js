@@ -2,10 +2,10 @@ export const SITE_URL = 'https://tawchif.vercel.app';
 
 export const SECTION_IDS = {
   home: 'home',
+  work: 'work',
   about: 'about',
   experience: 'experience',
   techstack: 'techstack',
-  projects: 'projects',
   contact: 'contact',
 };
 
