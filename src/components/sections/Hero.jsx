@@ -1,148 +1,129 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
 import Image from 'next/image';
-import { Mail, ExternalLink } from 'lucide-react';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
+import { motion, useReducedMotion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
-import { scrollToSection } from '@/lib/utils';
 import { variants } from '@/lib/constants';
-import CornerMarks from '@/components/ui/CornerMarks';
-import TitleBlock from '@/components/ui/TitleBlock';
 
-const socials = [
-  {
-    icon: <FaGithub size={16} />,
-    href: personalInfo.social.github,
-    label: 'GitHub',
-  },
-  {
-    icon: <FaLinkedin size={16} />,
-    href: personalInfo.social.linkedin,
-    label: 'LinkedIn',
-  },
-  {
-    icon: <FaXTwitter size={16} />,
-    href: personalInfo.social.twitter,
-    label: 'Twitter',
-  },
+const links = [
+  { label: 'GitHub', href: personalInfo.social.github },
+  { label: 'LinkedIn', href: personalInfo.social.linkedin },
+  { label: 'X', href: personalInfo.social.twitter },
+  { label: 'Résumé', href: personalInfo.resume, arrow: true },
 ];
 
 export default function Hero() {
+  const reduceMotion = useReducedMotion();
+  const [photoFailed, setPhotoFailed] = useState(false);
+
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center px-4 sm:px-8 lg:px-12 py-28"
+      className="px-5 pb-14 pt-28 sm:px-8 lg:px-14 lg:pb-20 lg:pt-32"
     >
-      <div className="sheet blueprint-grid w-full max-w-7xl mx-auto">
-        <CornerMarks />
+      <motion.div
+        variants={variants.staggerContainer}
+        initial={reduceMotion ? false : 'hidden'}
+        animate="visible"
+        className="mx-auto grid max-w-340 grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14"
+      >
+        <div>
+          <motion.span
+            variants={variants.staggerItem}
+            className="chip inline-flex items-center gap-2 border-brass/35 text-brass"
+          >
+            <span
+              aria-hidden="true"
+              className="h-1.5 w-1.5 animate-pulse rounded-full bg-brass"
+            />
+            Open for work · {personalInfo.location}
+          </motion.span>
 
-        <motion.div
-          variants={variants.staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 p-8 sm:p-12 lg:p-16"
-        >
-          <div className="lg:col-span-7 flex flex-col justify-center gap-6">
-            <motion.p
-              variants={variants.staggerItem}
-              className="font-mono text-xs tracking-wide text-brass"
-            >
-              {personalInfo.title} / {personalInfo.location}
-            </motion.p>
+          <motion.h1
+            variants={variants.staggerItem}
+            className="mb-5 mt-6 font-display text-display leading-[1.04] tracking-[-0.02em]"
+          >
+            {personalInfo.headline}
+          </motion.h1>
 
-            <motion.h1
-              variants={variants.staggerItem}
-              className="font-display text-display font-semibold text-paper leading-[0.95] tracking-tight"
-            >
-              {personalInfo.name}
-            </motion.h1>
-
-            <motion.p
-              variants={variants.staggerItem}
-              className="measure-lg text-sm sm:text-base text-muted leading-relaxed"
-            >
-              {personalInfo.bio}
-            </motion.p>
-
-            <motion.div
-              variants={variants.staggerItem}
-              className="flex flex-wrap items-center gap-4 mt-2"
-            >
-              <button
-                onClick={() => scrollToSection('projects')}
-                className="px-7 py-3 bg-brass text-ink text-xs font-medium tracking-wide hover:bg-paper transition-colors duration-300"
-              >
-                View Projects
-              </button>
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="flex items-center gap-2 px-7 py-3 border border-line text-muted text-xs font-medium tracking-wide hover:border-faint hover:text-paper transition-colors duration-300"
-              >
-                <Mail size={13} /> Contact
-              </button>
-            </motion.div>
-
-            <motion.div
-              variants={variants.staggerItem}
-              className="flex flex-wrap items-center gap-5 mt-4"
-            >
-              <div className="flex items-center gap-5">
-                {socials.map(social => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    className="text-muted hover:text-paper transition-colors duration-300"
-                  >
-                    {social.icon}
-                  </a>
-                ))}
-              </div>
-
-              <div className="w-px h-4 bg-line" />
-
-              <a
-                href={personalInfo.resume}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs font-medium text-muted hover:text-paper transition-colors duration-300"
-              >
-                Resume <ExternalLink size={12} />
-              </a>
-
-              <div className="w-px h-4 bg-line" />
-
-              <span className="font-mono text-[10px] text-faint tracking-wide">
-                {personalInfo.location}
-              </span>
-            </motion.div>
-          </div>
+          <motion.p
+            variants={variants.staggerItem}
+            className="mb-8 max-w-135 text-[1.0625rem] text-muted sm:text-lg"
+          >
+            {personalInfo.bio}
+          </motion.p>
 
           <motion.div
             variants={variants.staggerItem}
-            className="lg:col-span-5 flex items-center justify-center"
+            className="mb-7 flex flex-wrap gap-3.5"
           >
-            <div className="relative w-full max-w-sm aspect-3/4 border border-line">
+            <a href="#work" className="btn btn-primary">
+              See what I&apos;ve built
+            </a>
+            <a href="#contact" className="btn btn-outline">
+              Say hello
+            </a>
+          </motion.div>
+
+          <motion.ul
+            variants={variants.staggerItem}
+            className="flex flex-wrap gap-x-6 gap-y-2 text-sm"
+          >
+            {links.map(item => (
+              <li key={item.label}>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link inline-flex items-center gap-1"
+                >
+                  {item.label}
+                  {item.arrow && <ArrowUpRight size={14} aria-hidden="true" />}
+                </a>
+              </li>
+            ))}
+          </motion.ul>
+        </div>
+
+        <motion.div
+          variants={variants.staggerItem}
+          className="relative flex justify-center p-5"
+        >
+          <div
+            aria-hidden="true"
+            className="absolute right-4 top-0 aspect-square w-4/5 max-w-75 rounded-full bg-brass opacity-[0.16] sm:right-7.5"
+          />
+
+          <div className="relative aspect-34/43 w-full max-w-85 overflow-hidden rounded-t-[200px] rounded-b-[28px] border border-line-2 bg-panel-2">
+            {photoFailed ? (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-display text-[6rem] font-bold text-brass">
+                  TI
+                </span>
+              </div>
+            ) : (
               <Image
                 src={personalInfo.image}
                 alt={personalInfo.name}
                 fill
-                sizes="(min-width: 400px) 384px, 100vw"
-                className="object-cover grayscale-[0.15]"
+                sizes="(min-width: 400px) 340px, 90vw"
                 priority
+                onError={() => setPhotoFailed(true)}
+                className="object-cover object-top"
               />
-              <span className="absolute top-3 left-3 w-3 h-3 bg-brass" />
-              <span className="absolute bottom-3 right-3 w-3 h-3 bg-brass" />
-            </div>
-          </motion.div>
-        </motion.div>
+            )}
+          </div>
 
-        <TitleBlock status="Available for work" />
-      </div>
+          <aside className="card absolute bottom-0 left-0 max-w-62.5 px-5 py-4 shadow-[0_12px_32px_rgba(0,0,0,0.4)]">
+            <p className="eyebrow mb-1">Recently completed</p>
+            <p className="text-sm leading-snug text-paper/80">
+              {personalInfo.justFinished}
+            </p>
+          </aside>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

@@ -1,12 +1,12 @@
 import { getAllProjectsMeta } from '@/lib/projects';
-import Projects from '@/components/sections/Projects';
+import Work from '@/components/sections/Work';
 
 export const metadata = {
-  title: 'Projects - Tawchiful Islam',
-  description: 'A selection of full-stack projects, presented as case studies.',
+  title: 'Work - Tawchiful Islam',
+  description:
+    'Full-stack projects and internship capstones, presented as case studies.',
 };
 
 export default function ProjectsPage() {
-  const projects = getAllProjectsMeta();
-  return <Projects projects={projects} />;
+  return <Work projects={getAllProjectsMeta()} />;
 }
