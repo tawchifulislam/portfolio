@@ -3,12 +3,9 @@ export const personalInfo = {
   shortName: 'Tawchif',
   title: 'Full-Stack Developer',
   subtitle: 'Turning ideas into clean, interactive web experiences.',
-  headline: "Hi, I'm Tawchiful. I build whole products, front to back.",
   location: 'Chittagong, Bangladesh',
   email: 'tawchif04@gmail.com',
   bio: "I'm a full-stack developer from Chittagong. React and Next.js on the front, Node, Express and MongoDB behind it. I care about clean architecture, readable code and interfaces that feel good to use.",
-  justFinished:
-    'Back-End AI Engineering internship with FlyRank, Jul to Oct 2026.',
   image: '/images/tawchif.webp',
   resume:
     'https://drive.google.com/file/d/137fe6Z1fmbpzrGc7KesccAiNwvhW3vmy/view?usp=drive_link',
@@ -57,16 +54,12 @@ export const experience = [
     id: 'flyrank-ai',
     role: 'Back-End AI Engineering Intern',
     organization: 'FlyRank AI Internship Program',
+    mode: 'Remote',
     period: 'Jul 2026 to Oct 2026',
-    format: 'Remote internship program',
-    track: 'Backend AI Engineering',
-    summary:
-      'Completed a structured internship program in the Backend AI Engineering track, working through practical assignments and building backend capstone projects.',
     highlights: [
-      'Completed 35 practical assignments covering API contracts, task design and prompting, retrieval and grounding, and evaluation and operations.',
-      'Had three capstones approved in the Backend AI Engineering track, each with a design document, a build log, and recorded evidence of its checks.',
-      'Documented at least 221 hours across assignments, capstone work, program meetings, and coursework.',
-      'Attended 7 program meetings and completed 20 verified Anthropic Academy courses.',
+      'I worked through **35 practical assignments** covering API contracts, task design and prompting, retrieval and grounding, and evaluation and operations.',
+      'Three capstones were approved, each with a design document, a build log and recorded evidence of its checks.',
+      'At least 221 hours documented, 7 program meetings attended and 20 verified Anthropic Academy courses completed.',
     ],
     links: [
       {
@@ -74,11 +67,11 @@ export const experience = [
         href: 'https://drive.google.com/file/d/1yXckSQy8lvMz2fKzgADQY2szZY7yUtkH/view?usp=drive_link',
       },
       {
-        label: 'Recommendation Letter',
+        label: 'Recommendation letter',
         href: 'https://drive.google.com/file/d/1U6lrYpVOpUSUPykhD7-iCly5ze6hUnXw/view?usp=drive_link',
       },
       {
-        label: 'Verify Online',
+        label: 'Verify online',
         href: 'https://internship.flyrank.ai/verify?id=FR-D11-0A5C0-2D943',
       },
     ],
@@ -90,7 +83,6 @@ export const techStack = [
   { name: 'CSS3', category: 'core' },
   { name: 'JavaScript', category: 'core' },
   { name: 'TypeScript', category: 'core' },
-  { name: 'Prisma', category: 'core' },
   { name: 'React', category: 'frontend' },
   { name: 'Next.js', category: 'frontend' },
   { name: 'Tailwind CSS', category: 'frontend' },
@@ -100,6 +92,8 @@ export const techStack = [
   { name: 'Node.js', category: 'backend' },
   { name: 'Express.js', category: 'backend' },
   { name: 'MongoDB', category: 'backend' },
+  { name: 'PostgreSQL', category: 'backend' },
+  { name: 'Prisma', category: 'backend' },
   { name: 'JWT', category: 'backend' },
   { name: 'Git', category: 'tools' },
   { name: 'GitHub', category: 'tools' },

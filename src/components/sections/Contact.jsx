@@ -1,87 +1,96 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, MapPin } from 'lucide-react';
-import { personalInfo } from '@/lib/data';
-import { variants } from '@/lib/constants';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
+import { useState, useSyncExternalStore } from 'react';
 import emailjs from '@emailjs/browser';
-import SectionTitle from '@/components/ui/SectionTitle';
-import CornerMarks from '@/components/ui/CornerMarks';
-
-const socialLinks = [
-  {
-    icon: <FaGithub size={14} />,
-    href: personalInfo.social.github,
-    label: 'GitHub',
-  },
-  {
-    icon: <FaLinkedin size={14} />,
-    href: personalInfo.social.linkedin,
-    label: 'LinkedIn',
-  },
-  {
-    icon: <FaXTwitter size={14} />,
-    href: personalInfo.social.twitter,
-    label: 'Twitter',
-  },
-];
+import { personalInfo } from '@/lib/data';
 
 const MESSAGE_MAX_LENGTH = 1000;
 
+const socialLinks = [
+  { label: 'GitHub', href: personalInfo.social.github },
+  { label: 'LinkedIn', href: personalInfo.social.linkedin },
+  { label: 'X', href: personalInfo.social.twitter },
+];
+
 const statusLabels = {
-  idle: 'Send Inquiry',
+  idle: 'Send message',
   sending: 'Sending...',
-  sent: 'Message Sent',
-  error: 'Error, Try Again',
-  offline: 'No Connection',
-  invalid: 'Check Details Below',
+  sent: 'Message sent',
+  error: 'Something went wrong, try again',
+  offline: 'No connection',
+  invalid: 'Check the details above',
+};
+
+const liveMessages = {
+  sent: 'Your message was sent.',
+  error: 'Your message could not be sent. Please try again.',
+  offline: 'You are offline. Reconnect to send your message.',
 };
 
 function validate({ name, email, message }) {
   const errors = {};
-  const trimmedName = name.trim();
-  const trimmedEmail = email.trim();
-  const trimmedMessage = message.trim();
 
-  if (trimmedName.length < 2) {
+  if (name.trim().length < 2) {
     errors.name = 'Enter your full name.';
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
     errors.email = 'Enter a valid email address.';
   }
-  if (trimmedMessage.length < 10) {
+  if (message.trim().length < 10) {
     errors.message = 'Message is too short.';
   }
 
   return errors;
 }
 
+function subscribeToConnection(callback) {
+  window.addEventListener('online', callback);
+  window.addEventListener('offline', callback);
+  return () => {
+    window.removeEventListener('online', callback);
+    window.removeEventListener('offline', callback);
+  };
+}
+
+const getOnline = () => navigator.onLine;
+const getServerOnline = () => true;
+
+const fieldClass = hasError =>
+  `rounded-field border bg-ink px-3.5 py-3.5 text-[0.9375rem] text-paper transition-colors placeholder:text-faint focus-visible:border-brass ${
+    hasError ? 'border-red-400' : 'border-line-2'
+  }`;
+
+function Field({ id, label, error, aside, children }) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <div className="flex items-baseline justify-between gap-3">
+        <label htmlFor={id} className="text-[0.8125rem] text-subtle">
+          {label}
+        </label>
+        {aside}
+      </div>
+      {children}
+      {error && (
+        <p id={`${id}-error`} role="alert" className="text-xs text-red-300">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle');
-  const [isOnline, setIsOnline] = useState(true);
+  const isOnline = useSyncExternalStore(
+    subscribeToConnection,
+    getOnline,
+    getServerOnline,
+  );
 
-  useEffect(() => {
-    const updateOnlineStatus = () => setIsOnline(navigator.onLine);
-    updateOnlineStatus();
-    window.addEventListener('online', updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
-    return () => {
-      window.removeEventListener('online', updateOnlineStatus);
-      window.removeEventListener('offline', updateOnlineStatus);
-    };
-  }, []);
-
-  const handleChange = e => {
-    const { name, value } = e.target;
+  const handleChange = event => {
+    const { name, value } = event.target;
     if (name === 'message' && value.length > MESSAGE_MAX_LENGTH) return;
     setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name]) {
@@ -89,8 +98,8 @@ export default function Contact() {
     }
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleSubmit = event => {
+    event.preventDefault();
 
     const validationErrors = validate(formData);
     if (Object.keys(validationErrors).length > 0) {
@@ -133,173 +142,142 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative px-4 sm:px-6 py-24">
-      <div className="max-w-7xl mx-auto">
-        <SectionTitle
-          title="Get In Touch"
-          subtitle="Let's build something exceptional together. I'm currently open for new opportunities."
-        />
+    <section
+      id="contact"
+      aria-labelledby="contact-heading"
+      className="px-5 pb-16 pt-24 sm:px-8 lg:px-14 lg:pb-20"
+    >
+      <div className="mx-auto max-w-340">
+        <div className="relative overflow-hidden rounded-card border border-line bg-raised p-6 sm:p-10 lg:p-12">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 bg-[radial-gradient(closest-side,rgba(227,161,58,0.22),transparent)]"
+          />
+          <div
+            aria-hidden="true"
+            className="dot-grid pointer-events-none absolute inset-0 opacity-50"
+          />
 
-        <div className="sheet">
-          <CornerMarks />
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 lg:divide-x lg:divide-line">
-            <motion.div
-              variants={variants.slideLeft}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="lg:col-span-4 p-8 sm:p-10 flex flex-col gap-8"
-            >
-              <p className="font-mono text-[11px] tracking-wide text-faint">
-                CONTACT
+          <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-14">
+            <div>
+              <p className="eyebrow">Get in touch</p>
+              <h2
+                id="contact-heading"
+                className="mb-4 mt-2.5 font-display text-h1 leading-[1.1]"
+              >
+                Let&apos;s build something good together.
+              </h2>
+              <p className="mb-6 max-w-136 text-soft">
+                I&apos;m open to new opportunities. Tell me what you&apos;re
+                working on and I&apos;ll reply personally.
               </p>
 
-              <div className="flex flex-col gap-5">
-                <a
-                  href={`mailto:${personalInfo.email}`}
-                  className="group flex items-center gap-3"
-                >
-                  <span className="w-9 h-9 flex items-center justify-center border border-line text-brass group-hover:border-brass-dim transition-colors duration-300">
-                    <Mail size={14} />
-                  </span>
-                  <div>
-                    <p className="font-mono text-[10px] text-faint">EMAIL</p>
-                    <p className="text-sm text-paper/80 group-hover:text-paper transition-colors duration-300">
-                      {personalInfo.email}
-                    </p>
-                  </div>
-                </a>
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="wrap-break-word text-xl font-medium text-paper underline decoration-brass/60 decoration-2 underline-offset-[6px] transition-colors hover:decoration-brass sm:text-2xl"
+              >
+                {personalInfo.email}
+              </a>
+              <p className="mb-6 mt-1.5 text-subtle">{personalInfo.location}</p>
 
-                <div className="flex items-center gap-3">
-                  <span className="w-9 h-9 flex items-center justify-center border border-line text-muted">
-                    <MapPin size={14} />
-                  </span>
-                  <div>
-                    <p className="font-mono text-[10px] text-faint">LOCATION</p>
-                    <p className="text-sm text-paper/80">
-                      {personalInfo.location}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-auto flex items-center gap-2">
+              <ul className="flex gap-5 text-sm">
                 {socialLinks.map(social => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    className="w-9 h-9 flex items-center justify-center border border-line text-muted hover:text-brass hover:border-brass-dim transition-colors duration-300"
-                  >
-                    {social.icon}
-                  </a>
+                  <li key={social.label}>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link"
+                    >
+                      {social.label}
+                    </a>
+                  </li>
                 ))}
-              </div>
-            </motion.div>
+              </ul>
+            </div>
 
-            <motion.div
-              variants={variants.slideRight}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="lg:col-span-8 p-8 sm:p-10"
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              className="flex flex-col gap-4.5"
             >
               {!isOnline && (
-                <p className="mb-5 text-xs text-red-400 border border-red-400/30 bg-red-400/5 px-4 py-2.5">
+                <p className="rounded-field border border-red-400/30 bg-red-400/5 px-4 py-2.5 text-sm text-red-300">
                   You are currently offline. Reconnect to send a message.
                 </p>
               )}
 
-              <form
-                onSubmit={handleSubmit}
-                noValidate
-                className="flex flex-col gap-6"
+              <Field id="contact-name" label="Your name" error={errors.name}>
+                <input
+                  id="contact-name"
+                  type="text"
+                  name="name"
+                  autoComplete="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Your full name"
+                  required
+                  aria-invalid={Boolean(errors.name)}
+                  aria-describedby={errors.name ? 'contact-name-error' : undefined}
+                  className={fieldClass(errors.name)}
+                />
+              </Field>
+
+              <Field id="contact-email" label="Email" error={errors.email}>
+                <input
+                  id="contact-email"
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="hello@example.com"
+                  required
+                  aria-invalid={Boolean(errors.email)}
+                  aria-describedby={errors.email ? 'contact-email-error' : undefined}
+                  className={fieldClass(errors.email)}
+                />
+              </Field>
+
+              <Field
+                id="contact-message"
+                label="What's on your mind?"
+                error={errors.message}
+                aside={
+                  <span className="font-mono text-xs text-subtle">
+                    {formData.message.length}/{MESSAGE_MAX_LENGTH}
+                  </span>
+                }
               >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="flex flex-col gap-2">
-                    <label className="font-mono text-[10px] text-faint">
-                      NAME
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Your full name"
-                      required
-                      className={`bg-transparent border-b py-2 text-sm text-paper outline-none transition-colors placeholder:text-faint ${
-                        errors.name
-                          ? 'border-red-400 focus:border-red-400'
-                          : 'border-line focus:border-brass'
-                      }`}
-                    />
-                    {errors.name && (
-                      <p className="text-[11px] text-red-400">{errors.name}</p>
-                    )}
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label className="font-mono text-[10px] text-faint">
-                      EMAIL
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="hello@example.com"
-                      required
-                      className={`bg-transparent border-b py-2 text-sm text-paper outline-none transition-colors placeholder:text-faint ${
-                        errors.email
-                          ? 'border-red-400 focus:border-red-400'
-                          : 'border-line focus:border-brass'
-                      }`}
-                    />
-                    {errors.email && (
-                      <p className="text-[11px] text-red-400">{errors.email}</p>
-                    )}
-                  </div>
-                </div>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  rows={5}
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tell me about your project..."
+                  required
+                  maxLength={MESSAGE_MAX_LENGTH}
+                  aria-invalid={Boolean(errors.message)}
+                  aria-describedby={
+                    errors.message ? 'contact-message-error' : undefined
+                  }
+                  className={`${fieldClass(errors.message)} resize-none`}
+                />
+              </Field>
 
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-baseline justify-between">
-                    <label className="font-mono text-[10px] text-faint">
-                      MESSAGE
-                    </label>
-                    <span className="font-mono text-[10px] text-faint">
-                      {formData.message.length}/{MESSAGE_MAX_LENGTH}
-                    </span>
-                  </div>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Tell me about your vision..."
-                    required
-                    rows={5}
-                    maxLength={MESSAGE_MAX_LENGTH}
-                    className={`bg-transparent border-b py-2 text-sm text-paper outline-none transition-colors placeholder:text-faint resize-none ${
-                      errors.message
-                        ? 'border-red-400 focus:border-red-400'
-                        : 'border-line focus:border-brass'
-                    }`}
-                  />
-                  {errors.message && (
-                    <p className="text-[11px] text-red-400">{errors.message}</p>
-                  )}
-                </div>
+              <button
+                type="submit"
+                disabled={status === 'sending' || !isOnline}
+                className="btn btn-primary self-start disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {statusLabels[status]}
+              </button>
 
-                <button
-                  type="submit"
-                  disabled={status === 'sending' || !isOnline}
-                  className="self-start px-7 py-3 bg-brass text-ink text-xs font-medium tracking-wide hover:bg-paper transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {statusLabels[status]}
-                </button>
-              </form>
-            </motion.div>
+              <p role="status" aria-live="polite" className="sr-only">
+                {liveMessages[status] ?? ''}
+              </p>
+            </form>
           </div>
         </div>
       </div>
