@@ -21,8 +21,8 @@ export default async function OpengraphImage({ params }) {
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: '64px',
-        background: '#0b1420',
-        color: '#ede8dc',
+        background: '#0b1220',
+        color: '#f1ebdd',
       }}
     >
       <div
@@ -30,7 +30,7 @@ export default async function OpengraphImage({ params }) {
           display: 'flex',
           justifyContent: 'space-between',
           fontSize: 20,
-          color: '#8a93a0',
+          color: '#8e9cb6',
         }}
       >
         <span>TAWCHIFUL ISLAM</span>
@@ -38,17 +38,24 @@ export default async function OpengraphImage({ params }) {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <span style={{ fontSize: 64, fontWeight: 600 }}>
+        <span style={{ fontSize: 72, fontWeight: 700 }}>
           {project?.title ?? 'Project'}
         </span>
-        <span style={{ fontSize: 24, color: '#8a93a0', maxWidth: 900 }}>
+        <span style={{ fontSize: 26, color: '#b7c2d8', maxWidth: 900 }}>
           {project?.summary ?? ''}
         </span>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <div style={{ width: 12, height: 12, background: '#d99a3d' }} />
-        <span style={{ fontSize: 18, color: '#8a93a0' }}>
+        <div
+          style={{
+            width: 14,
+            height: 14,
+            borderRadius: 999,
+            background: '#e3a13a',
+          }}
+        />
+        <span style={{ fontSize: 20, color: '#8e9cb6' }}>
           tawchif.vercel.app
         </span>
       </div>

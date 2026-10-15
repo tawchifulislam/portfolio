@@ -1,13 +1,9 @@
-'use client';
-
-import { useRef } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, ExternalLink, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
-import CornerMarks from '@/components/ui/CornerMarks';
-import TitleBlock from '@/components/ui/TitleBlock';
+
+const pad = value => String(value).padStart(2, '0');
 
 export default function ProjectDetail({
   meta,
@@ -16,133 +12,99 @@ export default function ProjectDetail({
   total,
   nextProject,
 }) {
-  const imageRef = useRef(null);
-  const rotateX = useSpring(useMotionValue(0), { stiffness: 150, damping: 20 });
-  const rotateY = useSpring(useMotionValue(0), { stiffness: 150, damping: 20 });
-
-  function handleMouseMove(e) {
-    const bounds = imageRef.current.getBoundingClientRect();
-    const px = (e.clientX - bounds.left) / bounds.width - 0.5;
-    const py = (e.clientY - bounds.top) / bounds.height - 0.5;
-    rotateY.set(px * 6);
-    rotateX.set(py * -6);
-  }
-
-  function handleMouseLeave() {
-    rotateX.set(0);
-    rotateY.set(0);
-  }
+  const repos = [
+    {
+      label: meta.serverUrl ? 'Client repo' : 'Source on GitHub',
+      href: meta.githubUrl,
+    },
+    meta.serverUrl && { label: 'Server repo', href: meta.serverUrl },
+  ].filter(Boolean);
 
   return (
-    <main className="px-4 sm:px-6 pt-28 pb-20">
-      <div className="max-w-5xl mx-auto">
+    <main className="px-5 pb-20 pt-28 sm:px-8 lg:px-14">
+      <div className="mx-auto max-w-275">
         <Link
-          href="/#projects"
-          className="inline-flex items-center gap-2 text-xs font-medium tracking-wide text-muted hover:text-paper transition-colors duration-300 mb-10 group"
+          href="/#work"
+          className="link inline-flex items-center gap-1.5 text-sm"
         >
-          <ArrowLeft
-            size={13}
-            className="group-hover:-translate-x-1 transition-transform duration-300"
-          />
-          Back to Projects
+          <ArrowLeft size={15} aria-hidden="true" /> All work
         </Link>
 
-        <div className="sheet">
-          <CornerMarks />
+        <header className="mt-8">
+          <p className="eyebrow">
+            Case study · {pad(index)} / {pad(total)}
+          </p>
+          <h1 className="mb-5 mt-3 font-display text-display leading-[1.04] tracking-[-0.02em]">
+            {meta.title}
+          </h1>
+          <p className="max-w-160 text-lg text-muted">{meta.summary}</p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:divide-x lg:divide-line">
-            <div className="lg:col-span-5 p-8 sm:p-10 flex flex-col justify-center gap-5">
-              <div className="flex flex-wrap gap-3 font-mono text-[11px] text-faint">
-                <span>
-                  {String(index).padStart(2, '0')} /{' '}
-                  {String(total).padStart(2, '0')}
-                </span>
-                {meta.featured && <span className="text-brass">Featured</span>}
-              </div>
+          <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technologies">
+            {meta.tags?.map(tag => (
+              <li key={tag} className="chip">
+                {tag}
+              </li>
+            ))}
+          </ul>
 
-              <h1 className="font-display text-h1 font-semibold text-paper leading-[1.05]">
-                {meta.title}
-              </h1>
-
-              <p className="text-sm text-muted leading-relaxed">
-                {meta.summary}
-              </p>
-
-              <div className="flex flex-wrap gap-2 font-mono text-[10px] text-faint">
-                {meta.tags?.map(tag => (
-                  <span key={tag} className="border border-line px-2 py-1">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex items-center gap-3 mt-2">
-                <a
-                  href={meta.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-5 py-2.5 bg-brass text-ink text-xs font-medium tracking-wide hover:bg-paper transition-colors duration-300"
-                >
-                  <ExternalLink size={13} /> Live Demo
-                </a>
-                <a
-                  href={meta.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-5 py-2.5 border border-line text-muted hover:text-paper hover:border-faint text-xs font-medium tracking-wide transition-colors duration-300"
-                >
-                  <FaGithub size={13} /> Source
-                </a>
-              </div>
-            </div>
-
-            <div
-              className="lg:col-span-7 p-8 sm:p-10"
-              style={{ perspective: 1200 }}
+          <div className="mt-8 flex flex-wrap gap-3.5">
+            <a
+              href={meta.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
             >
-              <motion.div
-                ref={imageRef}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-                className="relative w-full aspect-video border border-line"
+              Live site <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+            {repos.map(repo => (
+              <a
+                key={repo.label}
+                href={repo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline"
               >
-                <Image
-                  src={meta.image}
-                  alt={meta.title}
-                  fill
-                  sizes="(min-width: 1024px) 550px, 100vw"
-                  className="object-cover object-top"
-                  priority
-                />
-              </motion.div>
+                <FaGithub size={16} aria-hidden="true" /> {repo.label}
+              </a>
+            ))}
+          </div>
+        </header>
+
+        <div className="card mt-12 bg-inset p-3 sm:p-5">
+          <div className="rounded-xl border border-line-2 bg-panel p-3 sm:p-4">
+            <div className="mb-3 flex gap-1.5" aria-hidden="true">
+              {[0, 1, 2].map(dot => (
+                <span key={dot} className="h-2 w-2 rounded-full bg-line-3" />
+              ))}
+            </div>
+            <div className="relative aspect-16/10 overflow-hidden rounded-lg bg-panel-2">
+              <Image
+                src={meta.image}
+                alt={`${meta.title} screenshot`}
+                fill
+                sizes="(min-width: 1100px) 1000px, 92vw"
+                priority
+                className="object-cover object-top"
+              />
             </div>
           </div>
-
-          <div className="p-8 sm:p-10 border-t border-line">{content}</div>
-
-          <TitleBlock
-            index={String(index).padStart(2, '0')}
-            total={String(total).padStart(2, '0')}
-          />
         </div>
+
+        <div className="mx-auto mt-16 max-w-176">{content}</div>
 
         {nextProject && (
           <Link
             href={`/projects/${nextProject.slug}`}
-            className="group flex items-center justify-between mt-6 p-6 sheet hover:border-faint transition-colors duration-300"
+            className="card group mx-auto mt-16 flex max-w-176 items-center justify-between gap-4 p-6 transition-colors hover:border-brass/60"
           >
             <div>
-              <p className="font-mono text-[10px] text-faint mb-1">
-                NEXT PROJECT
-              </p>
-              <p className="font-display text-lg font-semibold text-muted group-hover:text-paper transition-colors duration-300">
-                {nextProject.title}
-              </p>
+              <p className="eyebrow">Next case study</p>
+              <p className="mt-1 font-display text-xl">{nextProject.title}</p>
             </div>
             <ArrowRight
-              size={16}
-              className="text-faint group-hover:text-brass group-hover:translate-x-1.5 transition-all duration-300"
+              size={20}
+              aria-hidden="true"
+              className="text-soft transition-transform duration-200 group-hover:translate-x-1 group-hover:text-brass"
             />
           </Link>
         )}

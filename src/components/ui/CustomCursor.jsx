@@ -1,102 +1,119 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { motion, useSpring } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
-const HOVERABLE_SELECTOR =
-  'a, button, [role="button"], input, textarea, select, label';
+const TEXT_FIELDS = 'input, textarea, select, [contenteditable="true"]';
+const INTERACTIVE = 'a, button, summary, [role="button"], label[for]';
+const FOLLOW_SPEED = 0.2;
 
 export default function CustomCursor() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const mouseX = useRef(0);
-  const mouseY = useRef(0);
-
-  const crossX = useSpring(0, { stiffness: 600, damping: 30 });
-  const crossY = useSpring(0, { stiffness: 600, damping: 30 });
-  const ringX = useSpring(0, { stiffness: 250, damping: 26, mass: 0.5 });
-  const ringY = useSpring(0, { stiffness: 250, damping: 26, mass: 0.5 });
+  const ringRef = useRef(null);
+  const labelRef = useRef(null);
 
   useEffect(() => {
-    if (window.matchMedia('(pointer: coarse)').matches) return;
+    const ring = ringRef.current;
+    const label = labelRef.current;
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!ring || !label || !canHover.matches || reducedMotion.matches) return;
 
-    document.body.classList.add('cursor-none');
+    let targetX = 0;
+    let targetY = 0;
+    let x = 0;
+    let y = 0;
+    let frame = 0;
+    let started = false;
 
-    const handleMouseMove = e => {
-      mouseX.current = e.clientX;
-      mouseY.current = e.clientY;
-      crossX.set(e.clientX);
-      crossY.set(e.clientY);
-      ringX.set(e.clientX);
-      ringY.set(e.clientY);
-      setIsVisible(true);
+    const draw = () => {
+      ring.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
     };
 
-    const handleMouseLeave = () => setIsVisible(false);
-    const handleMouseEnter = () => setIsVisible(true);
-
-    const handleMouseOver = e => {
-      if (e.target.closest(HOVERABLE_SELECTOR)) setIsHovered(true);
+    const tick = () => {
+      x += (targetX - x) * FOLLOW_SPEED;
+      y += (targetY - y) * FOLLOW_SPEED;
+      draw();
+      const settled =
+        Math.abs(targetX - x) < 0.1 && Math.abs(targetY - y) < 0.1;
+      frame = settled ? 0 : requestAnimationFrame(tick);
     };
-    const handleMouseOut = e => {
-      if (e.target.closest(HOVERABLE_SELECTOR)) setIsHovered(false);
+
+    const onMove = event => {
+      targetX = event.clientX;
+      targetY = event.clientY;
+      if (!started) {
+        started = true;
+        x = targetX;
+        y = targetY;
+        draw();
+        ring.dataset.visible = 'true';
+      }
+      if (!frame) frame = requestAnimationFrame(tick);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mouseenter', handleMouseEnter);
-    document.addEventListener('mouseover', handleMouseOver);
-    document.addEventListener('mouseout', handleMouseOut);
+    const onOver = event => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      if (target.closest(TEXT_FIELDS)) {
+        ring.dataset.state = 'text';
+        return;
+      }
+      if (target.closest(INTERACTIVE)) {
+        ring.dataset.state = 'link';
+        return;
+      }
+      const dragZone = target.closest('[data-cursor="drag"]');
+      if (dragZone) {
+        label.textContent = dragZone.dataset.cursorLabel ?? 'Drag';
+        ring.dataset.state = 'drag';
+        return;
+      }
+      ring.dataset.state = 'idle';
+    };
+
+    const onDown = () => {
+      ring.dataset.pressed = 'true';
+    };
+    const onUp = () => {
+      delete ring.dataset.pressed;
+    };
+    const onLeave = () => {
+      ring.dataset.visible = 'false';
+    };
+    const onEnter = () => {
+      if (started) ring.dataset.visible = 'true';
+    };
+
+    const root = document.documentElement;
+    window.addEventListener('mousemove', onMove, { passive: true });
+    document.addEventListener('mouseover', onOver, { passive: true });
+    window.addEventListener('pointerdown', onDown);
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+    root.addEventListener('mouseleave', onLeave);
+    root.addEventListener('mouseenter', onEnter);
 
     return () => {
-      document.body.classList.remove('cursor-none');
-      window.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('mouseenter', handleMouseEnter);
-      document.removeEventListener('mouseover', handleMouseOver);
-      document.removeEventListener('mouseout', handleMouseOut);
+      cancelAnimationFrame(frame);
+      window.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseover', onOver);
+      window.removeEventListener('pointerdown', onDown);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+      root.removeEventListener('mouseleave', onLeave);
+      root.removeEventListener('mouseenter', onEnter);
     };
-  }, [crossX, crossY, ringX, ringY]);
-
-  if (
-    typeof window !== 'undefined' &&
-    window.matchMedia('(pointer: coarse)').matches
-  )
-    return null;
+  }, []);
 
   return (
-    <>
-      <motion.div
-        style={{ x: crossX, y: crossY }}
-        animate={{ opacity: isVisible ? 1 : 0 }}
-        transition={{ duration: 0.2 }}
-        aria-hidden="true"
-        className="fixed top-0 left-0 pointer-events-none z-99999 -translate-x-1/2 -translate-y-1/2"
-      >
-        <div className="relative w-2.5 h-2.5">
-          <span className="absolute top-1/2 left-0 w-full h-px bg-brass -translate-y-1/2" />
-          <span className="absolute left-1/2 top-0 h-full w-px bg-brass -translate-x-1/2" />
-        </div>
-      </motion.div>
-
-      <motion.div
-        style={{ x: ringX, y: ringY }}
-        animate={{
-          opacity: isVisible ? 1 : 0,
-          scale: isHovered ? 1.6 : 1,
-          borderColor: isHovered
-            ? 'var(--color-brass)'
-            : 'rgba(237, 232, 220, 0.25)',
-        }}
-        transition={{
-          opacity: { duration: 0.2 },
-          scale: { type: 'spring', stiffness: 200, damping: 16 },
-          borderColor: { duration: 0.2 },
-        }}
-        aria-hidden="true"
-        className="fixed top-0 left-0 w-7 h-7 border pointer-events-none z-99998 -translate-x-1/2 -translate-y-1/2"
-      />
-    </>
+    <div
+      ref={ringRef}
+      aria-hidden="true"
+      data-state="idle"
+      data-visible="false"
+      className="cursor-ring"
+    >
+      <span ref={labelRef} className="cursor-ring__label" />
+    </div>
   );
 }

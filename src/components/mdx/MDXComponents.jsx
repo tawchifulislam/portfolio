@@ -1,37 +1,48 @@
 export const mdxComponents = {
   h2: ({ children }) => (
-    <h2 className="mt-12 mb-4 font-display text-h3 font-semibold text-paper border-b border-line pb-3 first:mt-0">
+    <h2 className="mb-4 mt-14 border-t border-line pt-8 font-display text-h2 leading-tight first:mt-0 first:border-t-0 first:pt-0">
       {children}
     </h2>
   ),
-  p: ({ children }) => (
-    <p className="measure-lg text-sm sm:text-base leading-relaxed text-muted mb-4">
-      {children}
-    </p>
+  h3: ({ children }) => (
+    <h3 className="mb-3 mt-8 font-display text-xl">{children}</h3>
   ),
+  p: ({ children }) => <p className="mb-4 text-soft">{children}</p>,
   ul: ({ children }) => (
-    <ul className="flex flex-col gap-3 mb-8">{children}</ul>
-  ),
-  li: ({ children }) => (
-    <li className="relative pl-6 text-sm leading-relaxed text-muted">
-      <span className="absolute left-0 top-2 w-2 h-2 border border-brass" />
+    <ul className="mb-6 flex flex-col gap-3 [&>li]:relative [&>li]:pl-6 [&>li]:text-soft [&>li]:before:absolute [&>li]:before:left-0 [&>li]:before:top-[0.7em] [&>li]:before:h-1.5 [&>li]:before:w-1.5 [&>li]:before:rounded-full [&>li]:before:bg-brass [&>li]:before:content-['']">
       {children}
-    </li>
+    </ul>
   ),
+  ol: ({ children }) => (
+    <ol className="mb-6 flex list-decimal flex-col gap-3 pl-6 text-soft marker:text-brass">
+      {children}
+    </ol>
+  ),
+  blockquote: ({ children }) => (
+    <blockquote className="mb-6 border-l-2 border-brass pl-5 text-soft">
+      {children}
+    </blockquote>
+  ),
+  hr: () => <hr className="my-10 border-line" />,
   strong: ({ children }) => (
-    <strong className="text-paper font-medium">{children}</strong>
+    <strong className="font-medium text-paper">{children}</strong>
   ),
   code: ({ children }) => (
-    <code className="px-1.5 py-0.5 rounded-sm bg-panel-2 font-mono text-xs text-brass">
+    <code className="rounded-md border border-line-2 bg-panel-2 px-1.5 py-0.5 font-mono text-[0.85em] text-brass-hover">
       {children}
     </code>
+  ),
+  pre: ({ children }) => (
+    <pre className="mb-6 overflow-x-auto rounded-field border border-line bg-inset p-4 font-mono text-sm [&_code]:border-0 [&_code]:bg-transparent [&_code]:p-0">
+      {children}
+    </pre>
   ),
   a: ({ href, children }) => (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-paper underline decoration-line underline-offset-4 hover:decoration-brass transition-colors"
+      className="link underline decoration-brass/40 underline-offset-4 hover:decoration-brass"
     >
       {children}
     </a>

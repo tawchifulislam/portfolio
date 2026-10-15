@@ -13,7 +13,6 @@
   --color-faint: #7c8ba8;
   --color-brass: #e3a13a;
   --color-brass-hover: #f3c26b;
-  --color-brass-dim: #8a672f;
   --color-line: #25314a;
   --color-line-2: #2a3855;
   --color-line-3: #3a4a6a;
@@ -25,15 +24,10 @@
   --text-display: clamp(2.5rem, 1.55rem + 4vw, 4.25rem);
   --text-h1: clamp(1.875rem, 1.35rem + 2.2vw, 2.75rem);
   --text-h2: clamp(1.625rem, 1.3rem + 1.4vw, 2.25rem);
-  --text-h3: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
-  --text-body-lg: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
 
   --radius-card: 1.25rem;
   --radius-field: 0.75rem;
-  --radius-sheet: 1.25rem;
   --radius-tag: 3px;
-
-  --grid-unit: 48px;
 }
 
 @layer base {
@@ -188,82 +182,60 @@
     animation: sketch-draw 0.9s 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .measure {
-    max-width: 62ch;
-  }
-  .measure-lg {
-    max-width: 72ch;
-  }
-
-  /* Legacy blueprint styles, removed in the final cleanup step */
-  .blueprint-grid {
-    background-image:
-      linear-gradient(rgba(241, 235, 221, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(241, 235, 221, 0.04) 1px, transparent 1px);
-    background-size: var(--grid-unit) var(--grid-unit);
-    background-position: -1px -1px;
-  }
-
-  .sheet {
-    position: relative;
-    background-color: var(--color-panel);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-sheet);
-  }
-
-  .reg-mark {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    pointer-events: none;
-  }
-  .reg-mark::before,
-  .reg-mark::after {
-    content: '';
-    position: absolute;
-    background: var(--color-faint);
-  }
-  .reg-mark::before {
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    transform: translateY(-50%);
-  }
-  .reg-mark::after {
-    left: 50%;
+  .cursor-ring {
+    position: fixed;
     top: 0;
-    height: 100%;
-    width: 1px;
-    transform: translateX(-50%);
-  }
-
-  .title-block {
+    left: 0;
+    z-index: 9999;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem 1.25rem;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1.5px solid rgb(227 161 58 / 0.7);
+    border-radius: 999px;
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform;
+    transition:
+      width 0.25s,
+      height 0.25s,
+      background-color 0.25s,
+      border-color 0.25s,
+      opacity 0.2s,
+      scale 0.15s;
+  }
+  .cursor-ring[data-visible='true'] {
+    opacity: 1;
+  }
+  .cursor-ring[data-state='link'] {
+    width: 3.25rem;
+    height: 3.25rem;
+    background-color: rgb(227 161 58 / 0.12);
+  }
+  .cursor-ring[data-state='drag'] {
+    width: 4.5rem;
+    height: 4.5rem;
+    background-color: rgb(227 161 58 / 0.92);
+    border-color: transparent;
+  }
+  .cursor-ring[data-state='text'] {
+    opacity: 0;
+  }
+  .cursor-ring[data-pressed='true'] {
+    scale: 0.85;
+  }
+  .cursor-ring__label {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
-    letter-spacing: 0.04em;
-    color: var(--color-subtle);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    opacity: 0;
+    transition: opacity 0.2s;
   }
-  .title-block strong {
-    color: var(--color-paper);
-    font-weight: 500;
-  }
-
-  .stamp {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.04em;
-    color: var(--color-brass);
-    border: 1px solid var(--color-brass-dim);
-    border-radius: var(--radius-tag);
-    padding: 0.3rem 0.6rem;
+  .cursor-ring[data-state='drag'] .cursor-ring__label {
+    opacity: 1;
   }
 }
 

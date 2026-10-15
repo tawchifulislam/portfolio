@@ -11,15 +11,16 @@ export default function ScrollToTop() {
     <AnimatePresence>
       {isVisible && (
         <motion.button
+          type="button"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
           transition={{ duration: 0.2 }}
           onClick={scrollToTop}
           aria-label="Scroll to top"
-          className="fixed bottom-6 right-6 z-40 w-10 h-10 flex items-center justify-center bg-panel border border-line text-muted hover:text-brass hover:border-brass-dim transition-colors duration-300"
+          className="fixed bottom-6 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-line-3 bg-panel/90 text-soft backdrop-blur-sm transition-colors duration-200 hover:border-brass hover:text-brass-hover sm:right-8"
         >
-          <ArrowUp size={16} />
+          <ArrowUp size={18} />
         </motion.button>
       )}
     </AnimatePresence>
