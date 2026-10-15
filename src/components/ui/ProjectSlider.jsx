@@ -6,10 +6,13 @@ import { useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { FaGithub } from 'react-icons/fa';
 
 const pad = value => String(value).padStart(2, '0');
 
 function ProjectSlide({ project, priority }) {
+  const hasServer = Boolean(project.serverUrl);
+
   return (
     <article className="card grid h-full grid-cols-1 overflow-hidden lg:grid-cols-2">
       <div className="flex items-center bg-inset p-6 sm:p-8">
@@ -32,7 +35,7 @@ function ProjectSlide({ project, priority }) {
         </div>
       </div>
 
-      <div className="flex flex-col p-6 sm:p-10">
+      <div className="flex flex-col p-6 sm:p-9">
         <p className="eyebrow">
           {project.featured ? 'Featured case study' : 'Case study'}
         </p>
@@ -49,29 +52,50 @@ function ProjectSlide({ project, priority }) {
           ))}
         </ul>
 
-        <div className="mt-auto flex flex-wrap gap-x-5 gap-y-2 text-[0.9375rem]">
-          <Link
-            href={`/projects/${project.slug}`}
-            className="link inline-flex items-center gap-1"
-          >
-            Read the case study <ArrowRight size={15} aria-hidden="true" />
-          </Link>
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link inline-flex items-center gap-1"
-          >
-            Live site <ArrowUpRight size={15} aria-hidden="true" />
-          </a>
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link inline-flex items-center gap-1"
-          >
-            GitHub <ArrowUpRight size={15} aria-hidden="true" />
-          </a>
+        <div className="mt-auto flex flex-col gap-4">
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href={`/projects/${project.slug}`}
+              className="btn btn-primary px-5 py-2.5 text-sm"
+            >
+              Read the case study <ArrowRight size={15} aria-hidden="true" />
+            </Link>
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline px-5 py-2.5 text-sm"
+            >
+              Live site <ArrowUpRight size={15} aria-hidden="true" />
+            </a>
+          </div>
+
+          <p className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-subtle">
+            <FaGithub size={14} aria-hidden="true" />
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${project.title} ${hasServer ? 'client repository' : 'source code'}`}
+              className="link"
+            >
+              {hasServer ? 'Client' : 'Source'}
+            </a>
+            {hasServer && (
+              <>
+                <span aria-hidden="true">·</span>
+                <a
+                  href={project.serverUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} server repository`}
+                  className="link"
+                >
+                  Server
+                </a>
+              </>
+            )}
+          </p>
         </div>
       </div>
     </article>

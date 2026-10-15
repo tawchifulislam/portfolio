@@ -1,20 +1,22 @@
 export const mdxComponents = {
   h2: ({ children }) => (
-    <h2 className="mb-4 mt-14 border-t border-line pt-8 font-display text-h2 leading-tight first:mt-0 first:border-t-0 first:pt-0">
+    <h2 className="mb-4 mt-14 font-display text-h2 leading-tight [counter-increment:section] first:mt-0 before:mb-2 before:block before:font-mono before:text-xs before:tracking-[0.08em] before:text-brass before:content-[counter(section,decimal-leading-zero)]">
       {children}
     </h2>
   ),
   h3: ({ children }) => (
     <h3 className="mb-3 mt-8 font-display text-xl">{children}</h3>
   ),
-  p: ({ children }) => <p className="mb-4 text-soft">{children}</p>,
+  p: ({ children }) => (
+    <p className="mb-4 text-[1.0625rem] leading-[1.75] text-soft">{children}</p>
+  ),
   ul: ({ children }) => (
-    <ul className="mb-6 flex flex-col gap-3 [&>li]:relative [&>li]:pl-6 [&>li]:text-soft [&>li]:before:absolute [&>li]:before:left-0 [&>li]:before:top-[0.7em] [&>li]:before:h-1.5 [&>li]:before:w-1.5 [&>li]:before:rounded-full [&>li]:before:bg-brass [&>li]:before:content-['']">
+    <ul className="mb-6 flex flex-col gap-3 [&>li]:relative [&>li]:pl-6 [&>li]:text-[1.0625rem] [&>li]:leading-[1.7] [&>li]:text-soft [&>li]:before:absolute [&>li]:before:left-0 [&>li]:before:top-[0.7em] [&>li]:before:h-1.5 [&>li]:before:w-1.5 [&>li]:before:rounded-full [&>li]:before:bg-brass [&>li]:before:content-['']">
       {children}
     </ul>
   ),
   ol: ({ children }) => (
-    <ol className="mb-6 flex list-decimal flex-col gap-3 pl-6 text-soft marker:text-brass">
+    <ol className="mb-6 flex list-decimal flex-col gap-3 pl-6 text-[1.0625rem] leading-[1.7] text-soft marker:text-brass">
       {children}
     </ol>
   ),

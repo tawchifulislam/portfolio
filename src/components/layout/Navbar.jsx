@@ -18,8 +18,12 @@ export default function Navbar() {
   const [menuPath, setMenuPath] = useState(null);
   const isOpen = menuPath === pathname;
   const scrollProgress = useScrollProgress();
-  const activeSection = useActiveSection(SECTION_ID_LIST);
+  const scrolledSection = useActiveSection(SECTION_ID_LIST);
   const isScrolled = scrollProgress > 2;
+
+  let activeSection = '';
+  if (isHome) activeSection = scrolledSection;
+  else if (pathname.startsWith('/projects')) activeSection = 'work';
 
   useEffect(() => {
     if (!isOpen) return;
