@@ -1,11 +1,6 @@
-'use client';
-
-import { useState } from 'react';
-import Image from 'next/image';
-import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
-import { variants } from '@/lib/constants';
+import HeroPhoto from '@/components/ui/HeroPhoto';
 
 const links = [
   { label: 'GitHub', href: personalInfo.social.github },
@@ -15,9 +10,6 @@ const links = [
 ];
 
 export default function Hero() {
-  const reduceMotion = useReducedMotion();
-  const [photoFailed, setPhotoFailed] = useState(false);
-
   return (
     <section
       id="home"
@@ -28,43 +20,37 @@ export default function Hero() {
         className="dot-grid pointer-events-none absolute inset-0"
       />
 
-      <motion.div
-        variants={variants.staggerContainer}
-        initial={reduceMotion ? false : 'hidden'}
-        animate="visible"
-        className="relative mx-auto grid max-w-340 grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14"
-      >
+      <div className="relative mx-auto grid max-w-340 grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14">
         <div>
-          <motion.span
-            variants={variants.staggerItem}
-            className="chip inline-flex items-center gap-2 border-brass/35 text-brass"
-          >
+          <span className="chip rise-in inline-flex items-center gap-2 border-brass/35 text-brass">
             <span
               aria-hidden="true"
               className="h-1.5 w-1.5 animate-pulse rounded-full bg-brass"
             />
             Open for work · {personalInfo.location}
-          </motion.span>
+          </span>
 
-          <motion.h1
-            variants={variants.staggerItem}
-            className="mb-5 mt-6 font-display text-display leading-[1.04] tracking-[-0.02em]"
-          >
+          <h1 className="slide-in mb-5 mt-6 font-display text-display leading-[1.04] tracking-[-0.02em]">
             Hi, I&apos;m Tawchiful. I build{' '}
-            <span className="sketch-underline text-brass">whole products</span>,
-            front to back.
-          </motion.h1>
+            <span className="text-brass">
+              <span className="sketch-word">whole</span>{' '}
+              <span className="sketch-word" style={{ '--delay': '0.95s' }}>
+                products
+              </span>
+            </span>
+            , front to back.
+          </h1>
 
-          <motion.p
-            variants={variants.staggerItem}
-            className="mb-8 max-w-135 text-[1.0625rem] text-muted sm:text-lg"
+          <p
+            className="slide-in mb-8 max-w-135 text-[1.0625rem] text-muted sm:text-lg"
+            style={{ '--delay': '0.08s' }}
           >
             {personalInfo.bio}
-          </motion.p>
+          </p>
 
-          <motion.div
-            variants={variants.staggerItem}
-            className="mb-7 flex flex-wrap gap-3.5"
+          <div
+            className="rise-in mb-7 flex flex-wrap gap-3.5"
+            style={{ '--delay': '0.2s' }}
           >
             <a href="#work" className="btn btn-primary">
               See what I&apos;ve built
@@ -72,11 +58,11 @@ export default function Hero() {
             <a href="#contact" className="btn btn-outline">
               Say hello
             </a>
-          </motion.div>
+          </div>
 
-          <motion.ul
-            variants={variants.staggerItem}
-            className="flex flex-wrap gap-x-6 gap-y-2 text-sm"
+          <ul
+            className="rise-in flex flex-wrap gap-x-6 gap-y-1 text-sm"
+            style={{ '--delay': '0.3s' }}
           >
             {links.map(item => (
               <li key={item.label}>
@@ -84,19 +70,19 @@ export default function Hero() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link inline-flex items-center gap-1"
+                  className="link inline-flex items-center gap-1 py-1.5"
                 >
                   {item.label}
                   {item.arrow && <ArrowUpRight size={14} aria-hidden="true" />}
                 </a>
               </li>
             ))}
-          </motion.ul>
+          </ul>
         </div>
 
-        <motion.div
-          variants={variants.staggerItem}
-          className="flex justify-center p-5"
+        <div
+          className="slide-in flex justify-center p-5"
+          style={{ '--delay': '0.15s' }}
         >
           <div className="relative w-full max-w-85">
             <div
@@ -107,29 +93,10 @@ export default function Hero() {
               aria-hidden="true"
               className="absolute inset-0 -translate-y-4 translate-x-4 rounded-t-[200px] rounded-b-[28px] border border-brass/45"
             />
-
-            <div className="relative aspect-34/43 overflow-hidden rounded-t-[200px] rounded-b-[28px] border border-line-2 bg-panel-2">
-              {photoFailed ? (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-display text-[6rem] font-bold text-brass">
-                    TI
-                  </span>
-                </div>
-              ) : (
-                <Image
-                  src={personalInfo.image}
-                  alt={personalInfo.name}
-                  fill
-                  sizes="(min-width: 400px) 340px, 90vw"
-                  priority
-                  onError={() => setPhotoFailed(true)}
-                  className="object-cover object-top"
-                />
-              )}
-            </div>
+            <HeroPhoto src={personalInfo.image} alt={personalInfo.name} />
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

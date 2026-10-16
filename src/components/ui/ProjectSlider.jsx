@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
@@ -10,7 +9,17 @@ import { FaGithub } from 'react-icons/fa';
 
 const pad = value => String(value).padStart(2, '0');
 
-function ProjectSlide({ project, priority }) {
+const MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+
+function subscribeToMotion(callback) {
+  const query = window.matchMedia(MOTION_QUERY);
+  query.addEventListener('change', callback);
+  return () => query.removeEventListener('change', callback);
+}
+const getReducedMotion = () => window.matchMedia(MOTION_QUERY).matches;
+const getServerReducedMotion = () => false;
+
+function ProjectSlide({ project }) {
   const hasServer = Boolean(project.serverUrl);
 
   return (
@@ -28,7 +37,6 @@ function ProjectSlide({ project, priority }) {
               alt={`${project.title} screenshot`}
               fill
               sizes="(min-width: 1024px) 560px, 90vw"
-              priority={priority}
               className="object-cover object-top"
             />
           </div>
@@ -52,13 +60,15 @@ function ProjectSlide({ project, priority }) {
           ))}
         </ul>
 
-        <div className="mt-auto flex flex-col gap-4">
+        <div className="mt-auto flex flex-col gap-3">
           <div className="flex flex-wrap gap-3">
             <Link
               href={`/projects/${project.slug}`}
               className="btn btn-primary px-5 py-2.5 text-sm"
             >
-              Read the case study <ArrowRight size={15} aria-hidden="true" />
+              Read the case study
+              <span className="sr-only"> about {project.title}</span>
+              <ArrowRight size={15} aria-hidden="true" />
             </Link>
             <a
               href={project.liveUrl}
@@ -66,18 +76,20 @@ function ProjectSlide({ project, priority }) {
               rel="noopener noreferrer"
               className="btn btn-outline px-5 py-2.5 text-sm"
             >
-              Live site <ArrowUpRight size={15} aria-hidden="true" />
+              Live site
+              <span className="sr-only"> for {project.title}</span>
+              <ArrowUpRight size={15} aria-hidden="true" />
             </a>
           </div>
 
-          <p className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-subtle">
+          <p className="flex flex-wrap items-center gap-x-2.5 text-sm text-subtle">
             <FaGithub size={14} aria-hidden="true" />
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${project.title} ${hasServer ? 'client repository' : 'source code'}`}
-              className="link"
+              className="link py-1.5"
             >
               {hasServer ? 'Client' : 'Source'}
             </a>
@@ -89,7 +101,7 @@ function ProjectSlide({ project, priority }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${project.title} server repository`}
-                  className="link"
+                  className="link py-1.5"
                 >
                   Server
                 </a>
@@ -103,7 +115,11 @@ function ProjectSlide({ project, priority }) {
 }
 
 export default function ProjectSlider({ projects }) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useSyncExternalStore(
+    subscribeToMotion,
+    getReducedMotion,
+    getServerReducedMotion,
+  );
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: 'start',
@@ -158,7 +174,7 @@ export default function ProjectSlider({ projects }) {
               inert={index !== selected}
               className="min-w-0 shrink-0 grow-0 basis-full pl-5"
             >
-              <ProjectSlide project={project} priority={index === 0} />
+              <ProjectSlide project={project} />
             </div>
           ))}
         </div>
@@ -177,7 +193,7 @@ export default function ProjectSlider({ projects }) {
               onClick={() => emblaApi?.scrollTo(index)}
               aria-label={`Show ${project.title}`}
               aria-current={index === selected ? 'true' : undefined}
-              className="group flex h-8 items-center px-1"
+              className="group flex h-8 items-center px-2"
             >
               <span
                 className={`block h-2 rounded-full transition-all duration-300 ${

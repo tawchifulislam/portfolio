@@ -1,14 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { navLinks, navCta } from '@/lib/data';
 import { SECTION_ID_LIST } from '@/lib/constants';
 import { useActiveSection } from '@/hooks/useActiveSection';
-import { useScrollProgress } from '@/hooks/useScrollProgress';
 import { scrollToSection } from '@/lib/utils';
 import LogoMark from '@/components/ui/LogoMark';
 
@@ -16,14 +14,43 @@ export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === '/';
   const [menuPath, setMenuPath] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const progressRef = useRef(null);
   const isOpen = menuPath === pathname;
-  const scrollProgress = useScrollProgress();
   const scrolledSection = useActiveSection(SECTION_ID_LIST);
-  const isScrolled = scrollProgress > 2;
 
   let activeSection = '';
   if (isHome) activeSection = scrolledSection;
   else if (pathname.startsWith('/projects')) activeSection = 'work';
+
+  useEffect(() => {
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const scrollable =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const progress =
+        scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0;
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${progress})`;
+      }
+      setIsScrolled(window.scrollY > 24);
+    };
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    schedule();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -78,22 +105,13 @@ export default function Navbar() {
                     href={hrefFor(link.href)}
                     onClick={event => handleNavClick(event, link.href)}
                     aria-current={isActive ? 'location' : undefined}
-                    className={`relative inline-block py-2 text-sm transition-colors duration-200 ${
-                      isActive ? 'text-paper' : 'text-soft hover:text-paper'
+                    className={`relative inline-block py-2 text-sm transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:bg-brass after:transition-transform after:duration-300 ${
+                      isActive
+                        ? 'text-paper after:scale-x-100'
+                        : 'text-soft after:scale-x-0 hover:text-paper'
                     }`}
                   >
                     {link.name}
-                    {isActive && (
-                      <motion.span
-                        layoutId="navIndicator"
-                        className="absolute inset-x-0 -bottom-0.5 h-px bg-brass"
-                        transition={{
-                          type: 'spring',
-                          bounce: 0.2,
-                          duration: 0.5,
-                        }}
-                      />
-                    )}
                   </Link>
                 </li>
               );
@@ -122,53 +140,47 @@ export default function Navbar() {
         </nav>
 
         <div
+          ref={progressRef}
           aria-hidden="true"
-          className="h-px origin-left bg-brass"
-          style={{
-            transform: `scaleX(${scrollProgress / 100})`,
-            opacity: isScrolled ? 1 : 0,
-          }}
+          className={`h-px origin-left bg-brass transition-opacity duration-300 ${
+            isScrolled ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ transform: 'scaleX(0)' }}
         />
 
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              id="mobile-menu"
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
-              className="border-t border-line px-5 pb-6 pt-3 sm:px-8 md:hidden"
+        {isOpen && (
+          <div
+            id="mobile-menu"
+            className="drop-in border-t border-line px-5 pb-6 pt-3 sm:px-8 md:hidden"
+          >
+            <ul className="flex flex-col">
+              {navLinks.map(link => {
+                const isActive = activeSection === link.href.replace('#', '');
+                return (
+                  <li key={link.name}>
+                    <Link
+                      href={hrefFor(link.href)}
+                      onClick={event => handleNavClick(event, link.href)}
+                      aria-current={isActive ? 'location' : undefined}
+                      className={`block border-b border-line py-4 text-lg ${
+                        isActive ? 'text-paper' : 'text-soft'
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <Link
+              href={hrefFor(navCta.href)}
+              onClick={event => handleNavClick(event, navCta.href)}
+              className="btn btn-primary mt-5 w-full"
             >
-              <ul className="flex flex-col">
-                {navLinks.map(link => {
-                  const isActive = activeSection === link.href.replace('#', '');
-                  return (
-                    <li key={link.name}>
-                      <Link
-                        href={hrefFor(link.href)}
-                        onClick={event => handleNavClick(event, link.href)}
-                        aria-current={isActive ? 'location' : undefined}
-                        className={`block border-b border-line py-4 text-lg ${
-                          isActive ? 'text-paper' : 'text-soft'
-                        }`}
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-              <Link
-                href={hrefFor(navCta.href)}
-                onClick={event => handleNavClick(event, navCta.href)}
-                className="btn btn-primary mt-5 w-full"
-              >
-                {navCta.name}
-              </Link>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              {navCta.name}
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   );

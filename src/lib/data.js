@@ -1,8 +1,6 @@
 export const personalInfo = {
   name: 'Tawchiful Islam',
-  shortName: 'Tawchif',
   title: 'Full-Stack Developer',
-  subtitle: 'Turning ideas into clean, interactive web experiences.',
   location: 'Chittagong, Bangladesh',
   email: 'tawchif04@gmail.com',
   bio: "I'm a full-stack developer from Chittagong. React and Next.js on the front, Node, Express and MongoDB behind it. I care about clean architecture, readable code and interfaces that feel good to use.",

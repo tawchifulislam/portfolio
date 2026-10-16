@@ -35,7 +35,8 @@ export default function Work({ projects }) {
                 href={capstone.repo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link mt-auto inline-flex items-center gap-1 pt-5 text-[0.9375rem]"
+                aria-label={`${capstone.title} on GitHub`}
+                className="link mt-auto inline-flex items-center gap-1 pt-4 text-[0.9375rem]"
               >
                 GitHub <ArrowUpRight size={15} aria-hidden="true" />
               </a>
@@ -47,7 +48,7 @@ export default function Work({ projects }) {
           href={`${personalInfo.social.github}?tab=repositories`}
           target="_blank"
           rel="noopener noreferrer"
-          className="link mt-8 inline-flex items-center gap-1 text-[0.9375rem]"
+          className="link mt-6 inline-flex items-center gap-1 py-1.5 text-[0.9375rem]"
         >
           All repositories on GitHub{' '}
           <ArrowUpRight size={15} aria-hidden="true" />

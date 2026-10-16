@@ -27,7 +27,7 @@ const plexSans = IBM_Plex_Sans({
 const plexMono = IBM_Plex_Mono({
   variable: '--font-plex-mono',
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['400'],
   display: 'swap',
 });
 
@@ -72,14 +72,6 @@ export const metadata = {
     description:
       'Full-stack developer from Chittagong, Bangladesh. Building clean, responsive, and user-friendly web experiences with React, Next.js, Node.js, and more.',
     siteName: 'Tawchiful Islam',
-    images: [
-      {
-        url: personalInfo.image,
-        width: 1200,
-        height: 630,
-        alt: 'Tawchiful Islam - Full-Stack Developer',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -87,7 +79,6 @@ export const metadata = {
     description:
       'Full-stack developer from Chittagong, Bangladesh. Building clean, responsive, and user-friendly web experiences with React, Next.js, Node.js, and more.',
     creator: '@tawchifulislam',
-    images: [personalInfo.image],
   },
   icons: {
     icon: [
