@@ -1,8 +1,4 @@
-import {
-  Bricolage_Grotesque,
-  IBM_Plex_Sans,
-  IBM_Plex_Mono,
-} from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -11,23 +7,34 @@ import ScrollToTop from '@/components/ui/ScrollToTop';
 import { personalInfo } from '@/lib/data';
 import { SITE_URL } from '@/lib/constants';
 
-const bricolage = Bricolage_Grotesque({
+const bricolage = localFont({
+  src: '../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2',
   variable: '--font-bricolage',
-  subsets: ['latin'],
+  weight: '200 800',
   display: 'swap',
 });
 
-const plexSans = IBM_Plex_Sans({
+const plexSans = localFont({
+  src: [
+    {
+      path: '../../node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-500-normal.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+  ],
   variable: '--font-plex-sans',
-  subsets: ['latin'],
-  weight: ['400', '500'],
   display: 'swap',
 });
 
-const plexMono = IBM_Plex_Mono({
+const plexMono = localFont({
+  src: '../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2',
   variable: '--font-plex-mono',
-  subsets: ['latin'],
-  weight: ['400'],
+  weight: '400',
   display: 'swap',
 });
 
