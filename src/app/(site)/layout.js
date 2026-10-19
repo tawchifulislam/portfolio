@@ -8,7 +8,7 @@ import { personalInfo } from '@/lib/data';
 import { SITE_URL } from '@/lib/constants';
 
 const bricolage = localFont({
-  src: '../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2',
+  src: '../../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2',
   variable: '--font-bricolage',
   weight: '200 800',
   display: 'swap',
@@ -17,12 +17,12 @@ const bricolage = localFont({
 const plexSans = localFont({
   src: [
     {
-      path: '../../node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2',
+      path: '../../../node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../../node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-500-normal.woff2',
+      path: '../../../node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-500-normal.woff2',
       weight: '500',
       style: 'normal',
     },
@@ -32,7 +32,7 @@ const plexSans = localFont({
 });
 
 const plexMono = localFont({
-  src: '../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2',
+  src: '../../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2',
   variable: '--font-plex-mono',
   weight: '400',
   display: 'swap',
