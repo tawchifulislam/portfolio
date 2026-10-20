@@ -28,6 +28,18 @@ export async function sendMessage({ name, email, message, website }) {
 
   try {
     const payload = await getPayload({ config });
+    // at most 10 messages per 10 minutes
+    const recent = await payload.count({
+      collection: 'messages',
+      where: {
+        createdAt: {
+          greater_than: new Date(Date.now() - 10 * 60 * 1000).toISOString(),
+        },
+      },
+    });
+    if (recent.totalDocs >= 10) {
+      return { ok: false, error: 'Too many messages, try again later' };
+    }
     await payload.create({
       collection: 'messages',
       data: { name: cleanName, email: cleanEmail, message: cleanMessage },
