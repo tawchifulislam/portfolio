@@ -135,6 +135,7 @@ export const Capstones: CollectionConfig = {
 // Experience
 export const Experience: CollectionConfig = {
   slug: 'experience',
+  labels: { singular: 'Experience', plural: 'Experience' },
   defaultSort: 'order',
   admin: {
     useAsTitle: 'role',
