@@ -1,9 +1,11 @@
-import { getProjectSlugs } from '@/lib/projects';
+import { getSiteData } from '@/lib/cms';
 import { SITE_URL } from '@/lib/constants';
 
-export default function sitemap() {
-  const projectRoutes = getProjectSlugs().map(slug => ({
-    url: `${SITE_URL}/projects/${slug}`,
+export default async function sitemap() {
+  const { projects } = await getSiteData();
+
+  const projectRoutes = projects.map(project => ({
+    url: `${SITE_URL}/projects/${project.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 0.7,

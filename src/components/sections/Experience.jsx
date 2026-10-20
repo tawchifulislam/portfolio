@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { experience } from '@/lib/data';
+import { getSiteData } from '@/lib/cms';
 import SectionHeading from '@/components/ui/SectionHeading';
 
 function renderRich(text) {
@@ -15,7 +15,8 @@ function renderRich(text) {
   );
 }
 
-export default function Experience() {
+export default async function Experience() {
+  const { experience } = await getSiteData();
   return (
     <section
       id="experience"

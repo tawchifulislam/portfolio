@@ -4,7 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CustomCursor from '@/components/ui/CustomCursor';
 import ScrollToTop from '@/components/ui/ScrollToTop';
-import { personalInfo } from '@/lib/data';
+import { getSiteData } from '@/lib/cms';
 import { SITE_URL } from '@/lib/constants';
 
 const bricolage = localFont({
@@ -97,6 +97,9 @@ export const metadata = {
   },
 };
 
+export default async function RootLayout({ children }) {
+  const { personalInfo } = await getSiteData();
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -130,7 +133,6 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({ children }) {
   return (
     <html
       lang="en"

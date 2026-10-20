@@ -1,30 +1,8 @@
-const paragraphs = [
-  "I'm a self-taught full-stack developer from Chittagong. My formal programming journey began in 2025, though I'd been absorbing how software is made long before I wrote my first line of code. Since then I've built and deployed complete products: a gym management platform, a doctor appointment system, a travel discovery platform with an AI assistant, and a crowdfunding app.",
-  'What I enjoy most is the moment a hard problem finally makes sense. I try to build the parts users never see but always depend on: role-based access, payments, scheduled jobs, and graceful handling of retries and dropped connections.',
-  'In 2026 I completed the FlyRank AI Internship Program in the Backend AI Engineering track. Each of my three approved capstones ships with a design document, a build log and recorded evidence of its checks, along with a plain list of what it does not do.',
-  "Away from the keyboard, you'll find me with a book, any genre, or playing football.",
-];
+import { getSiteData } from '@/lib/cms';
 
-const focuses = [
-  {
-    title: 'Real problems first',
-    text: "Booking a doctor, managing a gym, planning a trip. Every project starts from someone's actual need.",
-  },
-  {
-    title: 'Whole-system thinking',
-    text: 'React and Next.js interfaces, Express APIs and MongoDB schemas, built as one system with clear boundaries between the parts.',
-  },
-  {
-    title: 'Interfaces that feel considered',
-    text: 'Responsive, accessible and quick to load, built with Tailwind and Framer Motion.',
-  },
-  {
-    title: 'Dependable by design',
-    text: 'JWT auth, role-based access, idempotent writes, verified webhooks and honest error codes are planned in from the start, not patched on.',
-  },
-];
-
-export default function About() {
+export default async function About() {
+  const { about } = await getSiteData();
+  const { paragraphs, focuses } = about;
   return (
     <section
       id="about"
@@ -38,7 +16,7 @@ export default function About() {
             id="about-heading"
             className="mb-6 mt-2.5 font-display text-h1 leading-[1.1]"
           >
-            Self-taught, and building things that hold up.
+            {about.heading}
           </h2>
           <div className="flex max-w-136 flex-col gap-4 text-soft">
             {paragraphs.map(text => (

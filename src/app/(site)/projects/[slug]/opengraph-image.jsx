@@ -1,16 +1,18 @@
 import { ImageResponse } from 'next/og';
-import { getAllProjectsMeta, getProjectSlugs } from '@/lib/projects';
+import { getSiteData } from '@/lib/cms';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export async function generateStaticParams() {
-  return getProjectSlugs().map(slug => ({ slug }));
+  const { projects } = await getSiteData();
+  return projects.map(project => ({ slug: project.slug }));
 }
 
 export default async function OpengraphImage({ params }) {
   const { slug } = await params;
-  const project = getAllProjectsMeta().find(p => p.slug === slug);
+  const { projects } = await getSiteData();
+  const project = projects.find(p => p.slug === slug);
 
   return new ImageResponse(
     <div

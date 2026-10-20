@@ -1,15 +1,21 @@
 import { ArrowUpRight } from 'lucide-react';
-import { personalInfo } from '@/lib/data';
+import { getSiteData } from '@/lib/cms';
 import HeroPhoto from '@/components/ui/HeroPhoto';
 
-const links = [
-  { label: 'GitHub', href: personalInfo.social.github },
-  { label: 'LinkedIn', href: personalInfo.social.linkedin },
-  { label: 'X', href: personalInfo.social.twitter },
-  { label: 'Résumé', href: personalInfo.resume, arrow: true },
-];
+export default async function Hero() {
+  const { personalInfo } = await getSiteData();
 
-export default function Hero() {
+  const links = [
+    { label: 'GitHub', href: personalInfo.social.github },
+    { label: 'LinkedIn', href: personalInfo.social.linkedin },
+    { label: 'X', href: personalInfo.social.twitter },
+    { label: 'Résumé', href: personalInfo.resume, arrow: true },
+  ].filter(item => item.href);
+
+  const highlightWords = (personalInfo.headline.highlight || '')
+    .split(' ')
+    .filter(Boolean);
+
   return (
     <section
       id="home"
@@ -27,18 +33,27 @@ export default function Hero() {
               aria-hidden="true"
               className="h-1.5 w-1.5 animate-pulse rounded-full bg-brass"
             />
-            Open for work · {personalInfo.location}
+            {personalInfo.statusText} · {personalInfo.location}
           </span>
 
           <h1 className="slide-in mb-5 mt-6 font-display text-display leading-[1.04] tracking-[-0.02em]">
-            Hi, I&apos;m Tawchiful. I build{' '}
+            {personalInfo.headline.start}{' '}
             <span className="text-brass">
-              <span className="sketch-word">whole</span>{' '}
-              <span className="sketch-word" style={{ '--delay': '0.95s' }}>
-                products
-              </span>
+              {highlightWords.map((word, i) => (
+                <span key={i}>
+                  {i > 0 && ' '}
+                  <span
+                    className="sketch-word"
+                    style={
+                      i > 0 ? { '--delay': `${0.7 + i * 0.25}s` } : undefined
+                    }
+                  >
+                    {word}
+                  </span>
+                </span>
+              ))}
             </span>
-            , front to back.
+            {personalInfo.headline.end}
           </h1>
 
           <p

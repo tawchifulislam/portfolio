@@ -23,7 +23,7 @@ import {
   SiVercel,
 } from 'react-icons/si';
 import { VscVscode } from 'react-icons/vsc';
-import { techStack } from '@/lib/data';
+import { getSiteData } from '@/lib/cms';
 import SectionHeading from '@/components/ui/SectionHeading';
 
 const NEUTRAL = '#F1EBDD';
@@ -62,7 +62,8 @@ const groups = [
   { key: 'tools', label: 'Tools' },
 ];
 
-export default function TechStack() {
+export default async function TechStack() {
+  const { techStack } = await getSiteData();
   return (
     <section
       id="techstack"

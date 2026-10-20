@@ -5,10 +5,10 @@ import About from '@/components/sections/About';
 import Experience from '@/components/sections/Experience';
 import TechStack from '@/components/sections/TechStack';
 import Contact from '@/components/sections/Contact';
-import { getAllProjectsMeta } from '@/lib/projects';
+import { getSiteData } from '@/lib/cms';
 
-export default function Home() {
-  const projects = getAllProjectsMeta();
+export default async function Home() {
+  const { projects } = await getSiteData();
 
   return (
     <>

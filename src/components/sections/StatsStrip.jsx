@@ -1,6 +1,8 @@
-import { stats } from '@/lib/data';
+import { getSiteData } from '@/lib/cms';
 
-export default function StatsStrip({ projectCount }) {
+export default async function StatsStrip({ projectCount }) {
+  const { stats } = await getSiteData();
+
   const items = [
     { value: String(projectCount), label: 'projects shipped' },
     ...stats,

@@ -1,9 +1,10 @@
 import { ArrowUpRight } from 'lucide-react';
-import { capstones, personalInfo } from '@/lib/data';
+import { getSiteData } from '@/lib/cms';
 import SectionHeading from '@/components/ui/SectionHeading';
 import ProjectSlider from '@/components/ui/ProjectSlider';
 
-export default function Work({ projects }) {
+export default async function Work({ projects }) {
+  const { capstones, personalInfo } = await getSiteData();
   return (
     <section
       id="work"
