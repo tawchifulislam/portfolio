@@ -8,7 +8,7 @@ import Contact from '@/components/sections/Contact';
 import { getSiteData } from '@/lib/cms';
 
 export default async function Home() {
-  const { projects } = await getSiteData();
+  const { projects, personalInfo } = await getSiteData();
 
   return (
     <>
@@ -18,7 +18,7 @@ export default async function Home() {
       <About />
       <Experience />
       <TechStack />
-      <Contact />
+      <Contact personalInfo={personalInfo} />
     </>
   );
 }

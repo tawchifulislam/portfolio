@@ -2,15 +2,9 @@
 
 import { useState, useSyncExternalStore } from 'react';
 import emailjs from '@emailjs/browser';
-import { personalInfo } from '@/lib/data';
+import { sendMessage } from '@/lib/actions';
 
 const MESSAGE_MAX_LENGTH = 1000;
-
-const socialLinks = [
-  { label: 'GitHub', href: personalInfo.social.github },
-  { label: 'LinkedIn', href: personalInfo.social.linkedin },
-  { label: 'X', href: personalInfo.social.twitter },
-];
 
 const statusLabels = {
   idle: 'Send message',
@@ -79,8 +73,18 @@ function Field({ id, label, error, aside, children }) {
   );
 }
 
-export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+export default function Contact({ personalInfo }) {
+  const socialLinks = [
+    { label: 'GitHub', href: personalInfo.social.github },
+    { label: 'LinkedIn', href: personalInfo.social.linkedin },
+    { label: 'X', href: personalInfo.social.twitter },
+  ].filter(link => link.href);
+  const [website, setWebsite] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle');
   const isOnline = useSyncExternalStore(
@@ -98,7 +102,7 @@ export default function Contact() {
     }
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     const validationErrors = validate(formData);
@@ -116,29 +120,36 @@ export default function Contact() {
     }
 
     setStatus('sending');
+    const trimmed = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+    };
+
+    // save to the dashboard inbox first
+    try {
+      const result = await sendMessage({ ...trimmed, website });
+      if (!result.ok) throw new Error(result.error);
+    } catch (error) {
+      console.error('Message error:', error);
+      setStatus(navigator.onLine ? 'error' : 'offline');
+      setTimeout(() => setStatus('idle'), 5000);
+      return;
+    }
+
+    // email alert is a bonus, the message is already saved
     emailjs
       .send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-        {
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          message: formData.message.trim(),
-        },
+        trimmed,
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
       )
-      .then(
-        () => {
-          setStatus('sent');
-          setFormData({ name: '', email: '', message: '' });
-          setTimeout(() => setStatus('idle'), 5000);
-        },
-        error => {
-          console.error('EmailJS Error:', error);
-          setStatus(navigator.onLine ? 'error' : 'offline');
-          setTimeout(() => setStatus('idle'), 5000);
-        },
-      );
+      .catch(error => console.error('EmailJS Error:', error));
+
+    setStatus('sent');
+    setFormData({ name: '', email: '', message: '' });
+    setTimeout(() => setStatus('idle'), 5000);
   };
 
   return (
@@ -218,7 +229,9 @@ export default function Contact() {
                   placeholder="Your full name"
                   required
                   aria-invalid={Boolean(errors.name)}
-                  aria-describedby={errors.name ? 'contact-name-error' : undefined}
+                  aria-describedby={
+                    errors.name ? 'contact-name-error' : undefined
+                  }
                   className={fieldClass(errors.name)}
                 />
               </Field>
@@ -234,7 +247,9 @@ export default function Contact() {
                   placeholder="hello@example.com"
                   required
                   aria-invalid={Boolean(errors.email)}
-                  aria-describedby={errors.email ? 'contact-email-error' : undefined}
+                  aria-describedby={
+                    errors.email ? 'contact-email-error' : undefined
+                  }
                   className={fieldClass(errors.email)}
                 />
               </Field>
@@ -265,6 +280,17 @@ export default function Contact() {
                   className={`${fieldClass(errors.message)} resize-none`}
                 />
               </Field>
+
+              <input
+                type="text"
+                name="website"
+                value={website}
+                onChange={event => setWebsite(event.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-2499.75 h-0 w-0 opacity-0"
+              />
 
               <button
                 type="submit"
