@@ -16,6 +16,7 @@ import {
   Messages,
 } from './collections';
 import { Profile, About } from './globals';
+import { resetSiteHandler } from './resetSite';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -24,6 +25,9 @@ export default buildConfig({
   admin: {
     user: 'users',
     importMap: { baseDir: path.resolve(dirname) },
+    components: {
+      beforeDashboard: ['/components/admin/ResetSite'],
+    },
   },
   collections: [
     Users,
@@ -35,6 +39,9 @@ export default buildConfig({
     Messages,
   ],
   globals: [Profile, About],
+  endpoints: [
+    { path: '/reset-site', method: 'post', handler: resetSiteHandler },
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   db: mongooseAdapter({ url: process.env.DATABASE_URL || '' }),
