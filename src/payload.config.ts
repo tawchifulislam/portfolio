@@ -5,6 +5,17 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import { buildConfig } from 'payload';
 
+import {
+  Users,
+  Media,
+  Projects,
+  Capstones,
+  Experience,
+  TechStack,
+  Messages,
+} from './collections';
+import { Profile, About } from './globals';
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -13,7 +24,16 @@ export default buildConfig({
     user: 'users',
     importMap: { baseDir: path.resolve(dirname) },
   },
-  collections: [{ slug: 'users', auth: true, fields: [] }],
+  collections: [
+    Users,
+    Media,
+    Projects,
+    Capstones,
+    Experience,
+    TechStack,
+    Messages,
+  ],
+  globals: [Profile, About],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   db: mongooseAdapter({ url: process.env.DATABASE_URL || '' }),
