@@ -1,8 +1,10 @@
+import { globalHooks } from './revalidate';
 import type { GlobalConfig } from 'payload';
 
 // Profile: personal info, Hero text, social links, stats
 export const Profile: GlobalConfig = {
   slug: 'profile',
+  hooks: globalHooks,
   label: 'Profile & Hero',
   admin: { group: 'Site' },
   fields: [
@@ -90,6 +92,7 @@ export const Profile: GlobalConfig = {
 // About section
 export const About: GlobalConfig = {
   slug: 'about',
+  hooks: globalHooks,
   label: 'About',
   admin: { group: 'Site' },
   fields: [

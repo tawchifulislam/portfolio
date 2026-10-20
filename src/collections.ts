@@ -1,3 +1,4 @@
+import { collectionHooks } from './revalidate';
 import type { CollectionConfig } from 'payload';
 
 // Users (admin login)
@@ -11,6 +12,7 @@ export const Users: CollectionConfig = {
 // Media (every image on the site)
 export const Media: CollectionConfig = {
   slug: 'media',
+  hooks: collectionHooks,
   access: { read: () => true }, // images must be public so visitors can see them
   upload: { mimeTypes: ['image/*'] },
   admin: { group: 'Content', description: 'All images used on the site.' },
@@ -29,6 +31,7 @@ export const Media: CollectionConfig = {
 // Projects (Work section + case study pages)
 export const Projects: CollectionConfig = {
   slug: 'projects',
+  hooks: collectionHooks,
   defaultSort: 'order',
   admin: {
     useAsTitle: 'title',
@@ -102,6 +105,7 @@ export const Projects: CollectionConfig = {
 // Capstones (cards under the Work section)
 export const Capstones: CollectionConfig = {
   slug: 'capstones',
+  hooks: collectionHooks,
   defaultSort: 'order',
   admin: {
     useAsTitle: 'title',
@@ -135,6 +139,7 @@ export const Capstones: CollectionConfig = {
 // Experience
 export const Experience: CollectionConfig = {
   slug: 'experience',
+  hooks: collectionHooks,
   labels: { singular: 'Experience', plural: 'Experience' },
   defaultSort: 'order',
   admin: {
@@ -195,6 +200,7 @@ export const Experience: CollectionConfig = {
 // Tech stack
 export const TechStack: CollectionConfig = {
   slug: 'tech-stack',
+  hooks: collectionHooks,
   labels: { singular: 'Tech', plural: 'Tech Stack' },
   defaultSort: 'name',
   admin: {
