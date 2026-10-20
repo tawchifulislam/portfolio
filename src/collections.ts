@@ -4,7 +4,15 @@ import type { CollectionConfig } from 'payload';
 // Users (admin login)
 export const Users: CollectionConfig = {
   slug: 'users',
-  auth: true,
+  auth: {
+    tokenExpiration: 14400,
+    maxLoginAttempts: 5,
+    lockTime: 15 * 60 * 1000,
+    cookies: {
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Lax',
+    },
+  },
   admin: { useAsTitle: 'email' },
   fields: [],
 };

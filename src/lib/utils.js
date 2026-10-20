@@ -4,3 +4,4 @@ export const scrollToSection = sectionId => {
     element.scrollIntoView({ behavior: 'smooth' });
   }
 };
+export const safeJsonLd = data => JSON.stringify(data).replace(/</g, '\\u003c');

@@ -3,6 +3,7 @@ import { getSiteData } from '@/lib/cms';
 import ProjectBody from '@/components/projects/ProjectBody';
 import { SITE_URL } from '@/lib/constants';
 import ProjectDetail from './ProjectDetail';
+import { safeJsonLd } from '@/lib/utils';
 
 export async function generateStaticParams() {
   const { projects } = await getSiteData();
@@ -51,7 +52,7 @@ export default async function ProjectPage({ params }) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
       <ProjectDetail
         meta={project}

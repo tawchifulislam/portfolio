@@ -6,6 +6,7 @@ import CustomCursor from '@/components/ui/CustomCursor';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 import { getSiteData } from '@/lib/cms';
 import { SITE_URL } from '@/lib/constants';
+import { safeJsonLd } from '@/lib/utils';
 
 const bricolage = localFont({
   src: '../../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2',
@@ -145,7 +146,7 @@ const jsonLd = {
         <script
           id="google-schema-markup"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
         />
         <CustomCursor />
         <Navbar />

@@ -17,6 +17,11 @@ import {
 import { Profile, About } from './globals';
 import { resetSiteHandler } from './resetSite';
 
+const trusted = ['https://tawchif.vercel.app', 'http://localhost:3000'];
+
+const secret = process.env.PAYLOAD_SECRET;
+if (!secret) throw new Error('PAYLOAD_SECRET is not set');
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -42,7 +47,11 @@ export default buildConfig({
     { path: '/reset-site', method: 'post', handler: resetSiteHandler },
   ],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+    secret,
+  csrf: trusted,
+  cors: trusted,
+  graphQL: { disable: true },
+  upload: { limits: { fileSize: 4_000_000 } },
   db: mongooseAdapter({ url: process.env.DATABASE_URL || '' }),
   plugins: [
     vercelBlobStorage({
