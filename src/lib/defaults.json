@@ -1,0 +1,492 @@
+{
+  "profile": {
+    "name": "Tawchiful Islam",
+    "title": "Full-Stack Developer",
+    "location": "Chittagong, Bangladesh",
+    "email": "tawchif04@gmail.com",
+    "bio": "I'm a full-stack developer from Chittagong. React and Next.js on the front, Node, Express and MongoDB behind it. I care about clean architecture, readable code and interfaces that feel good to use.",
+    "photo": "/images/tawchif.webp",
+    "resume": "https://drive.google.com/file/d/137fe6Z1fmbpzrGc7KesccAiNwvhW3vmy/view?usp=drive_link",
+    "github": "https://github.com/tawchifulislam",
+    "linkedin": "https://linkedin.com/in/tawchiful-islam",
+    "twitter": "https://x.com/tawchifulislam",
+    "statusText": "Open for work",
+    "headlineStart": "Hi, I'm Tawchiful. I build",
+    "headlineHighlight": "whole products",
+    "headlineEnd": ", front to back.",
+    "stats": [
+      {
+        "value": "35",
+        "label": "internship assignments completed"
+      },
+      {
+        "value": "221+",
+        "label": "documented hours of practice"
+      },
+      {
+        "value": "20",
+        "label": "verified Anthropic Academy courses"
+      }
+    ]
+  },
+  "about": {
+    "heading": "Self-taught, and building things that hold up.",
+    "paragraphs": [
+      {
+        "text": "I'm a self-taught full-stack developer from Chittagong. My formal programming journey began in 2025, though I'd been absorbing how software is made long before I wrote my first line of code. Since then I've built and deployed complete products: a gym management platform, a doctor appointment system, a travel discovery platform with an AI assistant, and a crowdfunding app."
+      },
+      {
+        "text": "What I enjoy most is the moment a hard problem finally makes sense. I try to build the parts users never see but always depend on: role-based access, payments, scheduled jobs, and graceful handling of retries and dropped connections."
+      },
+      {
+        "text": "In 2026 I completed the FlyRank AI Internship Program in the Backend AI Engineering track. Each of my three approved capstones ships with a design document, a build log and recorded evidence of its checks, along with a plain list of what it does not do."
+      },
+      {
+        "text": "Away from the keyboard, you'll find me with a book, any genre, or playing football."
+      }
+    ],
+    "focuses": [
+      {
+        "title": "Real problems first",
+        "text": "Booking a doctor, managing a gym, planning a trip. Every project starts from someone's actual need."
+      },
+      {
+        "title": "Whole-system thinking",
+        "text": "React and Next.js interfaces, Express APIs and MongoDB schemas, built as one system with clear boundaries between the parts."
+      },
+      {
+        "title": "Interfaces that feel considered",
+        "text": "Responsive, accessible and quick to load, built with Tailwind and Framer Motion."
+      },
+      {
+        "title": "Dependable by design",
+        "text": "JWT auth, role-based access, idempotent writes, verified webhooks and honest error codes are planned in from the start, not patched on."
+      }
+    ]
+  },
+  "projects": [
+    {
+      "title": "Brawnix",
+      "slug": "brawnix",
+      "order": 1,
+      "featured": true,
+      "summary": "A full-stack, role-based gym and fitness class management platform connecting members, trainers, and administrators in a single ecosystem.",
+      "image": "/images/projects/brawnix.png",
+      "tags": [
+        "Next.js",
+        "React",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "BetterAuth",
+        "Stripe",
+        "Framer Motion"
+      ],
+      "liveUrl": "https://brawnix.vercel.app",
+      "githubUrl": "https://github.com/tawchifulislam/brawnix-client",
+      "serverUrl": "https://github.com/tawchifulislam/brawnix-server",
+      "problem": "Traditional gyms manage class discovery, booking, payment, and community engagement manually or through disconnected tools. Brawnix digitizes all of that into a single ecosystem for members, trainers, and administrators.",
+      "approach": "Three tier role based access control with isolated dashboards for Member, Trainer, and Admin. Stripe powered payments built directly into the class booking flow. A community forum with nested comment threads. A real time analytics dashboard for admins.",
+      "keyDecisions": [
+        {
+          "text": "Designed the three tier RBAC system with protected routes enforced via JWT verification on every API request, keeping each role's dashboard fully isolated."
+        },
+        {
+          "text": "Integrated Stripe into the booking flow while keeping checkout smooth and reliable, rather than bolting payment on as an afterthought."
+        },
+        {
+          "text": "Implemented server side pagination, search, and category filtering directly with MongoDB queries so the platform stays fast as data grows."
+        }
+      ],
+      "outcome": "The result is a working platform where three distinct user types, members, trainers, and admins, operate through separate, protected flows on one shared codebase.",
+      "whatsNext": [
+        {
+          "text": "A live class scheduling calendar with recurring session support."
+        },
+        {
+          "text": "Push notifications for class approvals and trainer responses."
+        },
+        {
+          "text": "An expanded analytics dashboard with revenue and retention insights."
+        }
+      ]
+    },
+    {
+      "title": "Thirsty for Knowledge",
+      "slug": "tfknowledge",
+      "order": 1,
+      "featured": true,
+      "summary": "A bilingual, minimalist blog platform where readers vote on what gets written next.",
+      "image": "/images/projects/tfknowledge.png",
+      "tags": [
+        "Next.js",
+        "Express.js",
+        "MongoDB",
+        "BetterAuth",
+        "Tiptap",
+        "Tailwind CSS"
+      ],
+      "liveUrl": "https://tfknowledge.vercel.app",
+      "githubUrl": "https://github.com/tawchifulislam/tfknowledge-client",
+      "serverUrl": "https://github.com/tawchifulislam/tfknowledge-server",
+      "problem": "Most blogs are one-directional: an author writes, readers consume, and there's no real channel for readers to shape what comes next. Thirsty for Knowledge was built to close that gap for research-driven, long-form writing.",
+      "approach": "Admins publish long-form articles through a rich text editor, and readers engage through likes, threaded comments, and shares. A separate topic request board lets readers pitch ideas and upvote or downvote existing ones, giving the author a ranked signal for what to write next. Google OAuth via BetterAuth handles authentication with role-based access separating admin and reader permissions.",
+      "keyDecisions": [
+        {
+          "text": "Denormalized author name and image directly onto comment and topic request documents at creation time, after discovering BetterAuth's user collection isn't a registered Mongoose model and can't be `.populate()`d."
+        },
+        {
+          "text": "Wrote a small custom sanitization middleware after `express-mongo-sanitize` turned out to be incompatible with Express 5's read-only `req.query`, avoiding a third-party dependency for a problem solvable in a few lines."
+        },
+        {
+          "text": "Added a per-post `language` field with a client-side `<html lang>` switcher instead of pulling in a full i18n framework, since the site serves genuinely bilingual (Bengali/English) content post-by-post rather than a fully translated UI."
+        },
+        {
+          "text": "Configured cross-domain cookies (`sameSite: none`, `secure: true`) to fix OAuth session handling once the frontend and backend moved to separate production domains."
+        }
+      ],
+      "outcome": "A fully deployed, production-ready blog platform with content moderation tools, a voting-driven topic pipeline, and SEO fundamentals (structured data, sitemap, dynamic per-post metadata) in place from day one.",
+      "whatsNext": [
+        {
+          "text": "Real-time comment and vote updates with Socket.io."
+        },
+        {
+          "text": "AI-generated summaries for longer research articles."
+        },
+        {
+          "text": "An admin analytics dashboard tracking post performance and engagement trends."
+        }
+      ]
+    },
+    {
+      "title": "Healync",
+      "slug": "healync",
+      "order": 2,
+      "featured": true,
+      "summary": "A full-stack doctor appointment booking platform bridging patients and verified medical specialists.",
+      "image": "/images/projects/healync.png",
+      "tags": [
+        "Next.js",
+        "JavaScript",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Mongoose",
+        "BetterAuth",
+        "Nodemailer"
+      ],
+      "liveUrl": "https://healync.vercel.app",
+      "githubUrl": "https://github.com/tawchifulislam/healync-client",
+      "serverUrl": "https://github.com/tawchifulislam/healync-server",
+      "problem": "Booking a doctor's appointment usually still means a phone call or a manual hospital visit. Healync replaces that with a digital first flow that connects patients to verified specialists.",
+      "approach": "Patients browse verified specialists across multiple fields, book through a secure role protected flow, and manage their schedule in real time. An on demand Medical Companion service, automated email reminders via Nodemailer and node cron, and curated daily health tips round out the experience.",
+      "keyDecisions": [
+        {
+          "text": "Built a real time appointment dashboard so patients can view, update, or cancel bookings instantly without page reloads."
+        },
+        {
+          "text": "Folded the on demand Medical Companion request directly into the booking pipeline to keep the flow intuitive."
+        },
+        {
+          "text": "Automated email reminders with Nodemailer and scheduled cron jobs to proactively reduce no shows."
+        }
+      ],
+      "outcome": "A working booking platform that replaces manual scheduling with a self service, role protected flow between patients and specialists.",
+      "whatsNext": [
+        {
+          "text": "In app chat or video consultation for remote appointments."
+        },
+        {
+          "text": "SMS based reminders alongside the existing email system."
+        },
+        {
+          "text": "A dedicated admin and doctor dashboard for managing schedules, patient records, and companion assignments."
+        }
+      ]
+    },
+    {
+      "title": "Roamly",
+      "slug": "roamly",
+      "order": 3,
+      "featured": true,
+      "summary": "A full-stack travel discovery platform combining real traveler ratings with an AI chat assistant.",
+      "image": "/images/projects/roamly.png",
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "BetterAuth",
+        "Gemini API",
+        "Recharts"
+      ],
+      "liveUrl": "https://roamly1.vercel.app",
+      "githubUrl": "https://github.com/tawchifulislam/roamly-client",
+      "serverUrl": "https://github.com/tawchifulislam/roamly-server",
+      "problem": "Planning a trip usually means sifting through generic listings with no trustworthy signal. Roamly solves the decision fatigue by grounding recommendations in real traveler data.",
+      "approach": "Destinations are backed by real trip ratings, and an AI assistant powered by Google Gemini gives personalized recommendations. Google OAuth via BetterAuth, a live rating system with real time data fetching, and fully independent frontend and backend deployments complete the stack.",
+      "keyDecisions": [
+        {
+          "text": "Resolved cross domain cookie authentication in production with a Next.js rewrite proxy, so every API call appears same origin to the browser."
+        },
+        {
+          "text": "Integrated the Gemini API to power a conversational assistant that gives genuinely context aware travel suggestions."
+        },
+        {
+          "text": "Replaced an initial recommendation engine concept with a trip rating system for a more trustworthy, user driven signal, based on clarified requirements."
+        }
+      ],
+      "outcome": "A travel discovery platform where user submitted ratings and an AI assistant both feed into the same recommendation experience.",
+      "whatsNext": [
+        {
+          "text": "Collaborative trip planning where multiple users build an itinerary together."
+        },
+        {
+          "text": "Personalized destination feeds based on past ratings and chat history."
+        },
+        {
+          "text": "Expanding the assistant to generate full day by day itineraries."
+        }
+      ]
+    },
+    {
+      "title": "Meghdut",
+      "slug": "meghdut",
+      "order": 4,
+      "featured": false,
+      "summary": "A minimal dark-aesthetic weather app with real-time conditions and a 3-day forecast.",
+      "image": "/images/projects/meghdut.png",
+      "tags": [
+        "Vanilla JS",
+        "WeatherAPI",
+        "HTML5",
+        "Tailwind CSS"
+      ],
+      "liveUrl": "https://meghdut.vercel.app",
+      "githubUrl": "https://github.com/tawchifulislam/Meghdut",
+      "problem": "Most weather apps feel heavier than the task needs. Meghdut is a fast, minimal lookup with no framework overhead.",
+      "approach": "Real time conditions, a 3 day forecast, sunrise and sunset times, and city search, built with vanilla HTML, CSS, and JavaScript against the WeatherAPI.",
+      "keyDecisions": [
+        {
+          "text": "Handled API rate limits and error states gracefully for invalid city names."
+        },
+        {
+          "text": "Built the glassmorphism UI with plain CSS, with no component library involved."
+        },
+        {
+          "text": "Managed asynchronous API calls and DOM updates without a framework."
+        }
+      ],
+      "outcome": "A lightweight, dependency free weather app with a dark, glass like aesthetic.",
+      "whatsNext": [
+        {
+          "text": "Geolocation support to auto detect the user's city on load."
+        },
+        {
+          "text": "An hourly forecast view alongside the existing 3 day forecast."
+        },
+        {
+          "text": "Weather based background animations that change with conditions."
+        }
+      ]
+    },
+    {
+      "title": "DaanBaksho",
+      "slug": "daanbaksho",
+      "order": 5,
+      "featured": false,
+      "summary": "A full-stack crowdfunding platform built around a credit economy for supporters, creators, and admins.",
+      "image": "/images/projects/daanbaksho.png",
+      "tags": [
+        "Next.js",
+        "JavaScript",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "BetterAuth",
+        "Stripe",
+        "JWT"
+      ],
+      "liveUrl": "https://daanbaksho.vercel.app",
+      "githubUrl": "https://github.com/tawchifulislam/daanbaksho-client",
+      "serverUrl": "https://github.com/tawchifulislam/daanbaksho-server",
+      "problem": "Crowdfunding needs a transparent way to connect supporters, creators, and admins around a shared, trackable economy.",
+      "approach": "Creators launch campaigns, supporters contribute through a credit based economy, and admins oversee platform activity, all secured through a custom JWT authentication flow. Stripe in test mode handles credit purchases, and imgBB hosts campaign images.",
+      "keyDecisions": [
+        {
+          "text": "Replaced the BetterAuth JWT plugin, which threw Base64 errors, with a custom `/api/token` route issuing HMAC signed JWTs via `jsonwebtoken`."
+        },
+        {
+          "text": "Fixed an infinite redirect loop in the axios interceptor caused by improper handling of 401 and 403 responses."
+        },
+        {
+          "text": "Designed a credit based economy that ties Stripe test mode payments directly to campaign contributions across three distinct user roles."
+        }
+      ],
+      "outcome": "A role based crowdfunding platform running on a custom authentication layer built to work around a library limitation.",
+      "whatsNext": [
+        {
+          "text": "Campaign progress notifications for supporters who back a project."
+        },
+        {
+          "text": "A public leaderboard of top funded campaigns."
+        },
+        {
+          "text": "Withdrawal requests and payout tracking for creators."
+        }
+      ]
+    }
+  ],
+  "capstones": [
+    {
+      "title": "LLM Usage Metering and Billing Service",
+      "order": 1,
+      "summary": "A multi-tenant backend that tells every customer how much they've used, what it costs, and whether they've hit their plan limit.",
+      "note": "AI token counts are simulated and Stripe runs in test mode only.",
+      "repo": "https://github.com/tawchifulislam/flyrank-capstone-metering-billing"
+    },
+    {
+      "title": "Embeddable Widget and Lead-Capture Platform",
+      "order": 2,
+      "summary": "Customers build a form widget, paste one script tag into any site, and collect submissions in a dashboard.",
+      "note": "Geo lookups and email are mocked by default, and rate limit counters live in the memory of one server process.",
+      "repo": "https://github.com/tawchifulislam/flyrank-capstone-widget-platform"
+    },
+    {
+      "title": "Social Media Studio",
+      "order": 3,
+      "summary": "Turns one blog post into a social campaign: a variant per platform, a human approves each one, then a scheduler publishes.",
+      "note": "Variants come from templates, not an AI model, and the API has no authentication.",
+      "repo": "https://github.com/tawchifulislam/flyrank-capstone-social-studio"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Back-End AI Engineering Intern",
+      "organization": "FlyRank AI Internship Program",
+      "mode": "Remote",
+      "period": "Jul 2026 to Oct 2026",
+      "order": 1,
+      "highlights": [
+        {
+          "text": "I worked through **35 practical assignments** covering API contracts, task design and prompting, retrieval and grounding, and evaluation and operations."
+        },
+        {
+          "text": "Three capstones were approved, each with a design document, a build log and recorded evidence of its checks."
+        },
+        {
+          "text": "At least 221 hours documented, 7 program meetings attended and 20 verified Anthropic Academy courses completed."
+        }
+      ],
+      "links": [
+        {
+          "label": "Certificate",
+          "href": "https://drive.google.com/file/d/1yXckSQy8lvMz2fKzgADQY2szZY7yUtkH/view?usp=drive_link"
+        },
+        {
+          "label": "Recommendation letter",
+          "href": "https://drive.google.com/file/d/1U6lrYpVOpUSUPykhD7-iCly5ze6hUnXw/view?usp=drive_link"
+        },
+        {
+          "label": "Verify online",
+          "href": "https://internship.flyrank.ai/verify?id=FR-D11-0A5C0-2D943"
+        }
+      ]
+    }
+  ],
+  "techStack": [
+    {
+      "name": "HTML5",
+      "category": "core"
+    },
+    {
+      "name": "CSS3",
+      "category": "core"
+    },
+    {
+      "name": "JavaScript",
+      "category": "core"
+    },
+    {
+      "name": "TypeScript",
+      "category": "core"
+    },
+    {
+      "name": "React",
+      "category": "frontend"
+    },
+    {
+      "name": "Next.js",
+      "category": "frontend"
+    },
+    {
+      "name": "Tailwind CSS",
+      "category": "frontend"
+    },
+    {
+      "name": "Framer Motion",
+      "category": "frontend"
+    },
+    {
+      "name": "Zustand",
+      "category": "frontend"
+    },
+    {
+      "name": "Shadcn",
+      "category": "frontend"
+    },
+    {
+      "name": "Node.js",
+      "category": "backend"
+    },
+    {
+      "name": "Express.js",
+      "category": "backend"
+    },
+    {
+      "name": "MongoDB",
+      "category": "backend"
+    },
+    {
+      "name": "PostgreSQL",
+      "category": "backend"
+    },
+    {
+      "name": "Prisma",
+      "category": "backend"
+    },
+    {
+      "name": "JWT",
+      "category": "backend"
+    },
+    {
+      "name": "Git",
+      "category": "tools"
+    },
+    {
+      "name": "GitHub",
+      "category": "tools"
+    },
+    {
+      "name": "VS Code",
+      "category": "tools"
+    },
+    {
+      "name": "Vercel",
+      "category": "tools"
+    },
+    {
+      "name": "Netlify",
+      "category": "tools"
+    },
+    {
+      "name": "Docker",
+      "category": "tools"
+    },
+    {
+      "name": "Render",
+      "category": "tools"
+    }
+  ]
+}
