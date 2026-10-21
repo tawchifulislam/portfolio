@@ -4,7 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CustomCursor from '@/components/ui/CustomCursor';
 import ScrollToTop from '@/components/ui/ScrollToTop';
-import { getSiteData } from '@/lib/cms';
+import { getProfile } from '@/lib/cms';
 import { SITE_URL } from '@/lib/constants';
 import { safeJsonLd } from '@/lib/utils';
 
@@ -99,7 +99,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const { personalInfo } = await getSiteData();
+  const { personalInfo } = await getProfile();
 
 const jsonLd = {
   '@context': 'https://schema.org',

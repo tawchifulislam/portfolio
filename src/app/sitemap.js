@@ -1,8 +1,8 @@
-import { getSiteData } from '@/lib/cms';
+import { getProjectList } from '@/lib/cms';
 import { SITE_URL } from '@/lib/constants';
 
 export default async function sitemap() {
-  const { projects } = await getSiteData();
+  const projects = await getProjectList();
 
   const projectRoutes = projects.map(project => ({
     url: `${SITE_URL}/projects/${project.slug}`,

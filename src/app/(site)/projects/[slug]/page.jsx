@@ -1,18 +1,18 @@
 import { notFound } from 'next/navigation';
-import { getSiteData } from '@/lib/cms';
+import { getProjectList, getProject } from '@/lib/cms';
 import ProjectBody from '@/components/projects/ProjectBody';
 import { SITE_URL } from '@/lib/constants';
-import ProjectDetail from './ProjectDetail';
 import { safeJsonLd } from '@/lib/utils';
+import ProjectDetail from './ProjectDetail';
 
 export async function generateStaticParams() {
-  const { projects } = await getSiteData();
+  const projects = await getProjectList();
   return projects.map(project => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const { projects } = await getSiteData();
+  const projects = await getProjectList();
   const project = projects.find(p => p.slug === slug);
   if (!project) return {};
 
@@ -24,12 +24,14 @@ export async function generateMetadata({ params }) {
 
 export default async function ProjectPage({ params }) {
   const { slug } = await params;
-  const { projects } = await getSiteData();
+  const [projects, project] = await Promise.all([
+    getProjectList(),
+    getProject(slug),
+  ]);
+
+  if (!project) notFound();
+
   const index = projects.findIndex(p => p.slug === slug);
-
-  if (index === -1) notFound();
-
-  const project = projects[index];
   const nextProject =
     projects.length > 1 ? projects[(index + 1) % projects.length] : null;
 
