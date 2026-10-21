@@ -1,10 +1,10 @@
 export default function Icon() {
   return (
     <svg
-      viewBox="0 0 100 100"
-      width="28"
-      height="28"
-      style={{ color: 'var(--theme-text)' }}
+      viewBox="8 6 90 84"
+      width={20}
+      height={20}
+      style={{ display: 'block', color: 'var(--theme-text)' }}
       aria-hidden="true"
     >
       <rect x="14" y="15" width="72" height="6" fill="currentColor" />
