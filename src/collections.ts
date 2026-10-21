@@ -1,6 +1,11 @@
 import { collectionHooks } from './revalidate';
 import type { CollectionConfig } from 'payload';
 
+const SITE =
+  process.env.NODE_ENV === 'production'
+    ? 'https://tawchif.vercel.app'
+    : 'http://localhost:3000';
+
 // Users (admin login)
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -13,7 +18,11 @@ export const Users: CollectionConfig = {
       sameSite: 'Lax',
     },
   },
-  admin: { useAsTitle: 'email' },
+  admin: {
+    useAsTitle: 'email',
+    group: 'Settings',
+    description: 'Admin accounts. Keep this list short.',
+  },
   fields: [],
 };
 
@@ -23,7 +32,12 @@ export const Media: CollectionConfig = {
   hooks: collectionHooks,
   access: { read: () => true }, // images must be public so visitors can see them
   upload: { mimeTypes: ['image/*'] },
-  admin: { group: 'Content', description: 'All images used on the site.' },
+  admin: {
+    group: 'Content',
+    description:
+      'Every image used on the site. Upload here, then pick it inside a project or the profile.',
+    hideAPIURL: true,
+  },
   fields: [
     {
       name: 'alt',
@@ -44,7 +58,12 @@ export const Projects: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'featured', 'order', 'updatedAt'],
+    listSearchableFields: ['title', 'slug'],
     group: 'Content',
+    description:
+      'Case studies shown in the Work section. A smaller order number shows first.',
+    hideAPIURL: true,
+    preview: doc => `${SITE}/projects/${doc.slug}`,
   },
   fields: [
     { name: 'title', type: 'text', required: true },
@@ -119,6 +138,9 @@ export const Capstones: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'order', 'updatedAt'],
     group: 'Content',
+    description: 'Internship capstone cards shown under the Work section.',
+    hideAPIURL: true,
+    preview: () => `${SITE}/#work`,
   },
   fields: [
     { name: 'title', type: 'text', required: true },
@@ -154,6 +176,9 @@ export const Experience: CollectionConfig = {
     useAsTitle: 'role',
     defaultColumns: ['role', 'organization', 'period', 'order'],
     group: 'Content',
+    description: 'Roles shown in the Experience section.',
+    hideAPIURL: true,
+    preview: () => `${SITE}/#experience`,
   },
   fields: [
     { name: 'role', type: 'text', required: true },
@@ -215,6 +240,10 @@ export const TechStack: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'category', 'icon'],
     group: 'Content',
+    description:
+      'Tools and languages shown in the Tech stack section, grouped by category.',
+    hideAPIURL: true,
+    preview: () => `${SITE}/#techstack`,
   },
   fields: [
     { name: 'name', type: 'text', required: true },
@@ -248,6 +277,9 @@ export const Messages: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email', 'isRead', 'createdAt'],
     group: 'Inbox',
+    description:
+      'Messages sent from the contact form. Tick Marked as read once handled.',
+    hideAPIURL: true,
   },
   fields: [
     { name: 'name', type: 'text', required: true, admin: { readOnly: true } },

@@ -46,13 +46,13 @@ export default buildConfig({
     },
   },
   collections: [
-    Users,
     Media,
     Projects,
     Capstones,
     Experience,
     TechStack,
     Messages,
+    Users,
   ],
   globals: [Profile, About],
   endpoints: [

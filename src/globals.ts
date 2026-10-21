@@ -1,12 +1,21 @@
 import { globalHooks } from './revalidate';
 import type { GlobalConfig } from 'payload';
 
+const SITE =
+  process.env.NODE_ENV === 'production'
+    ? 'https://tawchif.vercel.app'
+    : 'http://localhost:3000';
+
 // Profile: personal info, Hero text, social links, stats
 export const Profile: GlobalConfig = {
   slug: 'profile',
   hooks: globalHooks,
   label: 'Profile & Hero',
-  admin: { group: 'Site' },
+  admin: {
+    group: 'Site',
+    description: 'Your name, photo, Hero text, links and stats.',
+    preview: () => `${SITE}/`,
+  },
   fields: [
     { name: 'name', type: 'text', required: true },
     {
@@ -94,7 +103,11 @@ export const About: GlobalConfig = {
   slug: 'about',
   hooks: globalHooks,
   label: 'About',
-  admin: { group: 'Site' },
+  admin: {
+    group: 'Site',
+    description: 'The About section text and focus cards.',
+    preview: () => `${SITE}/#about`,
+  },
   fields: [
     {
       name: 'heading',
