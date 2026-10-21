@@ -126,26 +126,50 @@ export default function Contact({ personalInfo }) {
       message: formData.message.trim(),
     };
 
-    // save to the dashboard inbox first
+    let result;
     try {
-      const result = await sendMessage({ ...trimmed, website });
-      if (!result.ok) throw new Error(result.error);
+      result = await sendMessage({ ...trimmed, website });
     } catch (error) {
       console.error('Message error:', error);
-      setStatus(navigator.onLine ? 'error' : 'offline');
+      result = { ok: false, fallback: true };
+    }
+
+    // bot caught by the hidden field: pretend success, send nothing
+    if (result.spam) {
+      setStatus('sent');
+      setFormData({ name: '', email: '', message: '' });
       setTimeout(() => setStatus('idle'), 5000);
       return;
     }
 
-    // email alert is a bonus, the message is already saved
-    emailjs
-      .send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-        trimmed,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-      )
-      .catch(error => console.error('EmailJS Error:', error));
+    // rejected on purpose (invalid or too many messages)
+    if (!result.ok && !result.fallback) {
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+      return;
+    }
+
+    const mail = emailjs.send(
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+      trimmed,
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
+    );
+
+    if (result.ok) {
+      // saved in the dashboard, email is a bonus
+      mail.catch(error => console.error('EmailJS Error:', error));
+    } else {
+      // database is down, the email is the only copy
+      try {
+        await mail;
+      } catch (error) {
+        console.error('EmailJS Error:', error);
+        setStatus(navigator.onLine ? 'error' : 'offline');
+        setTimeout(() => setStatus('idle'), 5000);
+        return;
+      }
+    }
 
     setStatus('sent');
     setFormData({ name: '', email: '', message: '' });

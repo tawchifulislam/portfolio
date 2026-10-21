@@ -7,7 +7,7 @@ const MESSAGE_MAX_LENGTH = 1000;
 
 export async function sendMessage({ name, email, message, website }) {
   // honeypot: real visitors never fill this hidden field
-  if (website) return { ok: true };
+  if (website) return { ok: true, spam: true };
 
   const cleanName = String(name || '')
     .trim()
@@ -28,6 +28,7 @@ export async function sendMessage({ name, email, message, website }) {
 
   try {
     const payload = await getPayload({ config });
+
     // at most 10 messages per 10 minutes
     const recent = await payload.count({
       collection: 'messages',
@@ -40,6 +41,7 @@ export async function sendMessage({ name, email, message, website }) {
     if (recent.totalDocs >= 10) {
       return { ok: false, error: 'Too many messages, try again later' };
     }
+
     await payload.create({
       collection: 'messages',
       data: { name: cleanName, email: cleanEmail, message: cleanMessage },
@@ -47,6 +49,7 @@ export async function sendMessage({ name, email, message, website }) {
     return { ok: true };
   } catch (err) {
     console.error('Could not save message:', err);
-    return { ok: false, error: 'Could not save message' };
+    // database problem: the form falls back to email
+    return { ok: false, error: 'Could not save message', fallback: true };
   }
 }
