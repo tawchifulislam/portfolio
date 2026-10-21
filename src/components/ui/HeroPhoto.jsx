@@ -21,6 +21,7 @@ export default function HeroPhoto({ src, alt }) {
           fill
           sizes="(min-width: 420px) 340px, calc(100vw - 80px)"
           priority
+          quality={90}
           onError={() => setFailed(true)}
           className="object-cover object-top"
         />
