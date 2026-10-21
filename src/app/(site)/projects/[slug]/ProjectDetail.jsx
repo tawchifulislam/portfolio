@@ -41,9 +41,7 @@ export default function ProjectDetail({
             <h1 className="mb-5 mt-3 font-display text-[clamp(2.25rem,1.6rem+3vw,3.5rem)] leading-[1.05] tracking-[-0.02em]">
               {meta.title}
             </h1>
-            <p className="mb-8 max-w-xl text-lg text-muted">
-              {meta.summary}
-            </p>
+            <p className="mb-8 max-w-xl text-lg text-muted">{meta.summary}</p>
 
             <div className="flex flex-wrap gap-3">
               <a
@@ -102,6 +100,7 @@ export default function ProjectDetail({
                   fill
                   sizes="(min-width: 1024px) 416px, 92vw"
                   priority
+                  quality={90}
                   className="object-cover object-top"
                 />
               </div>

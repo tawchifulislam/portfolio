@@ -1,33 +1,31 @@
-# Tawchiful Islam - Portfolio
+# Tawchiful Islam
 
-Personal portfolio built with Next.js, Tailwind CSS, and Framer Motion.
+A personal portfolio website with a built-in admin dashboard.
 
-[![Live](https://img.shields.io/badge/Live-tawchif.vercel.app-6C63FF?style=for-the-badge&logo=vercel&logoColor=white)](https://tawchif.vercel.app)
-&nbsp;
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230A66C2.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/tawchiful-islam)
-&nbsp;
-[![Email](https://img.shields.io/badge/Email-%23EA4335.svg?style=for-the-badge&logo=gmail&logoColor=white)](mailto:tawchif04@gmail.com)
+[Live Site](https://tawchif.vercel.app) · [GitHub](https://github.com/tawchifulislam) · [LinkedIn](https://linkedin.com/in/tawchiful-islam)
 
----
+![Portfolio Homepage](docs/preview.png)
 
-## Tech Stack
+## Overview
 
-- **Framework** - Next.js 15 (App Router)
-- **Styling** - Tailwind CSS v4
-- **Animations** - Framer Motion
-- **Icons** - Lucide React, React Icons
-- **Fonts** - Inter, Syne
-- **Deployment** - Vercel
+A personal portfolio showcasing projects, experience, and skills. Manage all website content, including text, images, and projects, through a private admin dashboard without editing code.
 
----
+## Key Features
 
-## Getting Started
+| Feature | Description |
+| --- | --- |
+| Admin Dashboard | Manage website sections, images, and projects |
+| Instant Publishing | Publish changes to the live site within seconds |
+| Contact Inbox | Store visitor messages with email alerts as backup |
+| One-Click Restore | Restore the website to its original version |
+| Security | Authenticated admin access and secure secret management |
+| Performance & Accessibility | Fast loading, responsive design, keyboard accessibility, and social media previews |
 
-```bash
-git clone https://github.com/tawchifulislam/portfolio.git
-cd portfolio
-npm install
-npm run dev
-```
+## Details
 
-Open [http://localhost:3000](http://localhost:3000)
+| | |
+| --- | --- |
+| Sections | Hero, Work (with project case studies), About, Experience, Tech Stack, Contact |
+| Built With | Next.js, React, Tailwind CSS, Payload CMS, MongoDB Atlas |
+| Hosting | Vercel |
+| Technical Documentation | [docs/TECHNICAL.md](docs/TECHNICAL.md) |

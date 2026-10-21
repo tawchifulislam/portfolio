@@ -37,6 +37,8 @@ function ProjectSlide({ project }) {
               alt={`${project.title} screenshot`}
               fill
               sizes="(min-width: 1024px) 560px, 90vw"
+              priority
+              quality={90}
               className="object-cover object-top"
             />
           </div>
