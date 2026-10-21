@@ -9,6 +9,8 @@ const WIPE = [
   'media',
 ] as const;
 
+type Downloaded = { data: Buffer; mimetype: string; name: string };
+
 function getOrigin(req: any) {
   const host =
     req.headers.get('x-forwarded-host') || req.headers.get('host') || '';
@@ -38,39 +40,69 @@ export const resetSiteHandler = async (req: any) => {
 
   const payload = req.payload;
   const origin = getOrigin(req);
-  const images = new Map<string, string>();
 
-  // download an original image from the site and upload it to the media library
+  // step 1: download every image first, so nothing is deleted if one is missing
+  const paths = Array.from(
+    new Set([defaults.profile.photo, ...defaults.projects.map(p => p.image)]),
+  );
+  const files = new Map<string, Downloaded>();
+  const missing: string[] = [];
+
+  await Promise.all(
+    paths.map(async publicPath => {
+      try {
+        const res = await fetch(origin + publicPath);
+        const mimetype = (res.headers.get('content-type') || '').split(';')[0];
+        if (!res.ok || !mimetype.startsWith('image/'))
+          throw new Error('not an image');
+        const data = Buffer.from(await res.arrayBuffer());
+        files.set(publicPath, {
+          data,
+          mimetype,
+          name: publicPath.split('/').pop() as string,
+        });
+      } catch {
+        missing.push(publicPath);
+      }
+    }),
+  );
+
+  if (missing.length > 0) {
+    return Response.json(
+      {
+        error: `Nothing was changed. These images could not be loaded: ${missing.join(', ')}`,
+      },
+      { status: 400 },
+    );
+  }
+
+  const uploaded = new Map<string, string>();
+
+  // upload an already downloaded image to the media library
   async function image(publicPath: string, alt: string) {
-    if (images.has(publicPath)) return images.get(publicPath);
-    const res = await fetch(origin + publicPath);
-    if (!res.ok)
-      throw new Error(`Image not found: ${publicPath} (${res.status})`);
-    const data = Buffer.from(await res.arrayBuffer());
-    const mimetype = (res.headers.get('content-type') || 'image/png').split(
-      ';',
-    )[0];
+    if (uploaded.has(publicPath)) return uploaded.get(publicPath);
+    const file = files.get(publicPath) as Downloaded;
     const doc = await payload.create({
       collection: 'media',
       data: { alt },
       file: {
-        data,
-        mimetype,
-        name: publicPath.split('/').pop(),
-        size: data.length,
+        data: file.data,
+        mimetype: file.mimetype,
+        name: file.name,
+        size: file.data.length,
       },
     });
-    images.set(publicPath, doc.id);
+    uploaded.set(publicPath, doc.id);
     return doc.id;
   }
 
   try {
-    // wipe site content, users and messages stay untouched
+    // step 2: wipe site content, users and messages stay untouched
     for (const collection of WIPE) {
       await payload.delete({ collection, where: { id: { exists: true } } });
     }
 
-    // single page sections
+    // step 3: single page sections
     const photo = await image(defaults.profile.photo, defaults.profile.name);
     await payload.updateGlobal({
       slug: 'profile',
@@ -78,7 +110,7 @@ export const resetSiteHandler = async (req: any) => {
     });
     await payload.updateGlobal({ slug: 'about', data: defaults.about });
 
-    // lists
+    // step 4: lists
     for (const project of defaults.projects) {
       const projectImage = await image(
         project.image,

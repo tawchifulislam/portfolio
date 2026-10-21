@@ -114,7 +114,7 @@
     {
       "title": "Thirsty for Knowledge",
       "slug": "tfknowledge",
-      "order": 1,
+      "order": 2,
       "featured": true,
       "summary": "A bilingual, minimalist blog platform where readers vote on what gets written next.",
       "image": "/images/projects/tfknowledge.png",
@@ -161,7 +161,7 @@
     {
       "title": "Healync",
       "slug": "healync",
-      "order": 2,
+      "order": 3,
       "featured": true,
       "summary": "A full-stack doctor appointment booking platform bridging patients and verified medical specialists.",
       "image": "/images/projects/healync.png",
@@ -207,7 +207,7 @@
     {
       "title": "Roamly",
       "slug": "roamly",
-      "order": 3,
+      "order": 4,
       "featured": true,
       "summary": "A full-stack travel discovery platform combining real traveler ratings with an AI chat assistant.",
       "image": "/images/projects/roamly.png",
@@ -247,93 +247,6 @@
         },
         {
           "text": "Expanding the assistant to generate full day by day itineraries."
-        }
-      ]
-    },
-    {
-      "title": "Meghdut",
-      "slug": "meghdut",
-      "order": 4,
-      "featured": false,
-      "summary": "A minimal dark-aesthetic weather app with real-time conditions and a 3-day forecast.",
-      "image": "/images/projects/meghdut.png",
-      "tags": [
-        "Vanilla JS",
-        "WeatherAPI",
-        "HTML5",
-        "Tailwind CSS"
-      ],
-      "liveUrl": "https://meghdut.vercel.app",
-      "githubUrl": "https://github.com/tawchifulislam/Meghdut",
-      "problem": "Most weather apps feel heavier than the task needs. Meghdut is a fast, minimal lookup with no framework overhead.",
-      "approach": "Real time conditions, a 3 day forecast, sunrise and sunset times, and city search, built with vanilla HTML, CSS, and JavaScript against the WeatherAPI.",
-      "keyDecisions": [
-        {
-          "text": "Handled API rate limits and error states gracefully for invalid city names."
-        },
-        {
-          "text": "Built the glassmorphism UI with plain CSS, with no component library involved."
-        },
-        {
-          "text": "Managed asynchronous API calls and DOM updates without a framework."
-        }
-      ],
-      "outcome": "A lightweight, dependency free weather app with a dark, glass like aesthetic.",
-      "whatsNext": [
-        {
-          "text": "Geolocation support to auto detect the user's city on load."
-        },
-        {
-          "text": "An hourly forecast view alongside the existing 3 day forecast."
-        },
-        {
-          "text": "Weather based background animations that change with conditions."
-        }
-      ]
-    },
-    {
-      "title": "DaanBaksho",
-      "slug": "daanbaksho",
-      "order": 5,
-      "featured": false,
-      "summary": "A full-stack crowdfunding platform built around a credit economy for supporters, creators, and admins.",
-      "image": "/images/projects/daanbaksho.png",
-      "tags": [
-        "Next.js",
-        "JavaScript",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "BetterAuth",
-        "Stripe",
-        "JWT"
-      ],
-      "liveUrl": "https://daanbaksho.vercel.app",
-      "githubUrl": "https://github.com/tawchifulislam/daanbaksho-client",
-      "serverUrl": "https://github.com/tawchifulislam/daanbaksho-server",
-      "problem": "Crowdfunding needs a transparent way to connect supporters, creators, and admins around a shared, trackable economy.",
-      "approach": "Creators launch campaigns, supporters contribute through a credit based economy, and admins oversee platform activity, all secured through a custom JWT authentication flow. Stripe in test mode handles credit purchases, and imgBB hosts campaign images.",
-      "keyDecisions": [
-        {
-          "text": "Replaced the BetterAuth JWT plugin, which threw Base64 errors, with a custom `/api/token` route issuing HMAC signed JWTs via `jsonwebtoken`."
-        },
-        {
-          "text": "Fixed an infinite redirect loop in the axios interceptor caused by improper handling of 401 and 403 responses."
-        },
-        {
-          "text": "Designed a credit based economy that ties Stripe test mode payments directly to campaign contributions across three distinct user roles."
-        }
-      ],
-      "outcome": "A role based crowdfunding platform running on a custom authentication layer built to work around a library limitation.",
-      "whatsNext": [
-        {
-          "text": "Campaign progress notifications for supporters who back a project."
-        },
-        {
-          "text": "A public leaderboard of top funded campaigns."
-        },
-        {
-          "text": "Withdrawal requests and payout tracking for creators."
         }
       ]
     }
