@@ -1,48 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import type { CSSProperties } from 'react';
-
-const box: CSSProperties = {
-  border: '1px solid var(--theme-elevation-150)',
-  borderRadius: 6,
-  padding: 20,
-  marginBottom: 24,
-  background: 'var(--theme-elevation-50)',
-};
-
-const dangerButton: CSSProperties = {
-  background: '#c0392b',
-  color: '#fff',
-  border: 'none',
-  borderRadius: 4,
-  padding: '8px 16px',
-  cursor: 'pointer',
-};
-
-const plainButton: CSSProperties = {
-  background: 'transparent',
-  color: 'inherit',
-  border: '1px solid var(--theme-elevation-300)',
-  borderRadius: 4,
-  padding: '8px 16px',
-  cursor: 'pointer',
-};
+import { toast } from '@payloadcms/ui';
 
 export default function ResetSite() {
-  const [open, setOpen] = useState(false);
   const [text, setText] = useState('');
-  const [status, setStatus] = useState<'idle' | 'working' | 'done' | 'error'>(
-    'idle',
-  );
-  const [message, setMessage] = useState('');
+  const [working, setWorking] = useState(false);
 
-  const working = status === 'working';
   const canReset = text === 'RESET' && !working;
 
   const reset = async () => {
-    setStatus('working');
-    setMessage('');
+    setWorking(true);
     try {
       const res = await fetch('/api/reset-site', {
         method: 'POST',
@@ -52,79 +20,43 @@ export default function ResetSite() {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Reset failed');
-      setStatus('done');
-      setMessage('Done. The site now matches the original. Reloading...');
-      setTimeout(() => window.location.reload(), 1500);
+      toast.success('Site restored to the original version');
+      setTimeout(() => window.location.reload(), 1200);
     } catch (err) {
-      setStatus('error');
-      setMessage(err instanceof Error ? err.message : 'Reset failed');
+      toast.error(err instanceof Error ? err.message : 'Reset failed');
+      setWorking(false);
     }
   };
 
   return (
-    <div style={box}>
-      <h3 style={{ margin: '0 0 8px' }}>Reset site to original</h3>
-      <p style={{ margin: '0 0 12px' }}>
-        Restores all content and images to the original version saved in the
-        code. Projects, capstones, experience, tech stack, images, Profile and
-        About are replaced. Messages and users are not touched. This cannot be
-        undone.
-      </p>
-
-      {!open && (
-        <button
-          type="button"
-          style={dangerButton}
-          onClick={() => setOpen(true)}
-        >
-          Reset site...
-        </button>
-      )}
-
-      {open && (
-        <div>
-          <p style={{ margin: '0 0 8px' }}>
-            Type <strong>RESET</strong> to confirm.
-          </p>
+    <details className="pf-danger">
+      <summary>Danger zone</summary>
+      <div className="pf-danger__body">
+        <p>
+          Restores all content and images to the original version saved in the
+          code. Projects, capstones, experience, tech stack, images, Profile and
+          About are replaced. Messages and users are not touched. This cannot be
+          undone.
+        </p>
+        <div className="pf-danger__row">
           <input
+            className="pf-danger__input"
             type="text"
             value={text}
+            placeholder="Type RESET to confirm"
             onChange={event => setText(event.target.value)}
             disabled={working}
-            style={{ padding: 8, marginRight: 8 }}
           />
           <button
             type="button"
-            style={{ ...dangerButton, opacity: canReset ? 1 : 0.4 }}
+            className="pf-danger__btn"
             disabled={!canReset}
             onClick={reset}
           >
-            {working ? 'Resetting, please wait...' : 'Yes, reset everything'}
-          </button>{' '}
-          <button
-            type="button"
-            style={plainButton}
-            disabled={working}
-            onClick={() => {
-              setOpen(false);
-              setText('');
-            }}
-          >
-            Cancel
+            {working ? 'Resetting, please wait...' : 'Reset site'}
           </button>
         </div>
-      )}
-
-      {message && (
-        <p
-          style={{
-            margin: '12px 0 0',
-            color: status === 'error' ? '#c0392b' : 'inherit',
-          }}
-        >
-          {message}
-        </p>
-      )}
-    </div>
+      </div>
+    </details>
   );
 }

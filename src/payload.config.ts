@@ -29,8 +29,20 @@ export default buildConfig({
   admin: {
     user: 'users',
     importMap: { baseDir: path.resolve(dirname) },
+    theme: 'dark',
+    dateFormat: 'd MMM yyyy, h:mm a',
+    meta: {
+      titleSuffix: ' | Portfolio admin',
+      icons: [{ rel: 'icon', url: '/favicon.ico' }],
+    },
+    toast: { position: 'bottom-center', duration: 3000, limit: 3 },
     components: {
-      beforeDashboard: ['/components/admin/ResetSite'],
+      graphics: {
+        Logo: '/components/admin/Logo',
+        Icon: '/components/admin/Icon',
+      },
+      beforeDashboard: ['/components/admin/DashboardHome'],
+      afterDashboard: ['/components/admin/ResetSite'],
     },
   },
   collections: [
@@ -47,7 +59,7 @@ export default buildConfig({
     { path: '/reset-site', method: 'post', handler: resetSiteHandler },
   ],
   editor: lexicalEditor(),
-    secret,
+  secret,
   csrf: trusted,
   cors: trusted,
   graphQL: { disable: true },
