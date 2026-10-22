@@ -1,4 +1,5 @@
 import { Package } from 'lucide-react';
+import * as simpleIcons from 'simple-icons';
 import {
   SiCss,
   SiDocker,
@@ -27,7 +28,9 @@ import { getSiteData } from '@/lib/cms';
 import SectionHeading from '@/components/ui/SectionHeading';
 
 const NEUTRAL = '#F1EBDD';
+const BRASS = '#E3A13A';
 
+// icons already styled by hand, matched by tool name
 const techIcons = {
   HTML5: { icon: SiHtml5, color: '#E34F26' },
   CSS3: { icon: SiCss, color: '#1572B6' },
@@ -53,7 +56,58 @@ const techIcons = {
   Render: { icon: SiRender, color: '#46E3B7' },
 };
 
-const fallbackIcon = { icon: Package, color: '#E3A13A' };
+// every Simple Icons icon by slug, used for tools added from the dashboard
+const iconBySlug = new Map(
+  Object.values(simpleIcons)
+    .filter(icon => icon && typeof icon === 'object' && icon.slug)
+    .map(icon => [icon.slug, icon]),
+);
+
+// very dark brand colors would vanish on the dark background
+function readableColor(hex) {
+  const value = parseInt(hex, 16);
+  const luminance =
+    0.299 * ((value >> 16) & 255) +
+    0.587 * ((value >> 8) & 255) +
+    0.114 * (value & 255);
+  return luminance < 70 ? NEUTRAL : `#${hex}`;
+}
+
+function brandColor(tech) {
+  const known = techIcons[tech.name];
+  if (known) return known.color;
+  const custom = iconBySlug.get(tech.icon);
+  return custom ? readableColor(custom.hex) : BRASS;
+}
+
+function TechIcon({ tech }) {
+  const className =
+    'text-subtle transition-colors duration-200 group-hover:text-(--brand)';
+  const known = techIcons[tech.name];
+
+  if (known) {
+    const Icon = known.icon;
+    return <Icon size={15} aria-hidden="true" className={className} />;
+  }
+
+  const custom = iconBySlug.get(tech.icon);
+  if (custom) {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        width={15}
+        height={15}
+        fill="currentColor"
+        aria-hidden="true"
+        className={className}
+      >
+        <path d={custom.path} />
+      </svg>
+    );
+  }
+
+  return <Package size={15} aria-hidden="true" className={className} />;
+}
 
 const groups = [
   { key: 'frontend', label: 'Frontend' },
@@ -63,7 +117,8 @@ const groups = [
 ];
 
 export default async function TechStack() {
-  const { techStack } = await getSiteData();
+  const { techStack, sections } = await getSiteData();
+
   return (
     <section
       id="techstack"
@@ -73,8 +128,8 @@ export default async function TechStack() {
       <div className="mx-auto max-w-340">
         <SectionHeading
           id="stack-heading"
-          eyebrow="Tech stack"
-          title="What I reach for."
+          eyebrow={sections.techStack.eyebrow}
+          title={sections.techStack.title}
         />
 
         <div className="card px-5 py-2 sm:px-8">
@@ -90,24 +145,16 @@ export default async function TechStack() {
               >
                 {techStack
                   .filter(tech => tech.category === group.key)
-                  .map(tech => {
-                    const { icon: Icon, color } =
-                      techIcons[tech.name] ?? fallbackIcon;
-                    return (
-                      <li
-                        key={tech.name}
-                        style={{ '--brand': color }}
-                        className="group chip inline-flex items-center gap-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-line-3 hover:bg-panel-2"
-                      >
-                        <Icon
-                          size={15}
-                          aria-hidden="true"
-                          className="text-subtle transition-colors duration-200 group-hover:text-(--brand)"
-                        />
-                        {tech.name}
-                      </li>
-                    );
-                  })}
+                  .map(tech => (
+                    <li
+                      key={tech.name}
+                      style={{ '--brand': brandColor(tech) }}
+                      className="group chip inline-flex items-center gap-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-line-3 hover:bg-panel-2"
+                    >
+                      <TechIcon tech={tech} />
+                      {tech.name}
+                    </li>
+                  ))}
               </ul>
             </div>
           ))}
