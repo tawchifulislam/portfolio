@@ -67,6 +67,9 @@ export default buildConfig({
   db: mongooseAdapter({ url: process.env.DATABASE_URL || '' }),
   plugins: [
     vercelBlobStorage({
+      enabled:
+        process.env.NODE_ENV === 'production' ||
+        Boolean(process.env.BLOB_READ_WRITE_TOKEN),
       collections: {
         media: { disablePayloadAccessControl: true },
       },
