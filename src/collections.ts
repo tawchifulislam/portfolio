@@ -50,6 +50,22 @@ export const Media: CollectionConfig = {
   ],
 };
 
+// Documents (PDF files such as the resume)
+export const Documents: CollectionConfig = {
+  slug: 'documents',
+  access: { read: () => true },
+  hooks: collectionHooks,
+  upload: { mimeTypes: ['application/pdf'] },
+  admin: {
+    useAsTitle: 'title',
+    group: 'Content',
+    description:
+      'PDF files, for example the resume. Upload here, then pick the file in Profile and Hero.',
+    hideAPIURL: true,
+  },
+  fields: [{ name: 'title', type: 'text', required: true }],
+};
+
 // Projects (Work section + case study pages)
 export const Projects: CollectionConfig = {
   slug: 'projects',

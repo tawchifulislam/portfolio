@@ -1,5 +1,6 @@
 import { revalidatePath } from 'next/cache';
 import defaults from './lib/defaults.json';
+import sectionDefaults from './lib/sectionDefaults.json';
 
 const WIPE = [
   'projects',
@@ -106,9 +107,13 @@ export const resetSiteHandler = async (req: any) => {
     const photo = await image(defaults.profile.photo, defaults.profile.name);
     await payload.updateGlobal({
       slug: 'profile',
-      data: { ...defaults.profile, photo },
+      data: { ...defaults.profile, photo, resumeFile: null },
     });
     await payload.updateGlobal({ slug: 'about', data: defaults.about });
+    await payload.updateGlobal({
+      slug: 'section-titles',
+      data: sectionDefaults,
+    });
 
     // step 4: lists
     for (const project of defaults.projects) {

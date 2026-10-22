@@ -39,7 +39,22 @@ export const Profile: GlobalConfig = {
       relationTo: 'media',
       label: 'Profile photo',
     },
-    { name: 'resume', type: 'text', label: 'Resume link (URL)' },
+    {
+      name: 'resumeFile',
+      type: 'upload',
+      relationTo: 'documents',
+      label: 'Resume (PDF)',
+      admin: {
+        description:
+          'Upload a PDF in Documents, then pick it here. It replaces the link below.',
+      },
+    },
+    {
+      name: 'resume',
+      type: 'text',
+      label: 'Resume link (URL)',
+      admin: { description: 'Used only when no PDF is selected above.' },
+    },
     {
       type: 'row',
       fields: [

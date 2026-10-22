@@ -1,6 +1,7 @@
 import { cache } from 'react';
 import { getPayload } from 'payload';
 import config from '@payload-config';
+import sectionDefaults from './sectionDefaults.json';
 
 const getClient = cache(() => getPayload({ config }));
 
@@ -58,7 +59,7 @@ export const getProfile = cache(() =>
         email: p.email,
         bio: p.bio,
         image: mediaUrl(p.photo),
-        resume: p.resume,
+        resume: mediaUrl(p.resumeFile) || p.resume,
         social: {
           github: p.github,
           linkedin: p.linkedin,
@@ -72,6 +73,31 @@ export const getProfile = cache(() =>
         },
       },
       stats: (p.stats ?? []).map(s => ({ value: s.value, label: s.label })),
+    };
+  }),
+);
+
+// section headings with built-in fallbacks
+export const getSectionTitles = cache(() =>
+  withRetry(async () => {
+    const payload = await getClient();
+    const s = await payload.findGlobal({ slug: 'section-titles' });
+    const pick = (group, key) =>
+      s?.[group]?.[key] || sectionDefaults[group][key];
+    return {
+      work: {
+        eyebrow: pick('work', 'eyebrow'),
+        title: pick('work', 'title'),
+        description: pick('work', 'description'),
+      },
+      experience: {
+        eyebrow: pick('experience', 'eyebrow'),
+        title: pick('experience', 'title'),
+      },
+      techStack: {
+        eyebrow: pick('techStack', 'eyebrow'),
+        title: pick('techStack', 'title'),
+      },
     };
   }),
 );
@@ -184,7 +210,7 @@ export const getTechStack = cache(() =>
 
 // everything for the home page sections
 export const getSiteData = cache(async () => {
-  const [profile, about, projects, capstones, experience, techStack] =
+  const [profile, about, projects, capstones, experience, techStack, sections] =
     await Promise.all([
       getProfile(),
       getAbout(),
@@ -192,6 +218,7 @@ export const getSiteData = cache(async () => {
       getCapstones(),
       getExperience(),
       getTechStack(),
+      getSectionTitles(),
     ]);
 
   return {
@@ -202,5 +229,6 @@ export const getSiteData = cache(async () => {
     capstones,
     experience,
     techStack,
+    sections,
   };
 });

@@ -8,13 +8,14 @@ import { buildConfig } from 'payload';
 import {
   Users,
   Media,
+  Documents,
   Projects,
   Capstones,
   Experience,
   TechStack,
   Messages,
 } from './collections';
-import { Profile, About } from './globals';
+import { Profile, About, SectionTitles } from './globals';
 import { resetSiteHandler } from './resetSite';
 
 const trusted = ['https://tawchif.vercel.app', 'http://localhost:3000'];
@@ -47,6 +48,7 @@ export default buildConfig({
   },
   collections: [
     Media,
+    Documents,
     Projects,
     Capstones,
     Experience,
@@ -54,7 +56,7 @@ export default buildConfig({
     Messages,
     Users,
   ],
-  globals: [Profile, About],
+  globals: [Profile, About, SectionTitles],
   endpoints: [
     { path: '/reset-site', method: 'post', handler: resetSiteHandler },
   ],
@@ -72,6 +74,7 @@ export default buildConfig({
         Boolean(process.env.BLOB_READ_WRITE_TOKEN),
       collections: {
         media: { disablePayloadAccessControl: true },
+        documents: { disablePayloadAccessControl: true },
       },
       token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
