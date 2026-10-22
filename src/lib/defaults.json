@@ -2,9 +2,9 @@
   "profile": {
     "name": "Tawchiful Islam",
     "title": "Full-Stack Developer",
-    "location": "Chittagong, Bangladesh",
+    "location": "Chattogram (Chittagong), Bangladesh",
     "email": "tawchif04@gmail.com",
-    "bio": "I'm a full-stack developer from Chittagong. React and Next.js on the front, Node, Express and MongoDB behind it. I care about clean architecture, readable code and interfaces that feel good to use.",
+    "bio": "Tawchiful Islam is a full-stack developer based in Chattogram (Chittagong), Bangladesh. React and Next.js on the front, Node, Express and MongoDB behind it. I care about clean architecture, readable code and interfaces that feel good to use.",
     "photo": "/images/tawchif.webp",
     "resume": "https://drive.google.com/file/d/137fe6Z1fmbpzrGc7KesccAiNwvhW3vmy/view?usp=drive_link",
     "github": "https://github.com/tawchifulislam",
@@ -33,7 +33,7 @@
     "heading": "Self-taught, and building things that hold up.",
     "paragraphs": [
       {
-        "text": "I'm a self-taught full-stack developer from Chittagong. My formal programming journey began in 2025, though I'd been absorbing how software is made long before I wrote my first line of code. Since then I've built and deployed complete products: a gym management platform, a doctor appointment system, a travel discovery platform with an AI assistant, and a crowdfunding app."
+        "text": "I'm a self-taught full-stack developer from Chattogram (Chittagong). My formal programming journey began in 2025, though I'd been absorbing how software is made long before I wrote my first line of code. Since then I've built and deployed complete products: a gym management platform, a doctor appointment system, a travel discovery platform with an AI assistant, and a crowdfunding app."
       },
       {
         "text": "What I enjoy most is the moment a hard problem finally makes sense. I try to build the parts users never see but always depend on: role-based access, payments, scheduled jobs, and graceful handling of retries and dropped connections."

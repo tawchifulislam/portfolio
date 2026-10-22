@@ -16,9 +16,21 @@ export async function generateMetadata({ params }) {
   const project = projects.find(p => p.slug === slug);
   if (!project) return {};
 
+  const title = `${project.title} - Tawchiful Islam`;
+  const url = `/projects/${slug}`;
+
   return {
-    title: `${project.title} - Tawchiful Islam`,
+    title,
     description: project.summary,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      url,
+      title,
+      description: project.summary,
+      siteName: 'Tawchiful Islam',
+      locale: 'en_US',
+    },
   };
 }
 
