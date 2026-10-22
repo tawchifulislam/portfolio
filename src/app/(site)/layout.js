@@ -4,7 +4,8 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CustomCursor from '@/components/ui/CustomCursor';
 import ScrollToTop from '@/components/ui/ScrollToTop';
-import { getProfile } from '@/lib/cms';
+import { getProfile, getTechStack } from '@/lib/cms';
+import { buildStructuredData } from '@/lib/seo';
 import { SITE_URL } from '@/lib/constants';
 import { safeJsonLd } from '@/lib/utils';
 
@@ -44,23 +45,18 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: 'Tawchiful Islam - Full-Stack Developer',
+  title: 'Tawchiful Islam | Full-Stack Developer, Chattogram (Chittagong)',
   description:
-    'Full-stack developer from Chittagong, Bangladesh. Building clean, responsive, and user-friendly web experiences with React, Next.js, Node.js, and more.',
+    'Tawchiful Islam is a full-stack developer in Chattogram (Chittagong), Bangladesh. React, Next.js, Node.js and MongoDB projects, experience and contact.',
   verification: {
     google: 'XLpyYO33DiPxz57WSmbRNp1cSATk6hBbLztjG2zv-do',
   },
   keywords: [
     'Tawchiful Islam',
-    'Tawsiful Islam',
-    'Tawchif',
-    'Tawsif',
-    'Full-Stack Developer',
-    'React Developer',
-    'Next.js Developer',
-    'Node.js Developer',
-    'Web Developer Bangladesh',
-    'Chittagong Developer',
+    'Full-Stack Developer Chattogram',
+    'Full-Stack Developer Chittagong',
+    'Web Developer Chattogram',
+    'Next.js Developer Bangladesh',
   ],
   authors: [{ name: 'Tawchiful Islam', url: SITE_URL }],
   creator: 'Tawchiful Islam',
@@ -99,40 +95,11 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const { personalInfo } = await getProfile();
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Tawchiful Islam',
-  additionalName: 'Tawsiful Islam',
-  alternateName: [
-    'Tawsif',
-    'Tawchif',
-    'Tausif',
-    'Tosif',
-    'Tasif',
-    'Taosif',
-    'Taosib',
-    'Tawsib',
-    'Tawchib',
-    'Tawchiful',
-    'Taosiful',
-    'Tawsiful',
-  ],
-  url: SITE_URL,
-  jobTitle: 'Full-Stack Developer',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Chittagong',
-    addressCountry: 'Bangladesh',
-  },
-  sameAs: [
-    personalInfo.social.github,
-    personalInfo.social.linkedin,
-    personalInfo.social.twitter,
-  ],
-};
+  const [{ personalInfo }, techStack] = await Promise.all([
+    getProfile(),
+    getTechStack(),
+  ]);
+  const jsonLd = buildStructuredData({ personalInfo, techStack });
 
   return (
     <html
