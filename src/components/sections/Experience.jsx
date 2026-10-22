@@ -16,7 +16,7 @@ function renderRich(text) {
 }
 
 export default async function Experience() {
-  const { experience } = await getSiteData();
+  const { experience, sections } = await getSiteData();
   return (
     <section
       id="experience"
@@ -26,8 +26,8 @@ export default async function Experience() {
       <div className="mx-auto max-w-340">
         <SectionHeading
           id="experience-heading"
-          eyebrow="Experience"
-          title="Hands-on work you can verify."
+          eyebrow={sections.experience.eyebrow}
+          title={sections.experience.title}
         />
 
         <div className="flex flex-col gap-5">

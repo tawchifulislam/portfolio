@@ -1,3 +1,4 @@
+import sectionDefaults from './lib/sectionDefaults.json';
 import { globalHooks } from './revalidate';
 import type { GlobalConfig } from 'payload';
 
@@ -127,6 +128,82 @@ export const About: GlobalConfig = {
       fields: [
         { name: 'title', type: 'text', required: true },
         { name: 'text', type: 'textarea', required: true },
+      ],
+    },
+  ],
+};
+// Section titles (headings above Work, Experience and Tech stack)
+export const SectionTitles: GlobalConfig = {
+  slug: 'section-titles',
+  label: 'Section titles',
+  hooks: globalHooks,
+  admin: {
+    group: 'Site',
+    description:
+      'Headings shown above the Work, Experience and Tech stack sections.',
+    preview: () => `${SITE}/#work`,
+  },
+  fields: [
+    {
+      name: 'work',
+      type: 'group',
+      label: 'Work',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          required: true,
+          defaultValue: sectionDefaults.work.eyebrow,
+        },
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          defaultValue: sectionDefaults.work.title,
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          defaultValue: sectionDefaults.work.description,
+        },
+      ],
+    },
+    {
+      name: 'experience',
+      type: 'group',
+      label: 'Experience',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          required: true,
+          defaultValue: sectionDefaults.experience.eyebrow,
+        },
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          defaultValue: sectionDefaults.experience.title,
+        },
+      ],
+    },
+    {
+      name: 'techStack',
+      type: 'group',
+      label: 'Tech stack',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          required: true,
+          defaultValue: sectionDefaults.techStack.eyebrow,
+        },
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+          defaultValue: sectionDefaults.techStack.title,
+        },
       ],
     },
   ],

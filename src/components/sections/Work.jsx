@@ -4,7 +4,7 @@ import SectionHeading from '@/components/ui/SectionHeading';
 import ProjectSlider from '@/components/ui/ProjectSlider';
 
 export default async function Work({ projects }) {
-  const { capstones, personalInfo } = await getSiteData();
+  const { capstones, personalInfo, sections } = await getSiteData();
   return (
     <section
       id="work"
@@ -14,9 +14,9 @@ export default async function Work({ projects }) {
       <div className="mx-auto max-w-340">
         <SectionHeading
           id="work-heading"
-          eyebrow="Selected work"
-          title="Things I've built, and why."
-          description="Case studies rather than a showcase. Each one started with a real problem."
+          eyebrow={sections.work.eyebrow}
+          title={sections.work.title}
+          description={sections.work.description}
         />
 
         <ProjectSlider projects={projects} />

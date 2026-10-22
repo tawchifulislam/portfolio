@@ -1,0 +1,15 @@
+{
+  "work": {
+    "eyebrow": "Selected work",
+    "title": "Things I've built, and why.",
+    "description": "Case studies rather than a showcase. Each one started with a real problem."
+  },
+  "experience": {
+    "eyebrow": "Experience",
+    "title": "Hands-on work you can verify."
+  },
+  "techStack": {
+    "eyebrow": "Tech stack",
+    "title": "What I reach for."
+  }
+}
