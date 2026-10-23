@@ -27,13 +27,13 @@ export function buildStructuredData({ personalInfo, techStack }) {
         description: personalInfo.bio,
         address: {
           '@type': 'PostalAddress',
-          addressLocality: 'Chattogram',
-          addressRegion: 'Chattogram Division',
+          addressLocality: 'Chittagong',
+          addressRegion: 'Chittagong Division',
           addressCountry: 'BD',
         },
         homeLocation: {
           '@type': 'Place',
-          name: 'Chattogram (Chittagong), Bangladesh',
+          name: 'Chittagong (Chattogram), Bangladesh',
         },
         knowsAbout,
         sameAs: Object.values(personalInfo.social).filter(Boolean),

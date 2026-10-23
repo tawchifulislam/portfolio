@@ -9,6 +9,10 @@ import { buildStructuredData } from '@/lib/seo';
 import { SITE_URL } from '@/lib/constants';
 import { safeJsonLd } from '@/lib/utils';
 
+const SEO_TITLE = 'Tawchiful Islam | Full-Stack Developer';
+const SEO_DESCRIPTION =
+  'Tawchiful Islam is a full-stack developer in Chittagong, Bangladesh. React, Next.js, Node.js and MongoDB projects, experience and contact.';
+
 const bricolage = localFont({
   src: '../../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2',
   variable: '--font-bricolage',
@@ -45,17 +49,15 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: 'Tawchiful Islam | Full-Stack Developer, Chattogram (Chittagong)',
-  description:
-    'Tawchiful Islam is a full-stack developer in Chattogram (Chittagong), Bangladesh. React, Next.js, Node.js and MongoDB projects, experience and contact.',
+  title: SEO_TITLE,
+  description: SEO_DESCRIPTION,
   verification: {
     google: 'XLpyYO33DiPxz57WSmbRNp1cSATk6hBbLztjG2zv-do',
   },
   keywords: [
     'Tawchiful Islam',
-    'Full-Stack Developer Chattogram',
     'Full-Stack Developer Chittagong',
-    'Web Developer Chattogram',
+    'Web Developer Chittagong',
     'Next.js Developer Bangladesh',
   ],
   authors: [{ name: 'Tawchiful Islam', url: SITE_URL }],
@@ -72,16 +74,14 @@ export const metadata = {
     type: 'website',
     locale: 'en_US',
     url: SITE_URL,
-    title: 'Tawchiful Islam - Full-Stack Developer',
-    description:
-      'Full-stack developer from Chittagong, Bangladesh. Building clean, responsive, and user-friendly web experiences with React, Next.js, Node.js, and more.',
+    title: SEO_TITLE,
+    description: SEO_DESCRIPTION,
     siteName: 'Tawchiful Islam',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Tawchiful Islam - Full-Stack Developer',
-    description:
-      'Full-stack developer from Chittagong, Bangladesh. Building clean, responsive, and user-friendly web experiences with React, Next.js, Node.js, and more.',
+    title: SEO_TITLE,
+    description: SEO_DESCRIPTION,
     creator: '@tawchifulislam',
   },
   icons: {
