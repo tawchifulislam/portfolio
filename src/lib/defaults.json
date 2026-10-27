@@ -317,97 +317,34 @@
     }
   ],
   "techStack": [
+    { "name": "React.js", "category": "frontend", "icon": "react" },
+    { "name": "Next.js", "category": "frontend" },
+    { "name": "TypeScript", "category": "frontend" },
     {
-      "name": "HTML5",
-      "category": "core"
+      "name": "JavaScript (ES6+)",
+      "category": "frontend",
+      "icon": "javascript"
     },
-    {
-      "name": "CSS3",
-      "category": "core"
-    },
-    {
-      "name": "JavaScript",
-      "category": "core"
-    },
-    {
-      "name": "TypeScript",
-      "category": "core"
-    },
-    {
-      "name": "React",
-      "category": "frontend"
-    },
-    {
-      "name": "Next.js",
-      "category": "frontend"
-    },
-    {
-      "name": "Tailwind CSS",
-      "category": "frontend"
-    },
-    {
-      "name": "Framer Motion",
-      "category": "frontend"
-    },
-    {
-      "name": "Zustand",
-      "category": "frontend"
-    },
-    {
-      "name": "Shadcn",
-      "category": "frontend"
-    },
-    {
-      "name": "Node.js",
-      "category": "backend"
-    },
-    {
-      "name": "Express.js",
-      "category": "backend"
-    },
-    {
-      "name": "MongoDB",
-      "category": "backend"
-    },
-    {
-      "name": "PostgreSQL",
-      "category": "backend"
-    },
-    {
-      "name": "Prisma",
-      "category": "backend"
-    },
-    {
-      "name": "JWT",
-      "category": "backend"
-    },
-    {
-      "name": "Git",
-      "category": "tools"
-    },
-    {
-      "name": "GitHub",
-      "category": "tools"
-    },
-    {
-      "name": "VS Code",
-      "category": "tools"
-    },
-    {
-      "name": "Vercel",
-      "category": "tools"
-    },
-    {
-      "name": "Netlify",
-      "category": "tools"
-    },
-    {
-      "name": "Docker",
-      "category": "tools"
-    },
-    {
-      "name": "Render",
-      "category": "tools"
-    }
+    { "name": "Tailwind CSS", "category": "frontend" },
+    { "name": "Framer Motion", "category": "frontend" },
+    { "name": "Node.js", "category": "backend" },
+    { "name": "Express.js", "category": "backend" },
+    { "name": "REST APIs", "category": "backend" },
+    { "name": "JWT", "category": "backend" },
+    { "name": "Better Auth", "category": "backend", "icon": "betterauth" },
+    { "name": "Stripe", "category": "backend", "icon": "stripe" },
+    { "name": "Webhooks", "category": "backend" },
+    { "name": "Zod", "category": "backend", "icon": "zod" },
+    { "name": "Gemini API", "category": "backend", "icon": "googlegemini" },
+    { "name": "PostgreSQL", "category": "database" },
+    { "name": "Prisma", "category": "database" },
+    { "name": "MongoDB", "category": "database" },
+    { "name": "Git", "category": "tools" },
+    { "name": "GitHub", "category": "tools" },
+    { "name": "GitHub Actions", "category": "tools", "icon": "githubactions" },
+    { "name": "Docker", "category": "tools" },
+    { "name": "Postman", "category": "tools", "icon": "postman" },
+    { "name": "Vercel", "category": "tools" },
+    { "name": "Render", "category": "tools" }
   ]
 }
