@@ -112,7 +112,7 @@ function TechIcon({ tech }) {
 const groups = [
   { key: 'frontend', label: 'Frontend' },
   { key: 'backend', label: 'Backend' },
-  { key: 'core', label: 'Core' },
+  { key: 'database', label: 'Database' },
   { key: 'tools', label: 'Tools' },
 ];
 

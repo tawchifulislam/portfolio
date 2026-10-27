@@ -1,27 +1,31 @@
 {
   "profile": {
     "name": "Tawchiful Islam",
-    "title": "Full-Stack Developer",
+    "title": "Full Stack Developer",
     "location": "Chittagong, Bangladesh",
     "email": "tawchif04@gmail.com",
-    "bio": "Tawchiful Islam is a full-stack developer based in Chittagong, Bangladesh. React and Next.js on the front, Node, Express and MongoDB behind it. I care about clean architecture, readable code and interfaces that feel good to use.",
+    "bio": "Full Stack Developer who builds reliable backends: idempotent APIs, Stripe billing and webhooks. Next.js, TypeScript, Node.js and PostgreSQL. Completed a Backend AI Engineering internship; available full-time for remote junior and contract roles.",
     "photo": "/images/tawchif.webp",
     "resume": "https://drive.google.com/file/d/137fe6Z1fmbpzrGc7KesccAiNwvhW3vmy/view?usp=drive_link",
     "github": "https://github.com/tawchifulislam",
     "linkedin": "https://linkedin.com/in/tawchiful-islam",
     "twitter": "https://x.com/tawchifulislam",
-    "statusText": "Open for work",
+    "statusText": "Open for work · UTC+6 · available full-time",
     "headlineStart": "Hi, I'm Tawchiful. I build",
     "headlineHighlight": "whole products",
     "headlineEnd": ", front to back.",
     "stats": [
       {
-        "value": "35",
-        "label": "internship assignments completed"
+        "value": "8 → 1",
+        "label": "parallel requests, one usage event"
       },
       {
-        "value": "221+",
-        "label": "documented hours of practice"
+        "value": "2 → 1",
+        "label": "simultaneous bookings, one wins"
+      },
+      {
+        "value": "3",
+        "label": "approved capstones"
       },
       {
         "value": "20",
@@ -33,7 +37,7 @@
     "heading": "Self-taught, and building things that hold up.",
     "paragraphs": [
       {
-        "text": "I'm a self-taught full-stack developer from Chattogram (Chittagong). My formal programming journey began in 2025, though I'd been absorbing how software is made long before I wrote my first line of code. Since then I've built and deployed complete products: a gym management platform, a doctor appointment system, a travel discovery platform with an AI assistant, and a crowdfunding app."
+        "text": "I'm a self-taught full-stack developer from Chattogram (Chittagong). My formal programming journey began in 2025, though I'd been absorbing how software is made long before I wrote my first line of code. Since then I've built and deployed complete products: a booking platform, a billing backend and a fitness platform."
       },
       {
         "text": "What I enjoy most is the moment a hard problem finally makes sense. I try to build the parts users never see but always depend on: role-based access, payments, scheduled jobs, and graceful handling of retries and dropped connections."
@@ -52,7 +56,7 @@
       },
       {
         "title": "Whole-system thinking",
-        "text": "React and Next.js interfaces, Express APIs and MongoDB schemas, built as one system with clear boundaries between the parts."
+        "text": "React and Next.js interfaces, PostgreSQL and MongoDB schemas, built as one system with clear boundaries between the parts."
       },
       {
         "title": "Interfaces that feel considered",
@@ -61,6 +65,10 @@
       {
         "title": "Dependable by design",
         "text": "JWT auth, role-based access, idempotent writes, verified webhooks and honest error codes are planned in from the start, not patched on."
+      },
+      {
+        "title": "Language",
+        "text": "Languages: Bengali (native), English (professional working)."
       }
     ]
   },
@@ -276,7 +284,7 @@
   ],
   "experience": [
     {
-      "role": "Back-End AI Engineering Intern",
+      "role": "Backend AI Engineering Intern",
       "organization": "FlyRank AI Internship Program",
       "mode": "Remote",
       "period": "Jul 2026 to Oct 2026",

@@ -8,7 +8,7 @@ export function buildStructuredData({ personalInfo, techStack }) {
   const [givenName, ...rest] = personalInfo.name.split(' ');
 
   const knowsAbout = techStack
-    .filter(tech => ['core', 'frontend', 'backend'].includes(tech.category))
+    .filter(tech => ['frontend', 'backend', 'database'].includes(tech.category))
     .map(tech => tech.name);
 
   return {

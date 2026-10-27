@@ -268,9 +268,9 @@ export const TechStack: CollectionConfig = {
       type: 'select',
       required: true,
       options: [
-        { label: 'Core', value: 'core' },
         { label: 'Frontend', value: 'frontend' },
         { label: 'Backend', value: 'backend' },
+        { label: 'Database', value: 'database' },
         { label: 'Tools', value: 'tools' },
       ],
     },
