@@ -213,7 +213,10 @@ export default function Contact({ personalInfo }) {
               >
                 {personalInfo.email}
               </a>
-              <p className="mb-6 mt-1.5 text-subtle">{personalInfo.location}</p>
+              <p className="mt-1.5 text-subtle">{personalInfo.location}</p>
+              <p className="mb-6 mt-1 text-sm text-brass">
+                {personalInfo.statusText}
+              </p>
 
               <ul className="flex gap-5 text-sm">
                 {socialLinks.map(social => (
