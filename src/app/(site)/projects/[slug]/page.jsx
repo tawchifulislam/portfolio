@@ -31,6 +31,11 @@ export async function generateMetadata({ params }) {
       siteName: 'Tawchiful Islam',
       locale: 'en_US',
     },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: project.summary,
+    },
   };
 }
 
