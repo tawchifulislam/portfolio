@@ -1,17 +1,13 @@
 import { getSiteData } from '@/lib/cms';
 
-export default async function StatsStrip({ projectCount }) {
+export default async function StatsStrip() {
   const { stats } = await getSiteData();
-
-  const items = [
-    { value: String(projectCount), label: 'projects shipped' },
-    ...stats,
-  ];
+  if (stats.length === 0) return null;
 
   return (
     <section aria-label="At a glance" className="px-5 sm:px-8 lg:px-14">
       <ul className="mx-auto grid max-w-340 grid-cols-2 border-y border-line lg:grid-cols-4">
-        {items.map(item => (
+        {stats.map(item => (
           <li key={item.label} className="px-2 py-7">
             <p className="font-display text-[2.5rem] font-bold leading-none">
               {item.value}

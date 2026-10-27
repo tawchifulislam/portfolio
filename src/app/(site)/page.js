@@ -13,8 +13,7 @@ export default async function Home() {
   return (
     <>
       <Hero />
-      <StatsStrip projectCount={projects.length} />
-      <Work projects={projects} />
+      <StatsStrip />
       <About />
       <Experience />
       <TechStack />
