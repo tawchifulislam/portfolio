@@ -9,7 +9,11 @@ export default async function Hero() {
     { label: 'GitHub', href: personalInfo.social.github },
     { label: 'LinkedIn', href: personalInfo.social.linkedin },
     { label: 'X', href: personalInfo.social.twitter },
-    { label: 'Résumé', href: personalInfo.resume, arrow: true },
+    {
+      label: 'Résumé',
+      href: personalInfo.resume ? '/resume.pdf' : '',
+      arrow: true,
+    },
   ].filter(item => item.href);
 
   const highlightWords = (personalInfo.headline.highlight || '')
@@ -33,7 +37,7 @@ export default async function Hero() {
               aria-hidden="true"
               className="h-1.5 w-1.5 animate-pulse rounded-full bg-brass"
             />
-            {personalInfo.statusText} · {personalInfo.location}
+            {personalInfo.statusText}
           </span>
 
           <h1 className="slide-in mb-5 mt-6 font-display text-display leading-[1.04] tracking-[-0.02em]">
