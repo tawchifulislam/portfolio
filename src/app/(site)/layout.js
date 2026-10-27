@@ -9,9 +9,9 @@ import { buildStructuredData } from '@/lib/seo';
 import { SITE_URL } from '@/lib/constants';
 import { safeJsonLd } from '@/lib/utils';
 
-const SEO_TITLE = 'Tawchiful Islam | Full-Stack Developer';
+const SEO_TITLE = 'Tawchiful Islam | Full Stack Developer';
 const SEO_DESCRIPTION =
-  'Tawchiful Islam is a full-stack developer in Chittagong, Bangladesh. React, Next.js, Node.js and MongoDB projects, experience and contact.';
+  'Full Stack Developer (Next.js, TypeScript, Node.js, PostgreSQL) open to remote junior and contract roles. Case studies: idempotent billing, concurrency-safe booking.';
 
 const bricolage = localFont({
   src: '../../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2',
@@ -56,9 +56,11 @@ export const metadata = {
   },
   keywords: [
     'Tawchiful Islam',
-    'Full-Stack Developer Chittagong',
-    'Web Developer Chittagong',
-    'Next.js Developer Bangladesh',
+    'Remote Full Stack Developer',
+    'Node.js Developer',
+    'PostgreSQL',
+    'Next.js',
+    'Stripe',
   ],
   authors: [{ name: 'Tawchiful Islam', url: SITE_URL }],
   creator: 'Tawchiful Islam',

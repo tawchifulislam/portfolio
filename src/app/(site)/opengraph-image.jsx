@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Tawchiful Islam, Full-Stack Developer';
+export const alt = 'Tawchiful Islam, Full Stack Developer';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -37,7 +37,7 @@ export default function OpengraphImage() {
           Tawchiful Islam
         </span>
         <span style={{ fontSize: 40, color: '#e3a13a' }}>
-          Full-Stack Developer
+          Full Stack Developer
         </span>
       </div>
 
