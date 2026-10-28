@@ -16,11 +16,11 @@
     "headlineEnd": ", front to back.",
     "stats": [
       {
-        "value": "8 1",
+        "value": "8 → 1",
         "label": "parallel requests, one usage event"
       },
       {
-        "value": "2 1",
+        "value": "2 → 1",
         "label": "simultaneous bookings, one wins"
       },
       {
@@ -175,7 +175,7 @@
       "image": "/images/projects/healync.png",
       "tags": [
         "Next.js",
-        "JavaScript",
+        "TypeScript",
         "Node.js",
         "Express.js",
         "MongoDB",
