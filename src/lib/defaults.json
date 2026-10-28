@@ -16,11 +16,11 @@
     "headlineEnd": ", front to back.",
     "stats": [
       {
-        "value": "8 → 1",
+        "value": "8 1",
         "label": "parallel requests, one usage event"
       },
       {
-        "value": "2 → 1",
+        "value": "2 1",
         "label": "simultaneous bookings, one wins"
       },
       {
@@ -67,8 +67,8 @@
         "text": "JWT auth, role-based access, idempotent writes, verified webhooks and honest error codes are planned in from the start, not patched on."
       },
       {
-        "title": "Language",
-        "text": "Languages: Bengali (native), English (professional working)."
+        "title": "Languages",
+        "text": "Bengali (native), English (professional working)."
       }
     ]
   },

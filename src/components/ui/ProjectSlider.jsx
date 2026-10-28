@@ -162,7 +162,7 @@ export default function ProjectSlider({ projects }) {
       className="rounded-card"
     >
       <p className="sr-only" aria-live="polite">
-        {`Case study ${selected + 1} of ${total}: ${projects[selected].title}`}
+        {`Case study ${selected + 1} of ${total}: ${projects[selected]?.title ?? ''}`}
       </p>
 
       <div ref={emblaRef} className="overflow-hidden" data-cursor="drag">

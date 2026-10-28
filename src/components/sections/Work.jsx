@@ -26,7 +26,7 @@ export default async function Work({ projects }) {
           description={sections.work.description}
         />
 
-        <ProjectSlider projects={slides} />
+        {slides.length > 0 && <ProjectSlider projects={slides} />}
 
         {featured.length > 0 && more.length > 0 && (
           <div className="mt-10">

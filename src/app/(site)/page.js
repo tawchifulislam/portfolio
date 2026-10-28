@@ -14,6 +14,7 @@ export default async function Home() {
     <>
       <Hero />
       <StatsStrip />
+      <Work projects={projects} />
       <About />
       <Experience />
       <TechStack />
