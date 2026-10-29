@@ -1,7 +1,7 @@
 import { getSiteData } from '@/lib/cms';
-import ConvergeGraphic from '@/components/ui/ConvergeGraphic';
+import RouteGraphic from '@/components/ui/RouteGraphic';
 
-// values like "8 → 1" are drawn as lines merging into one point
+// values like "8 → 1" are drawn as two numbers joined by a dotted route
 const FLOW = /^(\d+)\s*(?:→|->)\s*(\d+)$/;
 
 function StatValue({ value }) {
@@ -12,10 +12,10 @@ function StatValue({ value }) {
     <span
       role="img"
       aria-label={`${match[1]} to ${match[2]}`}
-      className="flex items-center gap-2 sm:gap-3"
+      className="flex items-center gap-2 sm:gap-3.5"
     >
       <span>{match[1]}</span>
-      <ConvergeGraphic from={Number(match[1])} />
+      <RouteGraphic />
       <span>{match[2]}</span>
     </span>
   );
