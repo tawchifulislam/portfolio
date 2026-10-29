@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { getSiteData } from '@/lib/cms';
 import SectionHeading from '@/components/ui/SectionHeading';
 import ProjectSlider from '@/components/ui/ProjectSlider';
@@ -7,7 +7,7 @@ import ProjectSlider from '@/components/ui/ProjectSlider';
 export default async function Work({ projects }) {
   const { capstones, personalInfo, sections } = await getSiteData();
 
-  // featured projects go in the slider, the rest under "More projects"
+  // featured projects go in the slider, the rest in a plain list
   const featured = projects.filter(project => project.featured);
   const more = projects.filter(project => !project.featured);
   const slides = featured.length > 0 ? featured : projects;
@@ -29,29 +29,35 @@ export default async function Work({ projects }) {
         {slides.length > 0 && <ProjectSlider projects={slides} />}
 
         {featured.length > 0 && more.length > 0 && (
-          <div className="mt-10">
-            <p className="eyebrow mb-4">More projects</p>
-            <ul className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,17.5rem),1fr))] gap-5">
+          <div className="mt-12">
+            <p className="eyebrow mb-3">More projects</p>
+            <ul className="divide-y divide-line border-y border-line">
               {more.map(project => (
-                <li key={project.slug} className="card flex flex-col p-6">
-                  <h3 className="font-display text-[1.125rem] leading-tight">
-                    {project.title}
-                  </h3>
-                  <p className="mt-2 text-[0.9375rem] text-muted">
-                    {project.summary}
-                  </p>
-                  {project.tags.length > 0 && (
-                    <p className="mt-3 text-[0.8125rem] text-subtle">
-                      {project.tags.slice(0, 5).join(' · ')}
-                    </p>
-                  )}
+                <li key={project.slug}>
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="link mt-auto inline-flex items-center gap-1 pt-4 text-[0.9375rem]"
+                    className="group grid gap-x-8 gap-y-1 py-5 sm:grid-cols-[13rem_minmax(0,1fr)_auto] sm:items-baseline"
                   >
-                    Case study
-                    <span className="sr-only"> for {project.title}</span>
-                    <ArrowUpRight size={15} aria-hidden="true" />
+                    <h3 className="font-display text-[1.0625rem] leading-snug transition-colors group-hover:text-brass-hover">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-muted">
+                      {project.summary}
+                      {project.tags.length > 0 && (
+                        <span className="mt-1 block text-[0.8125rem] text-subtle">
+                          {project.tags.slice(0, 5).join(' · ')}
+                        </span>
+                      )}
+                    </p>
+                    <span className="link inline-flex items-center gap-1.5 text-sm font-medium">
+                      Case study
+                      <span className="sr-only"> for {project.title}</span>
+                      <ArrowRight
+                        size={14}
+                        aria-hidden="true"
+                        className="transition-transform duration-200 group-hover:translate-x-0.5"
+                      />
+                    </span>
                   </Link>
                 </li>
               ))}
