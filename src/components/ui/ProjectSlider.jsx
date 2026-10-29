@@ -37,8 +37,6 @@ function ProjectSlide({ project }) {
               alt={`${project.title} screenshot`}
               fill
               sizes="(min-width: 1024px) 560px, 90vw"
-              priority
-              quality={90}
               className="object-cover object-top"
             />
           </div>
@@ -46,9 +44,7 @@ function ProjectSlide({ project }) {
       </div>
 
       <div className="flex flex-col p-6 sm:p-9">
-        <p className="eyebrow">
-          {project.featured ? 'Featured case study' : 'Case study'}
-        </p>
+        <p className="eyebrow">{project.featured ? 'Featured' : 'Project'}</p>
         <h3 className="mb-3 mt-2 font-display text-h2 leading-tight">
           {project.title}
         </h3>
@@ -62,36 +58,37 @@ function ProjectSlide({ project }) {
           ))}
         </ul>
 
-        <div className="mt-auto flex flex-col gap-3">
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href={`/projects/${project.slug}`}
-              className="btn btn-primary px-5 py-2.5 text-sm"
-            >
-              Read the case study
-              <span className="sr-only"> about {project.title}</span>
-              <ArrowRight size={15} aria-hidden="true" />
-            </Link>
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-outline px-5 py-2.5 text-sm"
-            >
-              Live site
-              <span className="sr-only"> for {project.title}</span>
-              <ArrowUpRight size={15} aria-hidden="true" />
-            </a>
-          </div>
-
-          <p className="flex flex-wrap items-center gap-x-2.5 text-sm text-subtle">
+        <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
+          <Link
+            href={`/projects/${project.slug}`}
+            className="link group inline-flex items-center gap-1.5 py-1.5 font-medium"
+          >
+            Case study
+            <span className="sr-only"> about {project.title}</span>
+            <ArrowRight
+              size={14}
+              aria-hidden="true"
+              className="transition-transform duration-200 group-hover:translate-x-0.5"
+            />
+          </Link>
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 py-1.5 text-soft transition-colors hover:text-paper"
+          >
+            Live site
+            <span className="sr-only"> for {project.title}</span>
+            <ArrowUpRight size={14} aria-hidden="true" />
+          </a>
+          <span className="inline-flex items-center gap-2 text-subtle">
             <FaGithub size={14} aria-hidden="true" />
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${project.title} ${hasServer ? 'client repository' : 'source code'}`}
-              className="link py-1.5"
+              className="py-1.5 transition-colors hover:text-paper"
             >
               {hasServer ? 'Client' : 'Source'}
             </a>
@@ -103,13 +100,13 @@ function ProjectSlide({ project }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${project.title} server repository`}
-                  className="link py-1.5"
+                  className="py-1.5 transition-colors hover:text-paper"
                 >
                   Server
                 </a>
               </>
             )}
-          </p>
+          </span>
         </div>
       </div>
     </article>
