@@ -3,19 +3,24 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useLenis } from 'lenis/react';
 import { Menu, X } from 'lucide-react';
 import { navLinks, navCta } from '@/lib/data';
 import { SECTION_ID_LIST } from '@/lib/constants';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { scrollToSection } from '@/lib/utils';
+import { pad } from '@/lib/copy';
 import LogoMark from '@/components/ui/LogoMark';
 
 export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const lenis = useLenis();
   const [menuPath, setMenuPath] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const progressRef = useRef(null);
+  const menuRef = useRef(null);
+  const toggleRef = useRef(null);
   const isOpen = menuPath === pathname;
   const scrolledSection = useActiveSection(SECTION_ID_LIST);
 
@@ -54,12 +59,43 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!isOpen) return;
+
+    lenis?.stop();
+    const html = document.documentElement;
+    const previousOverflow = html.style.overflow;
+    html.style.overflow = 'hidden';
+
     const onKeyDown = event => {
-      if (event.key === 'Escape') setMenuPath(null);
+      if (event.key === 'Escape') {
+        setMenuPath(null);
+        toggleRef.current?.focus();
+        return;
+      }
+      if (event.key !== 'Tab' || !menuRef.current) return;
+      const nodes = [
+        toggleRef.current,
+        ...menuRef.current.querySelectorAll('a[href]'),
+      ].filter(Boolean);
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
+
     window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [isOpen]);
+    menuRef.current?.querySelector('a[href]')?.focus();
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      html.style.overflow = previousOverflow;
+      lenis?.start();
+    };
+  }, [isOpen, lenis]);
 
   const hrefFor = href => (isHome ? href : `/${href}`);
 
@@ -67,14 +103,61 @@ export default function Navbar() {
     setMenuPath(null);
     if (!isHome) return;
     event.preventDefault();
-    scrollToSection(href.replace('#', ''));
+    if (lenis) {
+      lenis.scrollTo(href, { offset: -72, force: true });
+    } else {
+      scrollToSection(href.replace('#', ''));
+    }
     window.history.pushState(null, '', href);
   };
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
+      {isOpen && (
+        <div
+          id="mobile-menu"
+          ref={menuRef}
+          data-lenis-prevent
+          className="drop-in fixed inset-0 z-0 overflow-y-auto bg-ink px-5 pb-10 pt-24 sm:px-8 md:hidden"
+        >
+          <ul className="flex flex-col">
+            {navLinks.map((link, index) => {
+              const isActive = activeSection === link.href.replace('#', '');
+              return (
+                <li key={link.name} className="border-b border-line">
+                  <Link
+                    href={hrefFor(link.href)}
+                    onClick={event => handleNavClick(event, link.href)}
+                    aria-current={isActive ? 'location' : undefined}
+                    className="flex items-baseline gap-4 py-5"
+                  >
+                    <span className="font-mono text-xs text-brass">
+                      {pad(index + 1)}
+                    </span>
+                    <span
+                      className={`font-display text-[clamp(2rem,1.4rem+3vw,3rem)] leading-none ${
+                        isActive ? 'text-paper' : 'text-soft'
+                      }`}
+                    >
+                      {link.name}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          <Link
+            href={hrefFor(navCta.href)}
+            onClick={event => handleNavClick(event, navCta.href)}
+            className="btn btn-primary mt-8 w-full"
+          >
+            {navCta.name}
+          </Link>
+        </div>
+      )}
+
       <div
-        className={`border-b transition-colors duration-300 ${
+        className={`relative z-10 border-b transition-colors duration-300 ${
           isScrolled || isOpen
             ? 'border-line bg-ink/85 backdrop-blur-md'
             : 'border-transparent'
@@ -96,8 +179,8 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <ul className="hidden items-center gap-7 md:flex">
-            {navLinks.map(link => {
+          <ul className="hidden items-center gap-8 md:flex">
+            {navLinks.map((link, index) => {
               const isActive = activeSection === link.href.replace('#', '');
               return (
                 <li key={link.name}>
@@ -105,12 +188,15 @@ export default function Navbar() {
                     href={hrefFor(link.href)}
                     onClick={event => handleNavClick(event, link.href)}
                     aria-current={isActive ? 'location' : undefined}
-                    className={`relative inline-block py-2 text-sm transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:bg-brass after:transition-transform after:duration-300 ${
+                    className={`relative inline-flex items-baseline gap-1.5 py-2 text-sm transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:bg-brass after:transition-transform after:duration-300 ${
                       isActive
                         ? 'text-paper after:scale-x-100'
-                        : 'text-soft after:scale-x-0 hover:text-paper'
+                        : 'text-soft after:scale-x-0 hover:text-paper hover:after:scale-x-100'
                     }`}
                   >
+                    <span className="font-mono text-[0.625rem] text-brass">
+                      {pad(index + 1)}
+                    </span>
                     {link.name}
                   </Link>
                 </li>
@@ -120,7 +206,7 @@ export default function Navbar() {
               <Link
                 href={hrefFor(navCta.href)}
                 onClick={event => handleNavClick(event, navCta.href)}
-                className="link inline-block py-2 text-sm font-medium"
+                className="btn btn-primary px-5 py-2.5 text-sm"
               >
                 {navCta.name}
               </Link>
@@ -128,12 +214,13 @@ export default function Navbar() {
           </ul>
 
           <button
+            ref={toggleRef}
             type="button"
             onClick={() => setMenuPath(isOpen ? null : pathname)}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-line-3 text-soft transition-colors hover:border-brass hover:text-paper md:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-line-3 text-soft transition-colors hover:border-brass hover:text-paper md:hidden"
           >
             {isOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
@@ -147,40 +234,6 @@ export default function Navbar() {
           }`}
           style={{ transform: 'scaleX(0)' }}
         />
-
-        {isOpen && (
-          <div
-            id="mobile-menu"
-            className="drop-in border-t border-line px-5 pb-6 pt-3 sm:px-8 md:hidden"
-          >
-            <ul className="flex flex-col">
-              {navLinks.map(link => {
-                const isActive = activeSection === link.href.replace('#', '');
-                return (
-                  <li key={link.name}>
-                    <Link
-                      href={hrefFor(link.href)}
-                      onClick={event => handleNavClick(event, link.href)}
-                      aria-current={isActive ? 'location' : undefined}
-                      className={`block border-b border-line py-4 text-lg ${
-                        isActive ? 'text-paper' : 'text-soft'
-                      }`}
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-            <Link
-              href={hrefFor(navCta.href)}
-              onClick={event => handleNavClick(event, navCta.href)}
-              className="btn btn-primary mt-5 w-full"
-            >
-              {navCta.name}
-            </Link>
-          </div>
-        )}
       </div>
     </header>
   );
