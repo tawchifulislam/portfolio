@@ -74,11 +74,6 @@ function Field({ id, label, error, aside, children }) {
 }
 
 export default function Contact({ personalInfo }) {
-  const socialLinks = [
-    { label: 'GitHub', href: personalInfo.social.github },
-    { label: 'LinkedIn', href: personalInfo.social.linkedin },
-    { label: 'X', href: personalInfo.social.twitter },
-  ].filter(link => link.href);
   const [website, setWebsite] = useState('');
   const [formData, setFormData] = useState({
     name: '',
@@ -134,7 +129,6 @@ export default function Contact({ personalInfo }) {
       result = { ok: false, fallback: true };
     }
 
-    // bot caught by the hidden field: pretend success, send nothing
     if (result.spam) {
       setStatus('sent');
       setFormData({ name: '', email: '', message: '' });
@@ -142,7 +136,6 @@ export default function Contact({ personalInfo }) {
       return;
     }
 
-    // rejected on purpose (invalid or too many messages)
     if (!result.ok && !result.fallback) {
       setStatus('error');
       setTimeout(() => setStatus('idle'), 5000);
@@ -157,10 +150,8 @@ export default function Contact({ personalInfo }) {
     );
 
     if (result.ok) {
-      // saved in the dashboard, email is a bonus
       mail.catch(error => console.error('EmailJS Error:', error));
     } else {
-      // database is down, the email is the only copy
       try {
         await mail;
       } catch (error) {
@@ -180,9 +171,14 @@ export default function Contact({ personalInfo }) {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="px-5 pb-16 pt-24 sm:px-8 lg:px-14 lg:pb-20"
+      className="px-5 pb-16 pt-28 sm:px-8 lg:px-14 lg:pb-20"
     >
       <div className="mx-auto max-w-340">
+        <div className="mb-8 flex items-baseline justify-between border-b border-line pb-3 font-mono text-xs uppercase tracking-[0.08em] text-brass">
+          <span>(05)</span>
+          <span>(Get in touch)</span>
+        </div>
+
         <div className="relative overflow-hidden rounded-card border border-line bg-raised p-6 sm:p-10 lg:p-12">
           <div
             aria-hidden="true"
@@ -195,17 +191,12 @@ export default function Contact({ personalInfo }) {
 
           <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-14">
             <div>
-              <p className="eyebrow">Get in touch</p>
               <h2
                 id="contact-heading"
-                className="mb-4 mt-2.5 font-display text-h1 leading-[1.1]"
+                className="mb-8 font-display text-huge leading-[1.02] tracking-[-0.02em] text-balance"
               >
                 Let&apos;s build something good together.
               </h2>
-              <p className="mb-6 max-w-136 text-soft">
-                I&apos;m open to new opportunities. Tell me what you&apos;re
-                working on and I&apos;ll reply personally.
-              </p>
 
               <a
                 href={`mailto:${personalInfo.email}`}
@@ -213,25 +204,7 @@ export default function Contact({ personalInfo }) {
               >
                 {personalInfo.email}
               </a>
-              <p className="mt-1.5 text-subtle">{personalInfo.location}</p>
-              <p className="mb-6 mt-1 text-sm text-brass">
-                {personalInfo.statusText}
-              </p>
-
-              <ul className="flex gap-5 text-sm">
-                {socialLinks.map(social => (
-                  <li key={social.label}>
-                    <a
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="link"
-                    >
-                      {social.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <p className="mt-3 text-subtle">{personalInfo.location}</p>
             </div>
 
             <form
