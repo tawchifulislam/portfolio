@@ -2,28 +2,9 @@ import { getSiteData } from '@/lib/cms';
 
 const FLOW = /^(\d+)\s*(?:→|->)\s*(\d+)$/;
 
-function Value({ value }) {
+function displayValue(value) {
   const match = String(value).trim().match(FLOW);
-  if (!match) return value;
-
-  return (
-    <span className="inline-flex items-center gap-[0.18em]">
-      <span>{match[1]}</span>
-      <svg
-        viewBox="0 0 48 24"
-        aria-hidden="true"
-        className="h-[0.42em] w-[0.84em]"
-        fill="none"
-        stroke="var(--color-brass)"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M2 12h42M34 3l10 9-10 9" />
-      </svg>
-      <span>{match[2]}</span>
-    </span>
-  );
+  return match ? match[1] : value;
 }
 
 function Track({ stats, duplicate }) {
@@ -44,7 +25,7 @@ function Track({ stats, duplicate }) {
                 : ''
             }`}
           >
-            <Value value={item.value} />
+            {displayValue(item.value)}
           </span>
           <span className="max-w-44 font-mono text-xs uppercase leading-snug tracking-[0.06em] text-subtle">
             {item.label}
