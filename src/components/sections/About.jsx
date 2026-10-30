@@ -1,40 +1,67 @@
 import { getSiteData } from '@/lib/cms';
+import SectionHeading from '@/components/ui/SectionHeading';
+import Reveal from '@/components/ui/Reveal';
+import { pad, firstSentences } from '@/lib/copy';
 
 export default async function About() {
   const { about } = await getSiteData();
   const { paragraphs, focuses } = about;
+
   return (
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="px-5 pb-8 pt-24 sm:px-8 lg:px-14"
+      className="px-5 pb-8 pt-28 sm:px-8 lg:px-14"
     >
-      <div className="mx-auto grid max-w-340 grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-14">
-        <div>
-          <p className="eyebrow">About</p>
-          <h2
-            id="about-heading"
-            className="mb-6 mt-2.5 font-display text-h1 leading-[1.1]"
-          >
-            {about.heading}
-          </h2>
-          <div className="flex max-w-136 flex-col gap-4 text-soft">
-            {paragraphs.map(text => (
-              <p key={text}>{text}</p>
-            ))}
-          </div>
-        </div>
+      <div className="mx-auto max-w-340">
+        <SectionHeading
+          id="about-heading"
+          index={2}
+          eyebrow="About"
+          title={about.heading}
+        />
 
-        <ul className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,13.75rem),1fr))] content-start gap-5">
-          {focuses.map(item => (
-            <li key={item.title} className="card p-6">
-              <h3 className="mb-1.5 font-display text-[1.0625rem]">
-                {item.title}
-              </h3>
-              <p className="text-sm text-muted">{item.text}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+          <Reveal>
+            <p className="max-w-xl text-lg text-soft">
+              {firstSentences(paragraphs[0], 2)}
+            </p>
+            <div className="sr-only">
+              {paragraphs.map(text => (
+                <p key={text}>{text}</p>
+              ))}
+            </div>
+          </Reveal>
+
+          <ul className="divide-y divide-line border-y border-line">
+            {focuses.map((item, index) => (
+              <li key={item.title}>
+                <Reveal
+                  delay={index * 0.06}
+                  className="flex items-baseline gap-5 py-5"
+                >
+                  <span className="font-mono text-xs text-brass">
+                    {pad(index + 1)}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-xl leading-snug">
+                      {item.title}
+                    </h3>
+                    <p
+                      className={
+                        item.text.length <= 40
+                          ? 'mt-1 text-sm text-muted'
+                          : 'sr-only'
+                      }
+                    >
+                      {item.text}
+                    </p>
+                  </div>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
