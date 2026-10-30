@@ -1,11 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import {
   animate,
   motion,
-  useMotionTemplate,
   useMotionValue,
   useReducedMotion,
   useScroll,
@@ -14,7 +13,7 @@ import {
 } from 'motion/react';
 
 const MAX_CELLS = 12;
-const SHAPE = 'rounded-[2rem] rounded-br-[6rem]';
+const EASE = [0.22, 1, 0.36, 1];
 
 function ReplayCard({ requests, winners, reduce }) {
   const cells = Math.min(requests, MAX_CELLS);
@@ -36,7 +35,7 @@ function ReplayCard({ requests, winners, reduce }) {
     <div
       role="img"
       aria-label={`${requests} concurrent requests, ${winners} applied`}
-      className="absolute -bottom-1 left-3 z-10 w-60 rounded-2xl border border-line-3 bg-ink/85 p-4 backdrop-blur-md sm:-left-8"
+      className="w-60 rounded-2xl border border-line-3 bg-ink/85 p-4 backdrop-blur-md"
     >
       <p className="font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-subtle">
         Concurrent × {requests}
@@ -71,92 +70,113 @@ function ReplayCard({ requests, winners, reduce }) {
 export default function HeroPhoto({ src, alt, flow }) {
   const [failed, setFailed] = useState(false);
   const reduce = useReducedMotion();
-  const cardRef = useRef(null);
-  const controls = useRef([]);
-  const mx = useMotionValue(50);
-  const my = useMotionValue(38);
-  const tiltX = useMotionValue(0);
-  const tiltY = useMotionValue(0);
-  const rotateX = useSpring(tiltX, { stiffness: 140, damping: 16 });
-  const rotateY = useSpring(tiltY, { stiffness: 140, damping: 16 });
-  const spotlight = useMotionTemplate`radial-gradient(circle 190px at ${mx}% ${my}%, #000 0%, rgba(0,0,0,0.6) 55%, transparent 100%)`;
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const sx = useSpring(rawX, { stiffness: 60, damping: 18 });
+  const sy = useSpring(rawY, { stiffness: 60, damping: 18 });
   const { scrollY } = useScroll();
-  const slabY = useTransform(scrollY, [0, 800], [0, -48]);
-  const imageY = useTransform(scrollY, [0, 800], [0, 48]);
-  const imageScale = useTransform(scrollY, [0, 800], [1.06, 1.2]);
+
+  const discX = useTransform(sx, [-0.5, 0.5], [16, -16]);
+  const discPointerY = useTransform(sy, [-0.5, 0.5], [10, -10]);
+  const discScrollY = useTransform(scrollY, [0, 700], [0, -90]);
+  const discY = useTransform([discPointerY, discScrollY], ([a, b]) => a + b);
+  const ringRotate = useTransform(scrollY, [0, 1400], [0, 160]);
+  const portraitX = useTransform(sx, [-0.5, 0.5], [-10, 10]);
+  const portraitY = useTransform(sy, [-0.5, 0.5], [-6, 6]);
+  const portraitScale = useTransform(scrollY, [0, 700], [1, 1.08]);
+  const cardX = useTransform(sx, [-0.5, 0.5], [-28, 28]);
+  const cardY = useTransform(sy, [-0.5, 0.5], [-16, 16]);
 
   useEffect(() => {
     if (reduce) return;
-    controls.current = [
-      animate(mx, [28, 72, 45, 66, 28], {
-        duration: 12,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      }),
-      animate(my, [30, 55, 70, 35, 30], {
-        duration: 12,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      }),
-    ];
-    return () => controls.current.forEach(control => control.stop());
-  }, [reduce, mx, my]);
+    const sweepX = animate(rawX, [-0.22, 0.22, -0.22], {
+      duration: 10,
+      repeat: Infinity,
+      ease: 'easeInOut',
+    });
+    const sweepY = animate(rawY, [-0.12, 0.12, -0.12], {
+      duration: 7,
+      repeat: Infinity,
+      ease: 'easeInOut',
+    });
+    const onMove = event => {
+      sweepX.stop();
+      sweepY.stop();
+      rawX.set(event.clientX / window.innerWidth - 0.5);
+      rawY.set(event.clientY / window.innerHeight - 0.5);
+    };
+    window.addEventListener('pointermove', onMove, { passive: true });
+    return () => {
+      sweepX.stop();
+      sweepY.stop();
+      window.removeEventListener('pointermove', onMove);
+    };
+  }, [reduce, rawX, rawY]);
 
-  const handlePointerMove = event => {
-    if (reduce || !cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const px = (event.clientX - rect.left) / rect.width;
-    const py = (event.clientY - rect.top) / rect.height;
-    controls.current.forEach(control => control.stop());
-    mx.set(px * 100);
-    my.set(py * 100);
-    if (event.pointerType === 'mouse') {
-      tiltX.set((0.5 - py) * 10);
-      tiltY.set((px - 0.5) * 12);
-    }
-  };
-
-  const handlePointerLeave = () => {
-    tiltX.set(0);
-    tiltY.set(0);
-  };
-
-  const layerStyle = reduce ? undefined : { y: imageY, scale: imageScale };
+  const hasImage = Boolean(src) && !failed;
 
   return (
-    <div className="relative mx-auto w-full max-w-sm pb-8 sm:max-w-md lg:max-w-md">
+    <div className="relative mx-auto aspect-4/5 w-full max-w-sm sm:max-w-md lg:max-w-md">
       <motion.div
         aria-hidden="true"
-        className={`absolute inset-x-0 top-0 aspect-4/5 translate-x-3 translate-y-3 bg-brass sm:translate-x-5 sm:translate-y-5 ${SHAPE}`}
-        style={reduce ? undefined : { y: slabY }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-      />
+        className="absolute bottom-[4%] left-1/2 aspect-square w-[80%] -translate-x-1/2"
+        style={reduce ? undefined : { x: discX, y: discY }}
+        initial={{ opacity: 0, scale: reduce ? 1 : 0.6 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.1, ease: EASE }}
+      >
+        <motion.svg
+          viewBox="0 0 100 100"
+          className="absolute inset-0 h-full w-full overflow-visible"
+          style={reduce ? undefined : { rotate: ringRotate }}
+        >
+          <circle
+            cx="50"
+            cy="50"
+            r="62"
+            fill="none"
+            stroke="var(--color-brass)"
+            strokeOpacity="0.5"
+            strokeWidth="0.8"
+            strokeDasharray="0.4 3"
+            strokeLinecap="round"
+          />
+          <circle
+            cx="50"
+            cy="50"
+            r="74"
+            fill="none"
+            stroke="var(--color-brass)"
+            strokeOpacity="0.18"
+            strokeWidth="0.4"
+          />
+        </motion.svg>
+        <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_35%_30%,#f3c26b,#e3a13a_55%,#c98a22)]" />
+      </motion.div>
 
       <motion.div
-        ref={cardRef}
-        onPointerMove={handlePointerMove}
-        onPointerLeave={handlePointerLeave}
-        className={`relative aspect-4/5 overflow-hidden border border-line-3 bg-panel-2 ${SHAPE}`}
-        style={{ rotateX, rotateY, transformPerspective: 1000 }}
-        initial={
-          reduce
-            ? { opacity: 0 }
-            : { clipPath: 'inset(100% 0% 0% 0%)' }
-        }
-        animate={
-          reduce ? { opacity: 1 } : { clipPath: 'inset(0% 0% 0% 0%)' }
-        }
-        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute inset-0"
+        initial={{ opacity: 0, y: reduce ? 0 : 80 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.35, ease: EASE }}
       >
-        {failed || !src ? (
-          <div className="flex h-full w-full items-center justify-center font-display text-8xl text-brass">
-            TI
-          </div>
-        ) : (
-          <>
-            <motion.div className="absolute inset-0" style={layerStyle}>
+        <motion.div
+          className="absolute inset-0 origin-bottom"
+          style={
+            reduce
+              ? undefined
+              : { x: portraitX, y: portraitY, scale: portraitScale }
+          }
+        >
+          {hasImage ? (
+            <div
+              className="absolute inset-0"
+              style={{
+                WebkitMaskImage:
+                  'linear-gradient(to top, transparent 0%, #000 10%)',
+                maskImage: 'linear-gradient(to top, transparent 0%, #000 10%)',
+              }}
+            >
               <Image
                 src={src}
                 alt={alt}
@@ -164,57 +184,31 @@ export default function HeroPhoto({ src, alt, flow }) {
                 priority
                 sizes="(min-width: 1024px) 448px, 90vw"
                 onError={() => setFailed(true)}
-                className="object-cover object-top grayscale contrast-110"
+                className="object-contain object-bottom drop-shadow-[0_0_28px_rgba(227,161,58,0.28)]"
               />
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-brass opacity-25 mix-blend-multiply"
-              />
-            </motion.div>
-
-            <motion.div
-              aria-hidden="true"
-              className="absolute inset-0"
-              style={
-                reduce
-                  ? undefined
-                  : { maskImage: spotlight, WebkitMaskImage: spotlight }
-              }
-            >
-              <motion.div className="absolute inset-0" style={layerStyle}>
-                <Image
-                  src={src}
-                  alt=""
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 448px, 90vw"
-                  className="object-cover object-top"
-                />
-              </motion.div>
-            </motion.div>
-
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 opacity-70"
-              style={{
-                backgroundImage:
-                  'radial-gradient(rgba(11,18,32,0.55) 1px, transparent 1.6px)',
-                backgroundSize: '7px 7px',
-                WebkitMaskImage:
-                  'linear-gradient(to top, #000, transparent 65%)',
-                maskImage: 'linear-gradient(to top, #000, transparent 65%)',
-              }}
-            />
-          </>
-        )}
+            </div>
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center font-display text-8xl text-ink">
+              TI
+            </div>
+          )}
+        </motion.div>
       </motion.div>
 
       {flow && (
-        <ReplayCard
-          requests={flow.requests}
-          winners={flow.winners}
-          reduce={reduce}
-        />
+        <motion.div
+          className="absolute bottom-8 left-0 z-10 sm:-left-8"
+          style={reduce ? undefined : { x: cardX, y: cardY }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+        >
+          <ReplayCard
+            requests={flow.requests}
+            winners={flow.winners}
+            reduce={reduce}
+          />
+        </motion.div>
       )}
     </div>
   );
