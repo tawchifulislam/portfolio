@@ -83,7 +83,7 @@ export default function HeroPhoto({ src, alt, flow }) {
   const ringRotate = useTransform(scrollY, [0, 1400], [0, 160]);
   const portraitX = useTransform(sx, [-0.5, 0.5], [-10, 10]);
   const portraitY = useTransform(sy, [-0.5, 0.5], [-6, 6]);
-  const portraitScale = useTransform(scrollY, [0, 700], [1, 1.08]);
+  const portraitScale = useTransform(scrollY, [0, 700], [1, 1.06]);
   const cardX = useTransform(sx, [-0.5, 0.5], [-28, 28]);
   const cardY = useTransform(sy, [-0.5, 0.5], [-16, 16]);
 
@@ -116,7 +116,7 @@ export default function HeroPhoto({ src, alt, flow }) {
   const hasImage = Boolean(src) && !failed;
 
   return (
-    <div className="relative mx-auto aspect-4/5 w-full max-w-sm sm:max-w-md lg:max-w-md">
+    <div className="relative mx-auto min-h-80 w-full max-w-sm sm:max-w-md lg:max-w-112">
       <motion.div
         aria-hidden="true"
         className="absolute bottom-[4%] left-1/2 aspect-square w-[80%] -translate-x-1/2"
@@ -155,13 +155,13 @@ export default function HeroPhoto({ src, alt, flow }) {
       </motion.div>
 
       <motion.div
-        className="absolute inset-0"
+        className="relative"
         initial={{ opacity: 0, y: reduce ? 0 : 80 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.35, ease: EASE }}
       >
         <motion.div
-          className="absolute inset-0 origin-bottom"
+          className="origin-bottom"
           style={
             reduce
               ? undefined
@@ -170,7 +170,6 @@ export default function HeroPhoto({ src, alt, flow }) {
         >
           {hasImage ? (
             <div
-              className="absolute inset-0"
               style={{
                 WebkitMaskImage:
                   'linear-gradient(to top, transparent 0%, #000 10%)',
@@ -180,15 +179,16 @@ export default function HeroPhoto({ src, alt, flow }) {
               <Image
                 src={src}
                 alt={alt}
-                fill
+                width={0}
+                height={0}
                 priority
                 sizes="(min-width: 1024px) 448px, 90vw"
                 onError={() => setFailed(true)}
-                className="object-contain object-bottom drop-shadow-[0_0_28px_rgba(227,161,58,0.28)]"
+                className="block h-auto w-full drop-shadow-[0_0_28px_rgba(227,161,58,0.28)]"
               />
             </div>
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center font-display text-8xl text-ink">
+            <div className="flex aspect-4/5 items-center justify-center font-display text-8xl text-ink">
               TI
             </div>
           )}

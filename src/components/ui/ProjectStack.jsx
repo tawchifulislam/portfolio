@@ -9,7 +9,7 @@ import {
   useScroll,
   useTransform,
 } from 'motion/react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import Mask from '@/components/ui/Mask';
 import { pad } from '@/lib/copy';
@@ -21,21 +21,28 @@ function StackItem({ project, index, total, selfRef, nextRef }) {
     target: nextRef ?? selfRef,
     offset: ['start 85%', 'start 96px'],
   });
-  const scale = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : 0.92]);
-  const dim = useTransform(scrollYProgress, [0, 1], [0, isLast ? 0 : 0.55]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, isLast ? 1 : 0.94]);
+  const dim = useTransform(scrollYProgress, [0, 1], [0, isLast ? 0 : 0.5]);
 
   return (
     <motion.li
       ref={selfRef}
-      className="relative origin-top lg:sticky lg:mb-[12vh] lg:last:mb-0 lg:transform-[scale(var(--card-scale,1))]"
+      className="relative origin-top lg:sticky lg:mb-[10vh] lg:last:mb-0 lg:transform-[scale(var(--card-scale,1))]"
       style={{
         top: `${6 + index * 1.1}rem`,
         ...(reduce ? {} : { '--card-scale': scale }),
       }}
     >
-      <article className="group relative flex h-auto flex-col overflow-hidden rounded-card border border-line bg-panel lg:grid lg:h-[calc(100svh-11rem)] lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
-        <div className="order-2 flex flex-col justify-between gap-8 p-6 sm:p-8 lg:order-1 lg:p-10">
-          <div>
+      <article className="group relative flex flex-col overflow-hidden rounded-card border border-line bg-panel lg:grid lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)]">
+        <div className="relative order-2 flex flex-col justify-between gap-10 overflow-hidden p-6 sm:p-8 lg:order-1 lg:p-10">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute right-5 top-[58%] hidden -translate-y-1/2 select-none font-display text-[10rem] font-bold leading-none text-transparent [-webkit-text-stroke:1px_var(--color-line-2)] lg:block"
+          >
+            {pad(index + 1)}
+          </span>
+
+          <div className="relative">
             <p className="font-mono text-xs text-brass">
               ({pad(index + 1)}) / ({pad(total)})
             </p>
@@ -48,12 +55,18 @@ function StackItem({ project, index, total, selfRef, nextRef }) {
                 <span className="sr-only"> case study</span>
               </Link>
             </h3>
-            <p className="mt-4 line-clamp-3 max-w-md text-muted">
+            <p className="mt-4 line-clamp-3 max-w-sm text-muted">
               {project.summary}
+            </p>
+            <p
+              aria-hidden="true"
+              className="mt-5 inline-flex items-center gap-2 text-sm text-brass transition-transform duration-300 group-hover:translate-x-1"
+            >
+              Case study <ArrowRight size={15} />
             </p>
           </div>
 
-          <div>
+          <div className="relative">
             {project.tags?.length > 0 && (
               <ul
                 className="flex flex-wrap gap-2"
@@ -103,13 +116,13 @@ function StackItem({ project, index, total, selfRef, nextRef }) {
           </div>
         </div>
 
-        <Mask className="relative order-1 aspect-16/10 overflow-hidden bg-panel-2 lg:order-2 lg:m-3 lg:aspect-auto lg:rounded-card">
+        <Mask className="relative order-1 aspect-16/10 overflow-hidden bg-panel-2 lg:order-2 lg:m-3 lg:rounded-card">
           <Image
             src={project.image}
             alt={`${project.title} screenshot`}
             fill
             sizes="(min-width: 1024px) 55vw, 100vw"
-            className="object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+            className="object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
           />
           <span
             aria-hidden="true"
