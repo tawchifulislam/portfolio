@@ -4,6 +4,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CustomCursor from '@/components/ui/CustomCursor';
 import ScrollToTop from '@/components/ui/ScrollToTop';
+import SmoothScroll from '@/components/ui/SmoothScroll';
 import { getProfile, getTechStack } from '@/lib/cms';
 import { buildStructuredData } from '@/lib/seo';
 import { SITE_URL } from '@/lib/constants';
@@ -117,6 +118,7 @@ export default async function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
         />
+        <SmoothScroll />
         <CustomCursor />
         <Navbar />
         <main className="flex-1">{children}</main>
