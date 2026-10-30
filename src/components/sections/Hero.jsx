@@ -26,15 +26,15 @@ export default async function Hero() {
   return (
     <section
       id="home"
-      className="relative overflow-hidden px-5 pb-14 pt-28 sm:px-8 lg:px-14 lg:pb-20 lg:pt-32"
+      className="relative overflow-hidden px-5 pt-28 sm:px-8 lg:px-14 lg:pt-32"
     >
       <div
         aria-hidden="true"
         className="dot-grid pointer-events-none absolute inset-0"
       />
 
-      <div className="relative mx-auto grid max-w-340 grid-cols-1 items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
-        <div>
+      <div className="relative mx-auto grid max-w-340 grid-cols-1 items-end gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
+        <div className="lg:pb-24">
           <span className="chip rise-in inline-flex items-center gap-2 border-brass/35 text-brass">
             <span
               aria-hidden="true"
