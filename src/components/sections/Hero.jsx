@@ -26,7 +26,7 @@ export default async function Hero() {
   return (
     <section
       id="home"
-      className="relative overflow-hidden px-5 pt-28 sm:px-8 lg:px-14 lg:pt-32"
+      className="relative overflow-hidden border-b border-line px-5 pt-28 sm:px-8 lg:px-14 lg:pt-32"
     >
       <div
         aria-hidden="true"

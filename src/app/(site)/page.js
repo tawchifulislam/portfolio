@@ -1,5 +1,4 @@
 import Hero from '@/components/sections/Hero';
-import StatsStrip from '@/components/sections/StatsStrip';
 import Work from '@/components/sections/Work';
 import About from '@/components/sections/About';
 import Experience from '@/components/sections/Experience';
@@ -13,7 +12,6 @@ export default async function Home() {
   return (
     <>
       <Hero />
-      <StatsStrip />
       <Work projects={projects} />
       <About />
       <Experience />
