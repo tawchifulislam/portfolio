@@ -30,7 +30,6 @@ import SectionHeading from '@/components/ui/SectionHeading';
 const NEUTRAL = '#F1EBDD';
 const BRASS = '#E3A13A';
 
-// icons already styled by hand, matched by tool name
 const techIcons = {
   HTML5: { icon: SiHtml5, color: '#E34F26' },
   CSS3: { icon: SiCss, color: '#1572B6' },
@@ -56,14 +55,12 @@ const techIcons = {
   Render: { icon: SiRender, color: '#46E3B7' },
 };
 
-// every Simple Icons icon by slug, used for tools added from the dashboard
 const iconBySlug = new Map(
   Object.values(simpleIcons)
     .filter(icon => icon && typeof icon === 'object' && icon.slug)
     .map(icon => [icon.slug, icon]),
 );
 
-// very dark brand colors would vanish on the dark background
 function readableColor(hex) {
   const value = parseInt(hex, 16);
   const luminance =
@@ -87,7 +84,7 @@ function TechIcon({ tech }) {
 
   if (known) {
     const Icon = known.icon;
-    return <Icon size={15} aria-hidden="true" className={className} />;
+    return <Icon size={18} aria-hidden="true" className={className} />;
   }
 
   const custom = iconBySlug.get(tech.icon);
@@ -95,8 +92,8 @@ function TechIcon({ tech }) {
     return (
       <svg
         viewBox="0 0 24 24"
-        width={15}
-        height={15}
+        width={18}
+        height={18}
         fill="currentColor"
         aria-hidden="true"
         className={className}
@@ -106,7 +103,7 @@ function TechIcon({ tech }) {
     );
   }
 
-  return <Package size={15} aria-hidden="true" className={className} />;
+  return <Package size={18} aria-hidden="true" className={className} />;
 }
 
 const groups = [
@@ -116,6 +113,26 @@ const groups = [
   { key: 'tools', label: 'Tools' },
 ];
 
+function Track({ items, duplicate }) {
+  return (
+    <ul
+      aria-hidden="true"
+      className={`marquee-track ${duplicate ? 'marquee-dup' : ''}`}
+    >
+      {items.map(tech => (
+        <li
+          key={tech.name}
+          style={{ '--brand': brandColor(tech) }}
+          className="group inline-flex shrink-0 items-center gap-2.5 rounded-full border border-line-2 px-5 py-3 text-sm text-soft transition-colors hover:border-line-3 hover:bg-panel-2"
+        >
+          <TechIcon tech={tech} />
+          {tech.name}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default async function TechStack() {
   const { techStack, sections } = await getSiteData();
 
@@ -123,42 +140,35 @@ export default async function TechStack() {
     <section
       id="techstack"
       aria-labelledby="stack-heading"
-      className="px-5 pb-8 pt-24 sm:px-8 lg:px-14"
+      className="pb-8 pt-28"
     >
-      <div className="mx-auto max-w-340">
+      <div className="mx-auto max-w-340 px-5 sm:px-8 lg:px-14">
         <SectionHeading
           id="stack-heading"
+          index={4}
           eyebrow={sections.techStack.eyebrow}
           title={sections.techStack.title}
         />
+      </div>
 
-        <div className="card px-5 py-2 sm:px-8">
-          {groups.map(group => (
-            <div
-              key={group.key}
-              className="grid grid-cols-1 gap-3 border-b border-line py-5 last:border-b-0 sm:grid-cols-[8.75rem_1fr] sm:items-center sm:gap-4"
-            >
-              <p className="eyebrow">{group.label}</p>
-              <ul
-                aria-label={`${group.label} technologies`}
-                className="flex flex-wrap gap-2"
-              >
-                {techStack
-                  .filter(tech => tech.category === group.key)
-                  .map(tech => (
-                    <li
-                      key={tech.name}
-                      style={{ '--brand': brandColor(tech) }}
-                      className="group chip inline-flex items-center gap-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-line-3 hover:bg-panel-2"
-                    >
-                      <TechIcon tech={tech} />
-                      {tech.name}
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+      <div className="marquee">
+        <Track items={techStack} />
+        <Track items={techStack} duplicate />
+      </div>
+
+      <div className="sr-only">
+        {groups.map(group => (
+          <div key={group.key}>
+            <h3>{group.label}</h3>
+            <ul>
+              {techStack
+                .filter(tech => tech.category === group.key)
+                .map(tech => (
+                  <li key={tech.name}>{tech.name}</li>
+                ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </section>
   );

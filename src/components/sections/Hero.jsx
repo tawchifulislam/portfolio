@@ -30,7 +30,7 @@ export default async function Hero() {
             {personalInfo.statusText}
           </span>
 
-          <h1 className="slide-in mb-6 mt-6 font-display text-display leading-[1.02] tracking-[-0.025em]">
+          <h1 className="slide-in mb-6 mt-6 font-display text-display leading-[1.02] tracking-tight">
             {personalInfo.headline.start}{' '}
             <span className="text-brass">
               {highlightWords.map((word, i) => (
