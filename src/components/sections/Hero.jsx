@@ -10,6 +10,10 @@ export default async function Hero() {
     .split(' ')
     .filter(Boolean);
 
+  const ringText = `${['Full stack developer', personalInfo.location, 'Open to remote']
+    .filter(Boolean)
+    .join(' • ')} • `;
+
   return (
     <section
       id="home"
@@ -20,7 +24,7 @@ export default async function Hero() {
         className="dot-grid pointer-events-none absolute inset-0"
       />
 
-      <div className="relative mx-auto grid max-w-340 grid-cols-1 items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
+      <div className="relative mx-auto grid max-w-340 grid-cols-1 items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
         <div>
           <span className="chip rise-in inline-flex items-center gap-2 border-brass/35 text-brass">
             <span
@@ -81,22 +85,11 @@ export default async function Hero() {
           </div>
         </div>
 
-        <div
-          className="slide-in flex justify-center p-5"
-          style={{ '--delay': '0.15s' }}
-        >
-          <div className="relative w-full max-w-85">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -right-24 -top-20 h-80 w-80 bg-[radial-gradient(closest-side,rgba(227,161,58,0.26),transparent)]"
-            />
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 -translate-y-4 translate-x-4 rounded-t-[200px] rounded-b-[28px] border border-brass/45"
-            />
-            <HeroPhoto src={personalInfo.image} alt={personalInfo.name} />
-          </div>
-        </div>
+        <HeroPhoto
+          src={personalInfo.image}
+          alt={personalInfo.name}
+          ringText={ringText}
+        />
       </div>
     </section>
   );
