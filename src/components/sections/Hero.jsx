@@ -1,20 +1,10 @@
 import { ArrowUpRight } from 'lucide-react';
 import { getSiteData } from '@/lib/cms';
 import HeroPhoto from '@/components/ui/HeroPhoto';
+import { firstSentences } from '@/lib/copy';
 
 export default async function Hero() {
   const { personalInfo } = await getSiteData();
-
-  const links = [
-    { label: 'GitHub', href: personalInfo.social.github },
-    { label: 'LinkedIn', href: personalInfo.social.linkedin },
-    { label: 'X', href: personalInfo.social.twitter },
-    {
-      label: 'Résumé',
-      href: personalInfo.resume ? '/resume.pdf' : '',
-      arrow: true,
-    },
-  ].filter(item => item.href);
 
   const highlightWords = (personalInfo.headline.highlight || '')
     .split(' ')
@@ -30,7 +20,7 @@ export default async function Hero() {
         className="dot-grid pointer-events-none absolute inset-0"
       />
 
-      <div className="relative mx-auto grid max-w-340 grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-14">
+      <div className="relative mx-auto grid max-w-340 grid-cols-1 items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
         <div>
           <span className="chip rise-in inline-flex items-center gap-2 border-brass/35 text-brass">
             <span
@@ -40,7 +30,7 @@ export default async function Hero() {
             {personalInfo.statusText}
           </span>
 
-          <h1 className="slide-in mb-5 mt-6 font-display text-display leading-[1.04] tracking-[-0.02em]">
+          <h1 className="slide-in mb-6 mt-6 font-display text-display leading-[1.02] tracking-[-0.025em]">
             {personalInfo.headline.start}{' '}
             <span className="text-brass">
               {highlightWords.map((word, i) => (
@@ -61,14 +51,14 @@ export default async function Hero() {
           </h1>
 
           <p
-            className="slide-in mb-8 max-w-135 text-[1.0625rem] text-muted sm:text-lg"
+            className="slide-in mb-8 max-w-120 text-[1.0625rem] text-muted sm:text-lg"
             style={{ '--delay': '0.08s' }}
           >
-            {personalInfo.bio}
+            {firstSentences(personalInfo.bio, 1)}
           </p>
 
           <div
-            className="rise-in mb-7 flex flex-wrap gap-3.5"
+            className="rise-in flex flex-wrap items-center gap-x-6 gap-y-3"
             style={{ '--delay': '0.2s' }}
           >
             <a href="#work" className="btn btn-primary">
@@ -77,26 +67,18 @@ export default async function Hero() {
             <a href="#contact" className="btn btn-outline">
               Say hello
             </a>
+            {personalInfo.resume && (
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link inline-flex items-center gap-1 py-1.5 text-sm"
+              >
+                Résumé
+                <ArrowUpRight size={14} aria-hidden="true" />
+              </a>
+            )}
           </div>
-
-          <ul
-            className="rise-in flex flex-wrap gap-x-6 gap-y-1 text-sm"
-            style={{ '--delay': '0.3s' }}
-          >
-            {links.map(item => (
-              <li key={item.label}>
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link inline-flex items-center gap-1 py-1.5"
-                >
-                  {item.label}
-                  {item.arrow && <ArrowUpRight size={14} aria-hidden="true" />}
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
 
         <div
