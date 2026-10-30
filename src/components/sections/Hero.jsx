@@ -3,16 +3,25 @@ import { getSiteData } from '@/lib/cms';
 import HeroPhoto from '@/components/ui/HeroPhoto';
 import { firstSentences } from '@/lib/copy';
 
+const FLOW = /^(\d+)\s*(?:→|->)\s*(\d+)$/;
+
 export default async function Hero() {
-  const { personalInfo } = await getSiteData();
+  const { personalInfo, stats } = await getSiteData();
 
   const highlightWords = (personalInfo.headline.highlight || '')
     .split(' ')
     .filter(Boolean);
 
-  const ringText = `${['Full stack developer', personalInfo.location, 'Open to remote']
-    .filter(Boolean)
-    .join(' • ')} • `;
+  const end = personalInfo.headline.end || '';
+  const endHead = end.match(/^\S*/)[0];
+  const endRest = end.slice(endHead.length);
+
+  const flowStat = stats
+    .map(item => String(item.value).trim().match(FLOW))
+    .find(Boolean);
+  const flow = flowStat
+    ? { requests: Number(flowStat[1]), winners: Number(flowStat[2]) }
+    : null;
 
   return (
     <section
@@ -36,10 +45,10 @@ export default async function Hero() {
 
           <h1 className="slide-in mb-6 mt-6 font-display text-display leading-[1.02] tracking-tight">
             {personalInfo.headline.start}{' '}
-            <span className="text-brass">
-              {highlightWords.map((word, i) => (
-                <span key={i}>
-                  {i > 0 && ' '}
+            {highlightWords.map((word, i) => {
+              const isLast = i === highlightWords.length - 1;
+              const piece = (
+                <span className="text-brass">
                   <span
                     className="sketch-word"
                     style={
@@ -49,9 +58,22 @@ export default async function Hero() {
                     {word}
                   </span>
                 </span>
-              ))}
-            </span>
-            {personalInfo.headline.end}
+              );
+              return (
+                <span key={i}>
+                  {i > 0 && ' '}
+                  {isLast ? (
+                    <span className="whitespace-nowrap">
+                      {piece}
+                      {endHead}
+                    </span>
+                  ) : (
+                    piece
+                  )}
+                </span>
+              );
+            })}
+            {endRest}
           </h1>
 
           <p
@@ -88,7 +110,7 @@ export default async function Hero() {
         <HeroPhoto
           src={personalInfo.image}
           alt={personalInfo.name}
-          ringText={ringText}
+          flow={flow}
         />
       </div>
     </section>
