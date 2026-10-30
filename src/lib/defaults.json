@@ -5,7 +5,7 @@
     "location": "Chittagong, Bangladesh",
     "email": "tawchif04@gmail.com",
     "bio": "Full Stack Developer who builds reliable backends: idempotent APIs, Stripe billing and webhooks. Next.js, TypeScript, Node.js and PostgreSQL. Completed a Backend AI Engineering internship; available full-time for remote junior and contract roles.",
-    "photo": "/images/Tawchif.png",
+    "photo": "/images/tawchif-cutout.png",
     "resume": "https://drive.google.com/file/d/137fe6Z1fmbpzrGc7KesccAiNwvhW3vmy/view?usp=drive_link",
     "github": "https://github.com/tawchifulislam",
     "linkedin": "https://linkedin.com/in/tawchiful-islam",
@@ -37,7 +37,7 @@
     "heading": "Self-taught, and building things that hold up.",
     "paragraphs": [
       {
-        "text": "I'm a self-taught full-stack developer from Chattogram (Chittagong). My formal programming journey began in 2025, though I'd been absorbing how software is made long before I wrote my first line of code. Since then I've built and deployed complete products: a booking platform, a billing backend and a fitness platform."
+        "text": "I'm a self-taught full-stack developer from Chattogram. I began programming in 2025 and have since shipped a booking platform, a billing backend and a fitness platform."
       },
       {
         "text": "What I enjoy most is the moment a hard problem finally makes sense. I try to build the parts users never see but always depend on: role-based access, payments, scheduled jobs, and graceful handling of retries and dropped connections."
@@ -52,23 +52,23 @@
     "focuses": [
       {
         "title": "Real problems first",
-        "text": "Booking a doctor, managing a gym, planning a trip. Every project starts from someone's actual need."
+        "text": "Every project starts from a real need."
       },
       {
         "title": "Whole-system thinking",
-        "text": "React and Next.js interfaces, PostgreSQL and MongoDB schemas, built as one system with clear boundaries between the parts."
+        "text": "Clear boundaries from UI to database."
       },
       {
         "title": "Interfaces that feel considered",
-        "text": "Responsive, accessible and quick to load, built with Tailwind and Framer Motion."
+        "text": "Responsive, accessible, quick to load."
       },
       {
         "title": "Dependable by design",
-        "text": "JWT auth, role-based access, idempotent writes, verified webhooks and honest error codes are planned in from the start, not patched on."
+        "text": "Idempotent writes, verified webhooks."
       },
       {
         "title": "Languages",
-        "text": "Bengali (native), English (professional working)."
+        "text": "Bengali (native), English (working)."
       }
     ]
   },
@@ -78,7 +78,7 @@
       "slug": "brawnix",
       "order": 1,
       "featured": true,
-      "summary": "A full-stack, role-based gym and fitness class management platform connecting members, trainers, and administrators in a single ecosystem.",
+      "summary": "Role-based gym and fitness class platform for members, trainers and admins.",
       "image": "/images/projects/brawnix.png",
       "tags": [
         "Next.js",
@@ -124,7 +124,7 @@
       "slug": "tfknowledge",
       "order": 2,
       "featured": true,
-      "summary": "A bilingual, minimalist blog platform where readers vote on what gets written next.",
+      "summary": "Bilingual minimalist blog where readers vote on what gets written next.",
       "image": "/images/projects/tfknowledge.png",
       "tags": [
         "Next.js",
@@ -171,7 +171,7 @@
       "slug": "healync",
       "order": 3,
       "featured": true,
-      "summary": "A full-stack doctor appointment booking platform bridging patients and verified medical specialists.",
+      "summary": "Doctor appointment booking for patients and verified medical specialists.",
       "image": "/images/projects/healync.png",
       "tags": [
         "Next.js",
@@ -217,7 +217,7 @@
       "slug": "roamly",
       "order": 4,
       "featured": true,
-      "summary": "A full-stack travel discovery platform combining real traveler ratings with an AI chat assistant.",
+      "summary": "Travel discovery with real traveler ratings and an AI chat assistant.",
       "image": "/images/projects/roamly.png",
       "tags": [
         "Next.js",
@@ -263,22 +263,22 @@
     {
       "title": "LLM Usage Metering and Billing Service",
       "order": 1,
-      "summary": "A multi-tenant backend that tells every customer how much they've used, what it costs, and whether they've hit their plan limit.",
-      "note": "AI token counts are simulated and Stripe runs in test mode only.",
+      "summary": "Multi-tenant backend reporting each customer's usage, cost and plan limit.",
+      "note": "Simulated AI token counts, Stripe in test mode.",
       "repo": "https://github.com/tawchifulislam/flyrank-capstone-metering-billing"
     },
     {
       "title": "Embeddable Widget and Lead-Capture Platform",
       "order": 2,
-      "summary": "Customers build a form widget, paste one script tag into any site, and collect submissions in a dashboard.",
-      "note": "Geo lookups and email are mocked by default, and rate limit counters live in the memory of one server process.",
+      "summary": "Paste one script tag, collect form submissions in a dashboard.",
+      "note": "Geo and email mocked, rate limits in process memory.",
       "repo": "https://github.com/tawchifulislam/flyrank-capstone-widget-platform"
     },
     {
       "title": "Social Media Studio",
       "order": 3,
-      "summary": "Turns one blog post into a social campaign: a variant per platform, a human approves each one, then a scheduler publishes.",
-      "note": "Variants come from templates, not an AI model, and the API has no authentication.",
+      "summary": "Turns one blog post into approved, scheduled social posts.",
+      "note": "Template variants, no AI model, no API auth.",
       "repo": "https://github.com/tawchifulislam/flyrank-capstone-social-studio"
     }
   ],
@@ -291,10 +291,7 @@
       "order": 1,
       "highlights": [
         {
-          "text": "I worked through **35 practical assignments** covering API contracts, task design and prompting, retrieval and grounding, and evaluation and operations."
-        },
-        {
-          "text": "Three capstones were approved, each with a design document, a build log and recorded evidence of its checks."
+          "text": "Completed **35 practical assignments** and **3 approved capstones** in the Backend AI Engineering track."
         },
         {
           "text": "At least 221 hours documented, 7 program meetings attended and 20 verified Anthropic Academy courses completed."
