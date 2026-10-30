@@ -1,4 +1,5 @@
 import { pad } from '@/lib/copy';
+import SplitHeading from '@/components/ui/SplitHeading';
 
 export default function SectionHeading({ id, index, eyebrow, title }) {
   return (
@@ -7,12 +8,11 @@ export default function SectionHeading({ id, index, eyebrow, title }) {
         <span>({pad(index)})</span>
         <span>({eyebrow})</span>
       </div>
-      <h2
+      <SplitHeading
         id={id}
+        text={title}
         className="max-w-4xl font-display text-huge leading-[1.02] tracking-[-0.02em] text-balance"
-      >
-        {title}
-      </h2>
+      />
     </div>
   );
 }

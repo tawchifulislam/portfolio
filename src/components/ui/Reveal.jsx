@@ -2,18 +2,20 @@
 
 import { motion, useReducedMotion } from 'motion/react';
 
-export default function Reveal({ children, delay = 0, className }) {
+export default function Reveal({ children, delay = 0, className, y = 72 }) {
   const reduce = useReducedMotion();
-
-  if (reduce) return <div className={className}>{children}</div>;
 
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ opacity: 0, y: reduce ? 12 : y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '0px 0px -12% 0px' }}
-      transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{
+        duration: reduce ? 0.6 : 1,
+        delay,
+        ease: [0.22, 1, 0.36, 1],
+      }}
     >
       {children}
     </motion.div>
