@@ -9,49 +9,38 @@ const pill =
 
 function Card({ project }) {
   const hasServer = Boolean(project.serverUrl);
+  const caseStudy = `/projects/${project.slug}`;
 
   return (
-    <article className="group relative flex h-full flex-col rounded-[1.75rem] bg-card p-3 sm:p-4">
-      <div className="overflow-hidden rounded-2xl bg-canvas">
-        <div
-          aria-hidden="true"
-          className="flex h-8 items-center gap-1.5 border-b border-line px-4"
-        >
-          <span className="h-2.5 w-2.5 rounded-full bg-fg/20" />
-          <span className="h-2.5 w-2.5 rounded-full bg-fg/20" />
-          <span className="h-2.5 w-2.5 rounded-full bg-fg/20" />
-        </div>
-        <div
-          data-cursor="view"
-          className="relative aspect-16/10 overflow-hidden bg-white"
-        >
-          <Image
-            src={project.image}
-            alt={`${project.title} screenshot`}
-            fill
-            sizes="(min-width: 1024px) 45vw, 92vw"
-            className="object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-          />
-        </div>
-      </div>
+    <article className="group relative flex flex-col rounded-[1.75rem] bg-card p-3 sm:p-4">
+      <Link
+        href={caseStudy}
+        tabIndex={-1}
+        aria-hidden="true"
+        data-cursor="view"
+        className="relative block aspect-16/10 overflow-hidden rounded-2xl bg-canvas"
+      >
+        <Image
+          src={project.image}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 45vw, 92vw"
+          className="object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+        />
+      </Link>
 
       <div className="flex flex-1 flex-col gap-4 px-2 pb-2 pt-6 sm:px-3">
         <div className="flex items-start justify-between gap-4">
           <h3 className="font-display text-[clamp(1.5rem,1.1rem+1vw,2rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">
-            <Link
-              href={`/projects/${project.slug}`}
-              className="after:absolute after:inset-0 after:z-0 after:rounded-[1.75rem] after:content-['']"
-            >
-              {project.title}
-              <span className="sr-only"> case study</span>
-            </Link>
+            <Link href={caseStudy}>{project.title}</Link>
           </h3>
-          <span
-            aria-hidden="true"
-            className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent text-on-accent transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
+          <Link
+            href={caseStudy}
+            aria-label={`Read the ${project.title} case study`}
+            className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent text-on-accent transition-transform duration-300 hover:scale-110 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
           >
-            <ArrowUpRight size={20} />
-          </span>
+            <ArrowUpRight size={20} aria-hidden="true" />
+          </Link>
         </div>
 
         <p className="max-w-md text-soft">{project.summary}</p>
@@ -66,7 +55,7 @@ function Card({ project }) {
           </ul>
         )}
 
-        <ul className="relative z-10 mt-auto flex flex-wrap gap-2 pt-2">
+        <ul className="mt-auto flex flex-wrap gap-2 pt-2">
           {project.liveUrl && (
             <li>
               <a
@@ -117,10 +106,10 @@ function Card({ project }) {
 
 export default function ProjectGrid({ projects }) {
   return (
-    <ul className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+    <ul className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2 lg:gap-8">
       {projects.map((project, index) => (
         <li key={project.slug} className={index % 2 === 1 ? 'lg:mt-20' : ''}>
-          <Reveal y={56} className="h-full">
+          <Reveal y={56}>
             <Card project={project} />
           </Reveal>
         </li>

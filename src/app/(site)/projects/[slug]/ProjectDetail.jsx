@@ -64,17 +64,17 @@ export default function ProjectDetail({ meta, content, nextProject }) {
             aria-label={`Open ${meta.title} live site`}
             data-cursor="view"
             data-cursor-label="Open"
-            className="mt-12 block"
+            className="mx-auto mt-12 block max-w-5xl"
           >
-            <Mask className="relative aspect-4/3 overflow-hidden bg-card sm:aspect-video lg:aspect-21/9">
+            <Mask className="relative aspect-16/10 overflow-hidden bg-card">
               <Image
                 src={meta.image}
                 alt={`${meta.title} screenshot`}
                 fill
-                sizes="(min-width: 1360px) 1360px, 100vw"
+                sizes="(min-width: 1024px) 1024px, 100vw"
                 priority
                 quality={90}
-                className="object-cover object-top"
+                className="object-contain"
               />
             </Mask>
           </a>

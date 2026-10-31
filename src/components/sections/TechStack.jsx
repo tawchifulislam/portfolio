@@ -134,8 +134,10 @@ export default async function TechStack() {
       aria-labelledby="stack-heading"
       className="theme-chalk sheet overflow-hidden"
     >
-      <div className="mx-auto max-w-340 px-5 sm:px-8 lg:px-14">
-        <SectionHeading id="stack-heading" title={sections.techStack.title} />
+      <div className="px-5 sm:px-8 lg:px-14">
+        <div className="mx-auto max-w-340">
+          <SectionHeading id="stack-heading" title={sections.techStack.title} />
+        </div>
       </div>
 
       <div className="flex flex-col gap-4">
