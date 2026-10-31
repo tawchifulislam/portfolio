@@ -52,15 +52,15 @@ export default async function Experience() {
 
                 <div>
                   <p className="max-w-xl text-[clamp(1.125rem,1rem+0.5vw,1.375rem)] leading-snug">
-                    {renderRich(item.highlights[0])}
+                    {renderRich(item.highlights?.[0])}
                   </p>
                   <div className="sr-only">
-                    {item.highlights.slice(1).map(highlight => (
+                    {(item.highlights ?? []).slice(1).map(highlight => (
                       <p key={highlight}>{renderRich(highlight)}</p>
                     ))}
                   </div>
                   <ul className="mt-8 flex flex-wrap gap-3">
-                    {item.links.map(link => (
+                    {(item.links ?? []).map(link => (
                       <li key={link.label}>
                         <a
                           href={link.href}
