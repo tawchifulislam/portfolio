@@ -6,7 +6,6 @@ const SITE =
     ? 'https://tawchif.vercel.app'
     : 'http://localhost:3000';
 
-// Users (admin login)
 export const Users: CollectionConfig = {
   slug: 'users',
   auth: {
@@ -26,11 +25,10 @@ export const Users: CollectionConfig = {
   fields: [],
 };
 
-// Media (every image on the site)
 export const Media: CollectionConfig = {
   slug: 'media',
   hooks: collectionHooks,
-  access: { read: () => true }, // images must be public so visitors can see them
+  access: { read: () => true },
   upload: { mimeTypes: ['image/*'] },
   admin: {
     group: 'Content',
@@ -50,7 +48,6 @@ export const Media: CollectionConfig = {
   ],
 };
 
-// Documents (PDF files such as the resume)
 export const Documents: CollectionConfig = {
   slug: 'documents',
   access: { read: () => true },
@@ -66,7 +63,6 @@ export const Documents: CollectionConfig = {
   fields: [{ name: 'title', type: 'text', required: true }],
 };
 
-// Projects (Work section + case study pages)
 export const Projects: CollectionConfig = {
   slug: 'projects',
   hooks: collectionHooks,
@@ -145,7 +141,6 @@ export const Projects: CollectionConfig = {
   ],
 };
 
-// Capstones (cards under the Work section)
 export const Capstones: CollectionConfig = {
   slug: 'capstones',
   hooks: collectionHooks,
@@ -182,7 +177,6 @@ export const Capstones: CollectionConfig = {
   ],
 };
 
-// Experience
 export const Experience: CollectionConfig = {
   slug: 'experience',
   hooks: collectionHooks,
@@ -246,7 +240,6 @@ export const Experience: CollectionConfig = {
   ],
 };
 
-// Tech stack
 export const TechStack: CollectionConfig = {
   slug: 'tech-stack',
   hooks: collectionHooks,
@@ -282,10 +275,21 @@ export const TechStack: CollectionConfig = {
           'Icon name from simpleicons.org, e.g. react, docker, nextdotjs. Leave empty for a default icon.',
       },
     },
+    {
+      name: 'level',
+      type: 'select',
+      defaultValue: 'daily',
+      options: [
+        { label: 'Use daily', value: 'daily' },
+        { label: 'Learning', value: 'learning' },
+      ],
+      admin: {
+        description: 'Learning items get a small "learning" tag on the site.',
+      },
+    },
   ],
 };
 
-// Messages (contact form inbox)
 export const Messages: CollectionConfig = {
   slug: 'messages',
   defaultSort: '-createdAt',

@@ -5,7 +5,6 @@ import sectionDefaults from './sectionDefaults.json';
 
 const getClient = cache(() => getPayload({ config }));
 
-// retry so a short network hiccup does not fail a build
 async function withRetry(task, tries = 3) {
   let lastError;
   for (let attempt = 1; attempt <= tries; attempt++) {
@@ -46,7 +45,6 @@ function mapProject(p) {
   };
 }
 
-// profile, hero text and stats
 export const getProfile = cache(() =>
   withRetry(async () => {
     const payload = await getClient();
@@ -77,7 +75,6 @@ export const getProfile = cache(() =>
   }),
 );
 
-// section headings with built-in fallbacks
 export const getSectionTitles = cache(() =>
   withRetry(async () => {
     const payload = await getClient();
@@ -114,7 +111,6 @@ export const getAbout = cache(() =>
   }),
 );
 
-// light list for the home page, case study text is not loaded
 export const getProjectList = cache(() =>
   withRetry(async () => {
     const payload = await getClient();
@@ -140,7 +136,6 @@ export const getProjectList = cache(() =>
   }),
 );
 
-// one full project with its case study text
 export const getProject = cache(slug =>
   withRetry(async () => {
     const payload = await getClient();
@@ -204,11 +199,11 @@ export const getTechStack = cache(() =>
       name: t.name,
       category: t.category,
       icon: t.icon || '',
+      level: t.level || 'daily',
     }));
   }),
 );
 
-// everything for the home page sections
 export const getSiteData = cache(async () => {
   const [profile, about, projects, capstones, experience, techStack, sections] =
     await Promise.all([

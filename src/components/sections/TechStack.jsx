@@ -109,6 +109,11 @@ function Track({ items, duplicate }) {
         >
           <TechIcon tech={tech} />
           {tech.name}
+          {tech.level === 'learning' && (
+            <span className="rounded-full bg-signal px-2.5 py-0.5 text-xs font-bold text-night">
+              learning
+            </span>
+          )}
         </li>
       ))}
     </ul>
@@ -164,7 +169,10 @@ export default async function TechStack() {
               {techStack
                 .filter(tech => tech.category === group.key)
                 .map(tech => (
-                  <li key={tech.name}>{tech.name}</li>
+                  <li key={tech.name}>
+                    {tech.name}
+                    {tech.level === 'learning' ? ' (learning)' : ''}
+                  </li>
                 ))}
             </ul>
           </div>
