@@ -41,7 +41,7 @@ export default async function Experience() {
                   <p className="mb-4 text-lg font-medium text-soft">
                     {item.period}
                   </p>
-                  <h3 className="font-display text-[clamp(2rem,1.2rem+2.8vw,3.75rem)] font-extrabold leading-[1.04] tracking-[-0.03em]">
+                  <h3 className="font-display text-[clamp(1.5rem,1rem+1.6vw,2.5rem)] font-extrabold leading-[1.04] tracking-[-0.03em]">
                     {item.role}
                   </h3>
                   <p className="mt-4 text-lg text-soft">
@@ -51,7 +51,7 @@ export default async function Experience() {
                 </div>
 
                 <div>
-                  <p className="max-w-xl text-[clamp(1.25rem,1rem+0.8vw,1.75rem)] leading-snug">
+                  <p className="max-w-xl text-[clamp(1.125rem,1rem+0.5vw,1.375rem)] leading-snug">
                     {renderRich(item.highlights[0])}
                   </p>
                   <div className="sr-only">

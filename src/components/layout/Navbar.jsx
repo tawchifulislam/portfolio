@@ -135,7 +135,7 @@ export default function Navbar() {
                       href={hrefFor(link.href)}
                       onClick={event => handleNavClick(event, link.href)}
                       aria-current={isActive ? 'location' : undefined}
-                      className={`block py-5 font-display text-[clamp(2.25rem,1.4rem+3.5vw,3.5rem)] font-extrabold leading-none tracking-[-0.03em] ${
+                      className={`block py-5 font-display text-[clamp(1.75rem,1.2rem+2.5vw,2.5rem)] font-extrabold leading-none tracking-[-0.03em] ${
                         isActive ? 'text-accent' : 'text-fg'
                       }`}
                     >

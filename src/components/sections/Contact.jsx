@@ -186,12 +186,12 @@ export default function Contact({ personalInfo }) {
           <SplitHeading
             id="contact-heading"
             text="Let's build something good together."
-            className="mb-10 font-display text-[clamp(2.25rem,0.8rem+5.2vw,5.5rem)] font-extrabold leading-[1.0] tracking-[-0.04em]"
+            className="mb-10 font-display text-[clamp(2rem,1rem+3vw,3.5rem)] font-extrabold leading-[1.0] tracking-[-0.04em]"
           />
 
           <a
             href={`mailto:${personalInfo.email}`}
-            className="link break-all font-display text-[clamp(1.25rem,0.9rem+1.6vw,2.25rem)] font-bold"
+            className="link break-all font-display text-[clamp(1.125rem,0.9rem+1vw,1.5rem)] font-bold"
           >
             {personalInfo.email}
           </a>

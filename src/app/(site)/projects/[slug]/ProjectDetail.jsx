@@ -106,7 +106,7 @@ export default function ProjectDetail({ meta, content, nextProject }) {
               <span className="text-lg font-medium text-soft">
                 Next case study
               </span>
-              <span className="font-display text-[clamp(2.5rem,1rem+6vw,7rem)] font-extrabold leading-[1.0] tracking-[-0.04em] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-4">
+              <span className="font-display text-[clamp(1.75rem,1rem+3vw,3.5rem)] font-extrabold leading-[1.0] tracking-[-0.04em] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-4">
                 {nextProject.title}
               </span>
             </Link>

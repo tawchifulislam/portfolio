@@ -25,10 +25,11 @@
 }
 
 @theme {
-  --text-display: clamp(2.5rem, 0.6rem + 5vw, 5.75rem);
-  --text-huge: clamp(2rem, 0.7rem + 4.4vw, 4.5rem);
-  --text-h1: clamp(1.875rem, 1.3rem + 2.2vw, 2.75rem);
-  --text-h2: clamp(1.5rem, 1.1rem + 1.4vw, 2.125rem);
+  --text-display: clamp(2rem, 1rem + 3.2vw, 3.75rem);
+  --text-huge: clamp(1.75rem, 0.9rem + 2.6vw, 3rem);
+  --text-h1: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem);
+  --text-h2: clamp(1.25rem, 1rem + 0.9vw, 1.75rem);
+  --font-weight-extrabold: 700;
   --radius-card: 1.5rem;
 }
 
@@ -98,7 +99,7 @@
   h3,
   h4 {
     font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: -0.025em;
     text-wrap: balance;
   }

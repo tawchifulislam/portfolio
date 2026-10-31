@@ -37,7 +37,7 @@ function Card({ project }) {
 
       <div className="flex flex-1 flex-col gap-4 px-2 pb-2 pt-6 sm:px-3">
         <div className="flex items-start justify-between gap-4">
-          <h3 className="font-display text-[clamp(1.75rem,1.2rem+1.6vw,2.75rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">
+          <h3 className="font-display text-[clamp(1.5rem,1.1rem+1vw,2rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">
             <Link
               href={`/projects/${project.slug}`}
               className="after:absolute after:inset-0 after:z-0 after:rounded-[1.75rem] after:content-['']"

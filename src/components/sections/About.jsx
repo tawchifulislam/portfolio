@@ -19,7 +19,7 @@ export default async function About() {
 
         <ScrollText
           text={firstSentences(paragraphs[0], 2)}
-          className="max-w-4xl font-display text-[clamp(1.5rem,1rem+2vw,2.75rem)] font-bold leading-[1.2] tracking-[-0.02em]"
+          className="max-w-4xl font-display text-[clamp(1.25rem,1rem+1.2vw,2rem)] font-bold leading-[1.2] tracking-[-0.02em]"
         />
         <div className="sr-only">
           {paragraphs.map(text => (
