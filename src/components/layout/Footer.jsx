@@ -42,7 +42,7 @@ export default async function Footer() {
 
         <p
           aria-hidden="true"
-          className="-mb-[0.1em] -ml-[0.03em] select-none whitespace-nowrap font-display text-[13vw] font-extrabold leading-[0.85] tracking-[-0.05em] text-fg"
+          className="-mb-[0.1em] -ml-[0.03em] select-none whitespace-nowrap font-display text-[min(9vw,8.5rem)] font-extrabold leading-[0.85] tracking-[-0.05em] text-fg"
         >
           Tawchiful
         </p>

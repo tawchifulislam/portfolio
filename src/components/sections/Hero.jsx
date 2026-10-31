@@ -49,12 +49,12 @@ export default async function Hero() {
   return (
     <section
       id="home"
-      className="theme-cobalt relative overflow-hidden px-5 pt-28 sm:px-8 lg:px-14 lg:pt-32"
+      className="theme-cobalt relative flex overflow-hidden px-5 pb-[calc(var(--sheet)+3rem)] pt-28 sm:px-8 lg:min-h-svh lg:items-center lg:px-14 lg:pt-32"
     >
       {flow && <Lanes requests={flow.requests} winners={flow.winners} />}
 
-      <div className="relative mx-auto grid max-w-340 grid-cols-1 items-end gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-8">
-        <div className="lg:pb-[calc(var(--sheet)+4.5rem)]">
+      <div className="relative mx-auto grid w-full max-w-340 grid-cols-1 items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-8">
+        <div>
           <p className="rise-in inline-flex flex-wrap items-center gap-x-4 gap-y-1 rounded-full border border-line px-4 py-2 text-sm font-medium">
             <span
               aria-hidden="true"
@@ -125,12 +125,12 @@ export default async function Hero() {
         </div>
 
         <div
-          className="rise-in relative mx-auto min-h-80 w-full max-w-sm self-end sm:max-w-md lg:max-w-112"
+          className="rise-in relative mx-auto flex w-full max-w-sm justify-center sm:max-w-md lg:max-w-112"
           style={{ '--delay': '0.15s' }}
         >
           <div
             aria-hidden="true"
-            className="absolute inset-x-[4%] bottom-0 top-[16%] rounded-t-full border border-white/25 bg-white/10"
+            className="absolute inset-x-[4%] bottom-0 top-[16%] rounded-t-full rounded-b-[2.5rem] border border-white/25 bg-white/10"
           />
           {personalInfo.image ? (
             <Image
@@ -140,14 +140,13 @@ export default async function Hero() {
               height={0}
               priority
               sizes="(min-width: 1024px) 448px, 90vw"
-              className="relative block h-auto w-full drop-shadow-[0_24px_30px_rgba(8,12,38,0.35)]"
+              className="relative block h-auto max-h-[68svh] w-auto max-w-full [clip-path:inset(0_4%_0_4%_round_0_0_2.5rem_2.5rem)]"
             />
           ) : (
             <div className="relative aspect-4/5" />
           )}
         </div>
       </div>
-
     </section>
   );
 }
