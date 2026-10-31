@@ -74,9 +74,62 @@
   },
   "projects": [
     {
+      "title": "CarePoint",
+      "slug": "carepoint",
+      "order": 1,
+      "featured": true,
+      "summary": "Doctor appointment platform where patients book real, conflict-free time slots and pay online, with tools for doctors, clinics and admins.",
+      "image": "/images/projects/carepoint.png",
+      "tags": [
+        "Next.js",
+        "Node.js",
+        "PostgreSQL",
+        "Stripe",
+        "TypeScript",
+        "Tailwind CSS",
+        "Express.js",
+        "Prisma",
+        "BetterAuth"
+      ],
+      "liveUrl": "https://carepoint-client.vercel.app",
+      "githubUrl": "https://github.com/tawchifulislam/carepoint-client",
+      "serverUrl": "https://github.com/tawchifulislam/carepoint-server",
+      "problem": "Booking a doctor usually means guessing which times are actually open, then paying separately, with no guarantee the slot has not been taken by someone else. Clinics and doctors, meanwhile, manage schedules, approvals and revenue across disconnected tools. CarePoint brings booking, payment and clinic operations into one platform for patients, doctors, clinic admins and super admins.",
+      "approach": "A Next.js client and a separate Express 5 REST API backed by PostgreSQL. Slots are computed on read from each doctor's weekly rules, leave days and existing bookings. A slot is held while the patient pays through Stripe Checkout, and four roles (patient, doctor, clinic admin, super admin) each get their own protected flows with ownership checked on every record.",
+      "keyDecisions": [
+        {
+          "text": "Let the database arbitrate double bookings with a partial unique index on (doctorId, slotStart) for active statuses, instead of row locking, so a new code path cannot forget the check. A test fires two simultaneous bookings for one slot and asserts exactly one succeeds."
+        },
+        {
+          "text": "Made payment confirmation independent of a single webhook. The Stripe webhook, a status-page sync and a 10-minute reconciliation sweep all use the same conditional update, so they are safe to run in any order or twice."
+        },
+        {
+          "text": "Made refunds refund-first and idempotent, using a Stripe idempotency key and updating the database only after Stripe succeeds, so an appointment can never be cancelled without returning the money."
+        },
+        {
+          "text": "Enforced authorization in the query itself (owner in the where clause), read roles from the database on every request, and shaped responses with select so private fields never leave the server."
+        },
+        {
+          "text": "Stored all times in UTC and interpreted them in the clinic's time zone, so a late-night slot never lands on the wrong date."
+        }
+      ],
+      "outcome": "Two simultaneous bookings for one slot are tested to produce exactly one winner, backed by a database-level unique index. Patients can pick a slot, pay and manage appointments, while doctors, clinic admins and super admins run schedules, approvals and reports through separate, protected flows. The server is covered by a test suite that runs against a real PostgreSQL database, including simultaneous booking, cross-user access, webhook ordering and refund failure cases, with CI running lint, build and tests on every push.",
+      "whatsNext": [
+        {
+          "text": "Always-on hosting or an external scheduler so reminder and payment-sweep jobs do not depend on a free-tier instance staying awake."
+        },
+        {
+          "text": "Emails for clinic and doctor approval decisions, and a way for rejected applicants to reapply."
+        },
+        {
+          "text": "End-to-end tests of the booking flow, plus structured logging and error tracking."
+        }
+      ]
+    },
+    {
       "title": "Brawnix",
       "slug": "brawnix",
-      "order": 1,
+      "order": 2,
       "featured": true,
       "summary": "Role-based gym and fitness class platform for members, trainers and admins.",
       "image": "/images/projects/brawnix.png",
@@ -122,8 +175,8 @@
     {
       "title": "Thirsty for Knowledge",
       "slug": "tfknowledge",
-      "order": 2,
-      "featured": true,
+      "order": 3,
+      "featured": false,
       "summary": "Bilingual minimalist blog where readers vote on what gets written next.",
       "image": "/images/projects/tfknowledge.png",
       "tags": [
@@ -169,8 +222,8 @@
     {
       "title": "Healync",
       "slug": "healync",
-      "order": 3,
-      "featured": true,
+      "order": 4,
+      "featured": false,
       "summary": "Doctor appointment booking for patients and verified medical specialists.",
       "image": "/images/projects/healync.png",
       "tags": [
@@ -215,8 +268,8 @@
     {
       "title": "Roamly",
       "slug": "roamly",
-      "order": 4,
-      "featured": true,
+      "order": 5,
+      "featured": false,
       "summary": "Travel discovery with real traveler ratings and an AI chat assistant.",
       "image": "/images/projects/roamly.png",
       "tags": [
@@ -314,34 +367,113 @@
     }
   ],
   "techStack": [
-    { "name": "React.js", "category": "frontend", "icon": "react" },
-    { "name": "Next.js", "category": "frontend" },
-    { "name": "TypeScript", "category": "frontend" },
+    {
+      "name": "React.js",
+      "category": "frontend",
+      "icon": "react"
+    },
+    {
+      "name": "Next.js",
+      "category": "frontend"
+    },
+    {
+      "name": "TypeScript",
+      "category": "frontend"
+    },
     {
       "name": "JavaScript (ES6+)",
       "category": "frontend",
       "icon": "javascript"
     },
-    { "name": "Tailwind CSS", "category": "frontend" },
-    { "name": "Framer Motion", "category": "frontend" },
-    { "name": "Node.js", "category": "backend" },
-    { "name": "Express.js", "category": "backend" },
-    { "name": "REST APIs", "category": "backend" },
-    { "name": "JWT", "category": "backend" },
-    { "name": "Better Auth", "category": "backend", "icon": "betterauth" },
-    { "name": "Stripe", "category": "backend", "icon": "stripe" },
-    { "name": "Webhooks", "category": "backend" },
-    { "name": "Zod", "category": "backend", "icon": "zod" },
-    { "name": "Gemini API", "category": "backend", "icon": "googlegemini" },
-    { "name": "PostgreSQL", "category": "database" },
-    { "name": "Prisma", "category": "database" },
-    { "name": "MongoDB", "category": "database" },
-    { "name": "Git", "category": "tools" },
-    { "name": "GitHub", "category": "tools" },
-    { "name": "GitHub Actions", "category": "tools", "icon": "githubactions" },
-    { "name": "Docker", "category": "tools" },
-    { "name": "Postman", "category": "tools", "icon": "postman" },
-    { "name": "Vercel", "category": "tools" },
-    { "name": "Render", "category": "tools" }
+    {
+      "name": "Tailwind CSS",
+      "category": "frontend"
+    },
+    {
+      "name": "Framer Motion",
+      "category": "frontend"
+    },
+    {
+      "name": "Node.js",
+      "category": "backend"
+    },
+    {
+      "name": "Express.js",
+      "category": "backend"
+    },
+    {
+      "name": "REST APIs",
+      "category": "backend"
+    },
+    {
+      "name": "JWT",
+      "category": "backend"
+    },
+    {
+      "name": "Better Auth",
+      "category": "backend",
+      "icon": "betterauth"
+    },
+    {
+      "name": "Stripe",
+      "category": "backend",
+      "icon": "stripe"
+    },
+    {
+      "name": "Webhooks",
+      "category": "backend"
+    },
+    {
+      "name": "Zod",
+      "category": "backend",
+      "icon": "zod"
+    },
+    {
+      "name": "Gemini API",
+      "category": "backend",
+      "icon": "googlegemini"
+    },
+    {
+      "name": "PostgreSQL",
+      "category": "database"
+    },
+    {
+      "name": "Prisma",
+      "category": "database"
+    },
+    {
+      "name": "MongoDB",
+      "category": "database"
+    },
+    {
+      "name": "Git",
+      "category": "tools"
+    },
+    {
+      "name": "GitHub",
+      "category": "tools"
+    },
+    {
+      "name": "GitHub Actions",
+      "category": "tools",
+      "icon": "githubactions"
+    },
+    {
+      "name": "Docker",
+      "category": "tools"
+    },
+    {
+      "name": "Postman",
+      "category": "tools",
+      "icon": "postman"
+    },
+    {
+      "name": "Vercel",
+      "category": "tools"
+    },
+    {
+      "name": "Render",
+      "category": "tools"
+    }
   ]
 }

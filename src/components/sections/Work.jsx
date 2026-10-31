@@ -18,6 +18,7 @@ export default async function Work({ projects }) {
       ? firstSentences(details[index].outcome, 1).replace(/\*\*|`/g, '')
       : '',
     slug: project.slug,
+    featured: project.featured,
     title: project.title,
     summary: project.summary,
     image: project.image,

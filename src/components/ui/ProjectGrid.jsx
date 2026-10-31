@@ -27,6 +27,11 @@ function Card({ project }) {
           sizes="(min-width: 1024px) 45vw, 92vw"
           className="object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
         />
+        {project.featured && (
+          <span className="absolute left-3 top-3 rounded-full bg-signal px-3 py-1 text-xs font-bold text-night">
+            Featured
+          </span>
+        )}
       </Link>
 
       <div className="flex flex-1 flex-col gap-4 px-2 pb-2 pt-6 sm:px-3">
