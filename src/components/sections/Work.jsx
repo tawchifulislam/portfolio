@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import { getSiteData } from '@/lib/cms';
 import SectionHeading from '@/components/ui/SectionHeading';
-import ProjectList from '@/components/ui/ProjectList';
+import ProjectGrid from '@/components/ui/ProjectGrid';
 import Reveal from '@/components/ui/Reveal';
 
 export default async function Work({ projects }) {
@@ -28,10 +28,10 @@ export default async function Work({ projects }) {
       <div className="mx-auto max-w-340">
         <SectionHeading id="work-heading" title={sections.work.title} />
 
-        <ProjectList projects={listProjects} />
+        <ProjectGrid projects={listProjects} />
 
         {capstones.length > 0 && (
-          <div className="mt-24 lg:mt-32">
+          <div className="mt-24 lg:mt-36">
             <h3 className="mb-8 font-display text-h1 font-extrabold leading-tight">
               Internship capstones
             </h3>

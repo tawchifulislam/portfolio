@@ -1,13 +1,12 @@
 export default function Logo() {
   return (
     <div className="pf-logo">
-      <svg viewBox="0 0 100 100" width="36" height="36" aria-hidden="true">
-        <rect x="14" y="15" width="72" height="6" fill="currentColor" />
-        <rect x="46" y="15" width="8" height="70" fill="currentColor" />
-        <rect x="64" y="34" width="6" height="46" fill="currentColor" />
-        <rect x="58" y="34" width="18" height="4" fill="currentColor" />
-        <rect x="58" y="76" width="18" height="4" fill="currentColor" />
-        <rect x="88" y="10" width="5" height="5" fill="#e3a13a" />
+      <svg viewBox="0 0 64 64" width="36" height="36" aria-hidden="true">
+        <rect width="64" height="64" rx="18" fill="#2a3cf2" />
+        <rect x="11.5" y="13" width="8" height="22" rx="4" fill="#ffffff" />
+        <rect x="22.5" y="13" width="8" height="22" rx="4" fill="#ffffff" />
+        <rect x="33.5" y="13" width="8" height="22" rx="4" fill="#ffffff" />
+        <rect x="44.5" y="13" width="8" height="38" rx="4" fill="#ffd23f" />
       </svg>
       <span className="pf-logo__text">
         Tawchiful<span>.</span>
