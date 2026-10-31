@@ -100,10 +100,16 @@ export default async function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
         />
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-70 focus:rounded-full focus:bg-signal focus:px-5 focus:py-3 focus:font-semibold focus:text-night"
+        >
+          Skip to content
+        </a>
         <SmoothScroll />
         <CustomCursor />
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main id="main" tabIndex={-1} className="flex-1 outline-none">{children}</main>
         <Footer />
         <ScrollToTop />
       </body>
