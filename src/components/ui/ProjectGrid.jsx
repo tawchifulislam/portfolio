@@ -45,6 +45,12 @@ function Card({ project }) {
 
         <p className="max-w-md text-soft">{project.summary}</p>
 
+        {project.result && (
+          <p className="max-w-md border-l-2 border-accent pl-4 text-[0.9375rem] font-medium leading-snug">
+            {project.result}
+          </p>
+        )}
+
         {project.tags?.length > 0 && (
           <ul className="flex flex-wrap gap-2" aria-label="Technologies">
             {project.tags.slice(0, 4).map(tag => (

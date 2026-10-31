@@ -95,21 +95,30 @@ export default async function Hero() {
             className="rise-in mt-9 flex flex-wrap items-center gap-x-6 gap-y-3"
             style={{ '--delay': '0.2s' }}
           >
-            <a href="#work" className="btn btn-primary">
-              See what I&apos;ve built
-            </a>
-            <a href="#contact" className="btn btn-outline">
-              Say hello
-            </a>
-            {personalInfo.resume && (
+            {personalInfo.resume ? (
               <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link inline-flex items-center gap-1 py-1.5 font-medium"
+                className="btn btn-primary"
               >
-                Résumé
-                <ArrowUpRight size={15} aria-hidden="true" />
+                Download résumé
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            ) : (
+              <a href="#contact" className="btn btn-primary">
+                Say hello
+              </a>
+            )}
+            <a href="#work" className="btn btn-outline">
+              See my work
+            </a>
+            {personalInfo.resume && (
+              <a
+                href="#contact"
+                className="link inline-flex items-center py-1.5 font-medium"
+              >
+                Say hello
               </a>
             )}
           </div>

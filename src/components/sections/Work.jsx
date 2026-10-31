@@ -1,6 +1,7 @@
 import { ArrowUpRight } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
-import { getSiteData } from '@/lib/cms';
+import { getSiteData, getProject } from '@/lib/cms';
+import { firstSentences } from '@/lib/copy';
 import SectionHeading from '@/components/ui/SectionHeading';
 import ProjectGrid from '@/components/ui/ProjectGrid';
 import Reveal from '@/components/ui/Reveal';
@@ -8,7 +9,14 @@ import Reveal from '@/components/ui/Reveal';
 export default async function Work({ projects }) {
   const { capstones, personalInfo, sections } = await getSiteData();
 
-  const listProjects = projects.map(project => ({
+  const details = await Promise.all(
+    projects.map(project => getProject(project.slug).catch(() => null)),
+  );
+
+  const listProjects = projects.map((project, index) => ({
+    result: details[index]?.outcome
+      ? firstSentences(details[index].outcome, 1).replace(/\*\*|`/g, '')
+      : '',
     slug: project.slug,
     title: project.title,
     summary: project.summary,
