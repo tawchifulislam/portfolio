@@ -7,7 +7,6 @@ const SITE =
     ? 'https://tawchif.vercel.app'
     : 'http://localhost:3000';
 
-// Profile: personal info, Hero text, social links, stats
 export const Profile: GlobalConfig = {
   slug: 'profile',
   hooks: globalHooks,
@@ -31,13 +30,20 @@ export const Profile: GlobalConfig = {
       name: 'bio',
       type: 'textarea',
       required: true,
-      admin: { description: 'Short intro shown in the Hero.' },
+      admin: {
+        description:
+          'Short intro. Only the first sentence is shown in the Hero, so lead with the strongest one.',
+      },
     },
     {
       name: 'photo',
       type: 'upload',
       relationTo: 'media',
       label: 'Profile photo',
+      admin: {
+        description:
+          'Use a PNG with a transparent background. It sits on the yellow arch in the Hero.',
+      },
     },
     {
       name: 'resumeFile',
@@ -69,22 +75,24 @@ export const Profile: GlobalConfig = {
       defaultValue: 'Open for work',
       admin: {
         description:
-          'Small badge at the top of the Hero. The location is added after it.',
+          'Small badge at the top of the Hero. Separate parts with a middle dot, for example: Open for work · UTC+6 · available full-time.',
       },
     },
     {
       name: 'headlineStart',
       type: 'text',
       defaultValue: "Hi, I'm Tawchiful. I build",
-      admin: { description: 'Big Hero headline, first part.' },
+      admin: {
+        description:
+          'First part of the Hero headline. The first sentence becomes a small greeting above the big statement.',
+      },
     },
     {
       name: 'headlineHighlight',
       type: 'text',
       defaultValue: 'whole products',
       admin: {
-        description:
-          'Highlighted (brass colour, underlined) words in the headline.',
+        description: 'Middle words of the headline, joined into the statement.',
       },
     },
     {
@@ -96,17 +104,17 @@ export const Profile: GlobalConfig = {
     {
       name: 'stats',
       type: 'array',
-      label: 'Stats strip',
+      label: 'Stats',
       admin: {
         description:
-          'Numbers shown under the Hero. The "projects shipped" count is added automatically.',
+          'Short facts about your work. A stat written like "8 → 1" drives the lane animation in the Hero, and its label becomes the caption under the buttons.',
       },
       fields: [
         {
           name: 'value',
           type: 'text',
           required: true,
-          admin: { description: 'e.g. 35 or 221+' },
+          admin: { description: 'e.g. 35 or 8 → 1' },
         },
         { name: 'label', type: 'text', required: true },
       ],
@@ -114,14 +122,14 @@ export const Profile: GlobalConfig = {
   ],
 };
 
-// About section
 export const About: GlobalConfig = {
   slug: 'about',
   hooks: globalHooks,
   label: 'About',
   admin: {
     group: 'Site',
-    description: 'The About section text and focus cards.',
+    description:
+      'The About section. The first two sentences of the first paragraph are shown on the page, the rest is kept for screen readers and search.',
     preview: () => `${SITE}/#about`,
   },
   fields: [
@@ -140,6 +148,9 @@ export const About: GlobalConfig = {
       name: 'focuses',
       type: 'array',
       label: 'Focus cards',
+      admin: {
+        description: 'Keep each text under 40 characters so it shows on the page.',
+      },
       fields: [
         { name: 'title', type: 'text', required: true },
         { name: 'text', type: 'textarea', required: true },
@@ -147,7 +158,7 @@ export const About: GlobalConfig = {
     },
   ],
 };
-// Section titles (headings above Work, Experience and Tech stack)
+
 export const SectionTitles: GlobalConfig = {
   slug: 'section-titles',
   label: 'Section titles',
@@ -155,7 +166,7 @@ export const SectionTitles: GlobalConfig = {
   admin: {
     group: 'Site',
     description:
-      'Headings shown above the Work, Experience and Tech stack sections.',
+      'Headings shown above the Work, Experience and Tech stack sections. Only the titles are shown on the current design.',
     preview: () => `${SITE}/#work`,
   },
   fields: [
@@ -169,6 +180,7 @@ export const SectionTitles: GlobalConfig = {
           type: 'text',
           required: true,
           defaultValue: sectionDefaults.work.eyebrow,
+          admin: { description: 'Not shown on the current design.' },
         },
         {
           name: 'title',
@@ -180,6 +192,7 @@ export const SectionTitles: GlobalConfig = {
           name: 'description',
           type: 'textarea',
           defaultValue: sectionDefaults.work.description,
+          admin: { description: 'Not shown on the current design.' },
         },
       ],
     },
@@ -193,6 +206,7 @@ export const SectionTitles: GlobalConfig = {
           type: 'text',
           required: true,
           defaultValue: sectionDefaults.experience.eyebrow,
+          admin: { description: 'Not shown on the current design.' },
         },
         {
           name: 'title',
@@ -212,6 +226,7 @@ export const SectionTitles: GlobalConfig = {
           type: 'text',
           required: true,
           defaultValue: sectionDefaults.techStack.eyebrow,
+          admin: { description: 'Not shown on the current design.' },
         },
         {
           name: 'title',

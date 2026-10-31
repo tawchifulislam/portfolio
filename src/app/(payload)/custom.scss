@@ -1,74 +1,70 @@
-/* Admin theme: matches the public site (ink background, brass accent) */
-
 :root,
 [data-theme='dark'] {
-  --theme-elevation-0: #0b1220;
-  --theme-elevation-50: #0f1829;
-  --theme-elevation-100: #121b2d;
-  --theme-elevation-150: #162139;
-  --theme-elevation-200: #1a2740;
-  --theme-elevation-250: #1f2d49;
-  --theme-elevation-300: #25314a;
-  --theme-elevation-350: #2a3855;
-  --theme-elevation-400: #3a4a6a;
-  --theme-elevation-450: #485a7c;
-  --theme-elevation-500: #5b6c8c;
-  --theme-elevation-550: #6f7f9e;
-  --theme-elevation-600: #7c8ba8;
-  --theme-elevation-650: #8e9cb6;
-  --theme-elevation-700: #a9b6cd;
-  --theme-elevation-750: #b7c2d8;
-  --theme-elevation-800: #cfd3dc;
-  --theme-elevation-850: #e2e0d8;
-  --theme-elevation-900: #efeadf;
-  --theme-elevation-950: #f5f0e4;
-  --theme-elevation-1000: #fbf7ec;
+  --theme-elevation-0: #080c26;
+  --theme-elevation-50: #0b1030;
+  --theme-elevation-100: #10163f;
+  --theme-elevation-150: #141b4a;
+  --theme-elevation-200: #192156;
+  --theme-elevation-250: #1f2863;
+  --theme-elevation-300: #262f70;
+  --theme-elevation-350: #2d377d;
+  --theme-elevation-400: #3b4590;
+  --theme-elevation-450: #4a54a1;
+  --theme-elevation-500: #5b65b0;
+  --theme-elevation-550: #6d77bb;
+  --theme-elevation-600: #8089c6;
+  --theme-elevation-650: #939bd0;
+  --theme-elevation-700: #a7aed6;
+  --theme-elevation-750: #b9bfdf;
+  --theme-elevation-800: #cdd1e8;
+  --theme-elevation-850: #dcdff0;
+  --theme-elevation-900: #e8eaf6;
+  --theme-elevation-950: #f1f2fa;
+  --theme-elevation-1000: #f8f9fd;
 
-  --theme-bg: #0b1220;
-  --theme-input-bg: #0f1829;
-  --theme-text: #f1ebdd;
+  --theme-bg: #080c26;
+  --theme-input-bg: #0b1030;
+  --theme-text: #f3f4fb;
 
   --font-body:
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
   --style-radius-s: 6px;
-  --style-radius-m: 8px;
-  --style-radius-l: 12px;
+  --style-radius-m: 10px;
+  --style-radius-l: 16px;
 }
 
 ::selection {
-  background: #e3a13a;
-  color: #0b1220;
+  background: #ffd23f;
+  color: #080c26;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #3a4a6a transparent;
+  scrollbar-color: #3b4590 transparent;
 }
 
 :focus-visible {
-  outline: 2px solid #e3a13a;
+  outline: 2px solid #ffd23f;
   outline-offset: 2px;
 }
 
-/* primary buttons use the brass accent */
 .btn--style-primary {
-  --bg-color: #e3a13a;
-  --color: #0b1220;
-  --hover-bg: #f3c26b;
-  --hover-color: #0b1220;
-  background-color: #e3a13a;
-  color: #0b1220;
-  border-color: #e3a13a;
+  --bg-color: #ffd23f;
+  --color: #080c26;
+  --hover-bg: #ffe07a;
+  --hover-color: #080c26;
+  background-color: #ffd23f;
+  color: #080c26;
+  border-color: #ffd23f;
 }
 
 .btn--style-primary:hover:not(.btn--disabled) {
-  background-color: #f3c26b;
-  color: #0b1220;
-  border-color: #f3c26b;
+  background-color: #ffe07a;
+  color: #080c26;
+  border-color: #ffe07a;
 }
 
-/* toasts */
 .payload-toast-item {
   background: var(--theme-elevation-100) !important;
   color: var(--theme-text) !important;
@@ -79,14 +75,13 @@
 }
 
 .payload-toast-item.toast-success {
-  border-left: 3px solid #e3a13a !important;
+  border-left: 3px solid #ffd23f !important;
 }
 
 .payload-toast-item.toast-error {
   border-left: 3px solid #e5484d !important;
 }
 
-/* logo shown on the login page */
 .pf-logo {
   display: flex;
   align-items: center;
@@ -101,10 +96,9 @@
 }
 
 .pf-logo__text span {
-  color: #e3a13a;
+  color: #ffd23f;
 }
 
-/* dashboard home */
 .pf-home {
   margin-bottom: 32px;
 }
@@ -131,17 +125,22 @@
 }
 
 .pf-home__site {
-  padding: 8px 14px;
+  padding: 8px 16px;
   border: 1px solid var(--theme-elevation-300);
   border-radius: 999px;
   font-size: 0.85rem;
   color: var(--theme-text);
   text-decoration: none;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s,
+    color 0.15s;
 }
 
 .pf-home__site:hover {
-  border-color: #e3a13a;
-  color: #f3c26b;
+  border-color: #ffd23f;
+  background: #ffd23f;
+  color: #080c26;
 }
 
 .pf-home__stats {
@@ -163,7 +162,7 @@
 }
 
 .pf-stat:hover {
-  border-color: var(--theme-elevation-400);
+  border-color: #2a3cf2;
 }
 
 .pf-stat__value {
@@ -181,11 +180,11 @@
 }
 
 .pf-stat--alert {
-  border-color: #e3a13a;
+  border-color: #ffd23f;
 }
 
 .pf-stat--alert .pf-stat__value {
-  color: #e3a13a;
+  color: #ffd23f;
 }
 
 .pf-home__actions {
@@ -195,20 +194,22 @@
 }
 
 .pf-action {
-  padding: 8px 14px;
+  padding: 8px 16px;
   border: 1px solid var(--theme-elevation-200);
   border-radius: 999px;
   font-size: 0.85rem;
   color: var(--theme-text);
   text-decoration: none;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
 }
 
 .pf-action:hover {
-  border-color: var(--theme-elevation-400);
-  background: var(--theme-elevation-100);
+  border-color: #2a3cf2;
+  background: #2a3cf2;
 }
 
-/* reset section at the bottom */
 .pf-danger {
   margin-top: 32px;
   padding: 4px 16px;
