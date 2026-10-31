@@ -107,14 +107,14 @@ export const Profile: GlobalConfig = {
       label: 'Stats',
       admin: {
         description:
-          'Short facts about your work. A stat written like "8 → 1" drives the lane animation in the Hero, and its label becomes the caption under the buttons.',
+          'Not shown on the site. A stat written like "8 → 1" only tunes the lane animation in the Hero.',
       },
       fields: [
         {
           name: 'value',
           type: 'text',
           required: true,
-          admin: { description: 'e.g. 35 or 8 → 1' },
+          admin: { description: 'e.g. 8 → 1' },
         },
         { name: 'label', type: 'text', required: true },
       ],

@@ -51,7 +51,10 @@ export default async function Hero() {
       id="home"
       className="theme-cobalt relative flex overflow-hidden px-5 pb-[calc(var(--sheet)+3rem)] pt-28 sm:px-8 lg:min-h-svh lg:items-center lg:px-14 lg:pt-32"
     >
-      {flow && <Lanes requests={flow.requests} winners={flow.winners} />}
+      <Lanes
+        requests={flow ? flow.requests : 8}
+        winners={flow ? flow.winners : 1}
+      />
 
       <div className="relative mx-auto grid w-full max-w-340 grid-cols-1 items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-8">
         <div>
@@ -122,15 +125,6 @@ export default async function Hero() {
               </a>
             )}
           </div>
-
-          {flow && (
-            <p
-              className="rise-in mt-10 max-w-sm border-l-2 border-accent pl-4 text-sm font-medium text-soft"
-              style={{ '--delay': '0.3s' }}
-            >
-              {flow.caption}
-            </p>
-          )}
         </div>
 
         <div
