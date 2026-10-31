@@ -264,52 +264,6 @@
           "text": "A dedicated admin and doctor dashboard for managing schedules, patient records, and companion assignments."
         }
       ]
-    },
-    {
-      "title": "Roamly",
-      "slug": "roamly",
-      "order": 5,
-      "featured": false,
-      "summary": "Travel discovery with real traveler ratings and an AI chat assistant.",
-      "image": "/images/projects/roamly.png",
-      "tags": [
-        "Next.js",
-        "TypeScript",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "BetterAuth",
-        "Gemini API",
-        "Recharts"
-      ],
-      "liveUrl": "https://roamly1.vercel.app",
-      "githubUrl": "https://github.com/tawchifulislam/roamly-client",
-      "serverUrl": "https://github.com/tawchifulislam/roamly-server",
-      "problem": "Planning a trip usually means sifting through generic listings with no trustworthy signal. Roamly solves the decision fatigue by grounding recommendations in real traveler data.",
-      "approach": "Destinations are backed by real trip ratings, and an AI assistant powered by Google Gemini gives personalized recommendations. Google OAuth via BetterAuth, a live rating system with real time data fetching, and fully independent frontend and backend deployments complete the stack.",
-      "keyDecisions": [
-        {
-          "text": "Resolved cross domain cookie authentication in production with a Next.js rewrite proxy, so every API call appears same origin to the browser."
-        },
-        {
-          "text": "Integrated the Gemini API to power a conversational assistant that gives genuinely context aware travel suggestions."
-        },
-        {
-          "text": "Replaced an initial recommendation engine concept with a trip rating system for a more trustworthy, user driven signal, based on clarified requirements."
-        }
-      ],
-      "outcome": "A travel discovery platform where user submitted ratings and an AI assistant both feed into the same recommendation experience.",
-      "whatsNext": [
-        {
-          "text": "Collaborative trip planning where multiple users build an itinerary together."
-        },
-        {
-          "text": "Personalized destination feeds based on past ratings and chat history."
-        },
-        {
-          "text": "Expanding the assistant to generate full day by day itineraries."
-        }
-      ]
     }
   ],
   "capstones": [
