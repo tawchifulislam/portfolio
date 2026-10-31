@@ -125,12 +125,12 @@ export default async function Hero() {
         </div>
 
         <div
-          className="rise-in relative mx-auto flex w-full max-w-sm justify-center sm:max-w-md lg:max-w-112"
+          className="rise-in relative mx-auto w-full max-w-sm sm:max-w-md"
           style={{ '--delay': '0.15s' }}
         >
           <div
             aria-hidden="true"
-            className="absolute inset-x-[4%] bottom-0 top-[16%] rounded-t-full rounded-b-[2.5rem] border border-white/25 bg-white/10"
+            className="absolute inset-x-0 bottom-0 top-[14%] rounded-t-full rounded-b-4xl bg-signal"
           />
           {personalInfo.image ? (
             <Image
@@ -139,8 +139,8 @@ export default async function Hero() {
               width={0}
               height={0}
               priority
-              sizes="(min-width: 1024px) 448px, 90vw"
-              className="relative block h-auto max-h-[68svh] w-auto max-w-full [clip-path:inset(0_4%_0_4%_round_0_0_2.5rem_2.5rem)]"
+              sizes="(min-width: 640px) 448px, 90vw"
+              className="relative block h-auto w-full [clip-path:inset(-20%_0_0_0_round_0_0_2rem_2rem)]"
             />
           ) : (
             <div className="relative aspect-4/5" />

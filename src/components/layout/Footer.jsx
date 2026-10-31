@@ -1,51 +1,46 @@
 import { getProfile } from '@/lib/cms';
+import { navLinks } from '@/lib/data';
+import LogoMark from '@/components/ui/LogoMark';
+
+const toHome = href => (href.startsWith('#') ? `/${href}` : href);
 
 export default async function Footer() {
   const { personalInfo } = await getProfile();
   const year = new Date().getFullYear();
-  const links = [
-    { label: 'GitHub', href: personalInfo.social.github },
-    { label: 'LinkedIn', href: personalInfo.social.linkedin },
-    { label: 'X', href: personalInfo.social.twitter },
-  ].filter(item => item.href);
+  const links = [...navLinks, { label: 'Contact', href: '#contact' }];
 
   return (
-    <footer className="theme-ink sheet overflow-hidden px-5 sm:px-8 lg:px-14 [padding-bottom:0]">
-      <div className="mx-auto max-w-340">
-        <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-6 border-b border-line pb-10">
-          <a
-            href={`mailto:${personalInfo.email}`}
-            className="link font-display text-[clamp(1.25rem,1rem+1.2vw,2rem)] font-bold break-all"
-          >
-            {personalInfo.email}
-          </a>
-          <ul className="flex flex-wrap gap-3">
+    <footer className="theme-ink sheet px-5 sm:px-8 lg:px-14">
+      <div className="mx-auto flex max-w-340 flex-col gap-10 md:flex-row md:items-center md:justify-between">
+        <a href="/" className="flex items-center gap-3" aria-label="Home">
+          <LogoMark className="h-10 w-10" />
+          <span className="flex flex-col leading-tight">
+            <span className="font-display text-lg font-extrabold">
+              {personalInfo.name}
+            </span>
+            <span className="text-sm text-soft">{personalInfo.title}</span>
+          </span>
+        </a>
+
+        <nav aria-label="Footer">
+          <ul className="flex flex-wrap gap-x-7 gap-y-3">
             {links.map(item => (
               <li key={item.label}>
                 <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-outline px-5 py-2.5 text-sm"
+                  href={toHome(item.href)}
+                  className="py-1.5 text-[0.9375rem] font-medium text-soft transition-colors hover:text-fg"
                 >
                   {item.label}
                 </a>
               </li>
             ))}
           </ul>
-        </div>
+        </nav>
+      </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 py-6 text-sm text-soft">
-          <span>© {year} Tawchiful Islam</span>
-          <span>Built with React and Next.js.</span>
-        </div>
-
-        <p
-          aria-hidden="true"
-          className="-mb-[0.1em] -ml-[0.03em] select-none whitespace-nowrap font-display text-[min(9vw,8.5rem)] font-extrabold leading-[0.85] tracking-[-0.05em] text-fg"
-        >
-          Tawchiful
-        </p>
+      <div className="mx-auto mt-10 flex max-w-340 flex-wrap items-center justify-between gap-3 border-t border-line pt-6 text-sm text-soft">
+        <span>© {year} {personalInfo.name}</span>
+        <span>Built with React and Next.js.</span>
       </div>
     </footer>
   );
