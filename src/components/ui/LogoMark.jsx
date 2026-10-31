@@ -1,20 +1,16 @@
-export default function LogoMark({ className = 'w-8 h-8' }) {
+export default function LogoMark({ className }) {
   return (
     <svg
-      viewBox="0 0 100 100"
+      viewBox="0 0 64 64"
+      aria-hidden="true"
       className={className}
       fill="none"
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
     >
-      <rect x="14" y="15" width="72" height="6" fill="currentColor" />
-      <rect x="46" y="15" width="8" height="70" fill="currentColor" />
-
-      <rect x="64" y="34" width="6" height="46" fill="currentColor" />
-      <rect x="58" y="34" width="18" height="4" fill="currentColor" />
-      <rect x="58" y="76" width="18" height="4" fill="currentColor" />
-
-      <rect x="88" y="10" width="5" height="5" className="fill-brass" />
+      <rect width="64" height="64" rx="18" fill="#2a3cf2" />
+      <rect x="11.5" y="13" width="8" height="22" rx="4" fill="#ffffff" />
+      <rect x="22.5" y="13" width="8" height="22" rx="4" fill="#ffffff" />
+      <rect x="33.5" y="13" width="8" height="22" rx="4" fill="#ffffff" />
+      <rect x="44.5" y="13" width="8" height="38" rx="4" fill="#ffd23f" />
     </svg>
   );
 }

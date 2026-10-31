@@ -2,7 +2,9 @@
 
 import { useState, useSyncExternalStore } from 'react';
 import emailjs from '@emailjs/browser';
+import { ArrowUpRight } from 'lucide-react';
 import { sendMessage } from '@/lib/actions';
+import SplitHeading from '@/components/ui/SplitHeading';
 
 const MESSAGE_MAX_LENGTH = 1000;
 
@@ -50,22 +52,22 @@ const getOnline = () => navigator.onLine;
 const getServerOnline = () => true;
 
 const fieldClass = hasError =>
-  `rounded-field border bg-ink px-3.5 py-3.5 text-[0.9375rem] text-paper transition-colors placeholder:text-faint focus-visible:border-brass ${
-    hasError ? 'border-red-400' : 'border-line-2'
+  `w-full rounded-xl border bg-transparent px-4 py-3.5 text-[0.9375rem] text-fg transition-colors placeholder:text-soft focus-visible:border-accent ${
+    hasError ? 'border-red-400' : 'border-fg/20'
   }`;
 
 function Field({ id, label, error, aside, children }) {
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-baseline justify-between gap-3">
-        <label htmlFor={id} className="text-[0.8125rem] text-subtle">
+        <label htmlFor={id} className="text-sm font-medium text-soft">
           {label}
         </label>
         {aside}
       </div>
       {children}
       {error && (
-        <p id={`${id}-error`} role="alert" className="text-xs text-red-300">
+        <p id={`${id}-error`} role="alert" className="text-sm text-red-300">
           {error}
         </p>
       )}
@@ -87,6 +89,12 @@ export default function Contact({ personalInfo }) {
     getOnline,
     getServerOnline,
   );
+
+  const links = [
+    { label: 'GitHub', href: personalInfo.social?.github },
+    { label: 'LinkedIn', href: personalInfo.social?.linkedin },
+    { label: 'X', href: personalInfo.social?.twitter },
+  ].filter(item => item.href);
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -171,141 +179,136 @@ export default function Contact({ personalInfo }) {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="px-5 pb-16 pt-28 sm:px-8 lg:px-14 lg:pb-20"
+      className="theme-signal sheet px-5 sm:px-8 lg:px-14"
     >
-      <div className="mx-auto max-w-340">
-        <div className="mb-8 flex items-baseline justify-between border-b border-line pb-3 font-mono text-xs uppercase tracking-[0.08em] text-brass">
-          <span>(05)</span>
-          <span>(Get in touch)</span>
-        </div>
-
-        <div className="relative overflow-hidden rounded-card border border-line bg-raised p-6 sm:p-10 lg:p-12">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 bg-[radial-gradient(closest-side,rgba(227,161,58,0.22),transparent)]"
-          />
-          <div
-            aria-hidden="true"
-            className="dot-grid pointer-events-none absolute inset-0 opacity-50"
+      <div className="mx-auto grid max-w-340 grid-cols-1 gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+        <div>
+          <SplitHeading
+            id="contact-heading"
+            text="Let's build something good together."
+            className="mb-10 font-display text-[clamp(2.25rem,0.8rem+5.2vw,5.5rem)] font-extrabold leading-[1.0] tracking-[-0.04em]"
           />
 
-          <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-14">
-            <div>
-              <h2
-                id="contact-heading"
-                className="mb-8 font-display text-huge leading-[1.02] tracking-[-0.02em] text-balance"
-              >
-                Let&apos;s build something good together.
-              </h2>
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="link break-all font-display text-[clamp(1.25rem,0.9rem+1.6vw,2.25rem)] font-bold"
+          >
+            {personalInfo.email}
+          </a>
+          <p className="mt-3 text-lg text-soft">{personalInfo.location}</p>
 
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="wrap-break-word text-xl font-medium text-paper underline decoration-brass/60 decoration-2 underline-offset-[6px] transition-colors hover:decoration-brass sm:text-2xl"
-              >
-                {personalInfo.email}
-              </a>
-              <p className="mt-3 text-subtle">{personalInfo.location}</p>
-            </div>
-
-            <form
-              onSubmit={handleSubmit}
-              noValidate
-              className="flex flex-col gap-4.5"
-            >
-              {!isOnline && (
-                <p className="rounded-field border border-red-400/30 bg-red-400/5 px-4 py-2.5 text-sm text-red-300">
-                  You are currently offline. Reconnect to send a message.
-                </p>
-              )}
-
-              <Field id="contact-name" label="Your name" error={errors.name}>
-                <input
-                  id="contact-name"
-                  type="text"
-                  name="name"
-                  autoComplete="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Your full name"
-                  required
-                  aria-invalid={Boolean(errors.name)}
-                  aria-describedby={
-                    errors.name ? 'contact-name-error' : undefined
-                  }
-                  className={fieldClass(errors.name)}
-                />
-              </Field>
-
-              <Field id="contact-email" label="Email" error={errors.email}>
-                <input
-                  id="contact-email"
-                  type="email"
-                  name="email"
-                  autoComplete="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="hello@example.com"
-                  required
-                  aria-invalid={Boolean(errors.email)}
-                  aria-describedby={
-                    errors.email ? 'contact-email-error' : undefined
-                  }
-                  className={fieldClass(errors.email)}
-                />
-              </Field>
-
-              <Field
-                id="contact-message"
-                label="What's on your mind?"
-                error={errors.message}
-                aside={
-                  <span className="font-mono text-xs text-subtle">
-                    {formData.message.length}/{MESSAGE_MAX_LENGTH}
-                  </span>
-                }
-              >
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  rows={5}
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Tell me about your project..."
-                  required
-                  maxLength={MESSAGE_MAX_LENGTH}
-                  aria-invalid={Boolean(errors.message)}
-                  aria-describedby={
-                    errors.message ? 'contact-message-error' : undefined
-                  }
-                  className={`${fieldClass(errors.message)} resize-none`}
-                />
-              </Field>
-
-              <input
-                type="text"
-                name="website"
-                value={website}
-                onChange={event => setWebsite(event.target.value)}
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-                className="absolute -left-2499.75 h-0 w-0 opacity-0"
-              />
-
-              <button
-                type="submit"
-                disabled={status === 'sending' || !isOnline}
-                className="btn btn-primary self-start disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {statusLabels[status]}
-              </button>
-
-              <p role="status" aria-live="polite" className="sr-only">
-                {liveMessages[status] ?? ''}
-              </p>
-            </form>
-          </div>
+          <ul className="mt-8 flex flex-wrap gap-3">
+            {links.map(item => (
+              <li key={item.label}>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline px-5 py-2.5 text-sm"
+                >
+                  {item.label}
+                  <ArrowUpRight size={15} aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
+
+        <form
+          onSubmit={handleSubmit}
+          noValidate
+          className="theme-ink relative flex flex-col gap-5 rounded-[1.75rem] p-6 sm:p-8"
+        >
+          {!isOnline && (
+            <p className="rounded-xl border border-red-400/30 bg-red-400/5 px-4 py-2.5 text-sm text-red-300">
+              You are currently offline. Reconnect to send a message.
+            </p>
+          )}
+
+          <Field id="contact-name" label="Your name" error={errors.name}>
+            <input
+              id="contact-name"
+              type="text"
+              name="name"
+              autoComplete="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your full name"
+              required
+              aria-invalid={Boolean(errors.name)}
+              aria-describedby={errors.name ? 'contact-name-error' : undefined}
+              className={fieldClass(errors.name)}
+            />
+          </Field>
+
+          <Field id="contact-email" label="Email" error={errors.email}>
+            <input
+              id="contact-email"
+              type="email"
+              name="email"
+              autoComplete="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="hello@example.com"
+              required
+              aria-invalid={Boolean(errors.email)}
+              aria-describedby={
+                errors.email ? 'contact-email-error' : undefined
+              }
+              className={fieldClass(errors.email)}
+            />
+          </Field>
+
+          <Field
+            id="contact-message"
+            label="What's on your mind?"
+            error={errors.message}
+            aside={
+              <span className="text-sm text-soft">
+                {formData.message.length}/{MESSAGE_MAX_LENGTH}
+              </span>
+            }
+          >
+            <textarea
+              id="contact-message"
+              name="message"
+              rows={5}
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="Tell me about your project..."
+              required
+              maxLength={MESSAGE_MAX_LENGTH}
+              aria-invalid={Boolean(errors.message)}
+              aria-describedby={
+                errors.message ? 'contact-message-error' : undefined
+              }
+              className={`${fieldClass(errors.message)} resize-none`}
+            />
+          </Field>
+
+          <input
+            type="text"
+            name="website"
+            value={website}
+            onChange={event => setWebsite(event.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="absolute left-[-9999px] h-0 w-0 opacity-0"
+          />
+
+          <button
+            type="submit"
+            disabled={status === 'sending' || !isOnline}
+            className="btn btn-primary self-start disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {statusLabels[status]}
+          </button>
+
+          <p role="status" aria-live="polite" className="sr-only">
+            {liveMessages[status] ?? ''}
+          </p>
+        </form>
       </div>
     </section>
   );

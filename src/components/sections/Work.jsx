@@ -1,14 +1,14 @@
 import { ArrowUpRight } from 'lucide-react';
+import { FaGithub } from 'react-icons/fa';
 import { getSiteData } from '@/lib/cms';
 import SectionHeading from '@/components/ui/SectionHeading';
-import ProjectStack from '@/components/ui/ProjectStack';
+import ProjectList from '@/components/ui/ProjectList';
 import Reveal from '@/components/ui/Reveal';
-import { pad } from '@/lib/copy';
 
 export default async function Work({ projects }) {
   const { capstones, personalInfo, sections } = await getSiteData();
 
-  const stackProjects = projects.map(project => ({
+  const listProjects = projects.map(project => ({
     slug: project.slug,
     title: project.title,
     summary: project.summary,
@@ -23,64 +23,64 @@ export default async function Work({ projects }) {
     <section
       id="work"
       aria-labelledby="work-heading"
-      className="px-5 pb-8 pt-28 sm:px-8 lg:px-14"
+      className="theme-ink sheet px-5 sm:px-8 lg:px-14"
     >
       <div className="mx-auto max-w-340">
-        <SectionHeading
-          id="work-heading"
-          index={1}
-          eyebrow={sections.work.eyebrow}
-          title={sections.work.title}
-        />
+        <SectionHeading id="work-heading" title={sections.work.title} />
 
-        <ProjectStack projects={stackProjects} />
+        <ProjectList projects={listProjects} />
 
         {capstones.length > 0 && (
-          <>
-            <p className="eyebrow mb-4 mt-28">Internship capstones</p>
-            <ul className="divide-y divide-line border-y border-line">
-              {capstones.map((capstone, index) => (
-                <li key={capstone.id}>
+          <div className="mt-24 lg:mt-32">
+            <h3 className="mb-8 font-display text-h1 font-extrabold leading-tight">
+              Internship capstones
+            </h3>
+            <ul className="grid grid-cols-1 gap-px overflow-hidden border border-line bg-line md:grid-cols-3">
+              {capstones.map(capstone => (
+                <li key={capstone.id} className="bg-canvas">
                   <Reveal
-                    y={40}
-                    className="grid grid-cols-1 gap-x-8 gap-y-2 py-6 md:grid-cols-[3rem_minmax(0,1fr)_minmax(0,1.3fr)_auto] md:items-baseline"
+                    y={32}
+                    className="flex h-full min-h-72 flex-col justify-between gap-8 p-6 transition-colors hover:bg-card sm:p-8"
                   >
-                    <span className="font-mono text-xs text-brass">
-                      {pad(index + 1)}
-                    </span>
-                    <h3 className="font-display text-xl leading-snug">
-                      {capstone.title}
-                    </h3>
-                    <p className="text-sm text-muted">
-                      <span className="line-clamp-2">{capstone.summary}</span>
-                      <span className="mt-1 line-clamp-2 block text-[0.8125rem] text-subtle">
-                        {capstone.note}
-                      </span>
-                    </p>
-                    <a
-                      href={capstone.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${capstone.title} on GitHub`}
-                      className="link inline-flex items-center gap-1 py-1.5 text-sm"
-                    >
-                      GitHub <ArrowUpRight size={14} aria-hidden="true" />
-                    </a>
+                    <div>
+                      <h4 className="font-display text-xl font-bold leading-snug tracking-[-0.02em]">
+                        {capstone.title}
+                      </h4>
+                      <p className="mt-3 text-soft">{capstone.summary}</p>
+                    </div>
+                    <div>
+                      {capstone.note && (
+                        <p className="mb-5 border-l-2 border-accent pl-3 text-sm text-soft">
+                          {capstone.note}
+                        </p>
+                      )}
+                      <a
+                        href={capstone.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${capstone.title} on GitHub`}
+                        className="link inline-flex items-center gap-2 py-1.5 font-medium"
+                      >
+                        <FaGithub size={16} aria-hidden="true" />
+                        Source
+                        <ArrowUpRight size={15} aria-hidden="true" />
+                      </a>
+                    </div>
                   </Reveal>
                 </li>
               ))}
             </ul>
-          </>
+          </div>
         )}
 
         <a
           href={`${personalInfo.social.github}?tab=repositories`}
           target="_blank"
           rel="noopener noreferrer"
-          className="link mt-8 inline-flex items-center gap-1 py-1.5 text-[0.9375rem]"
+          className="btn btn-outline mt-10"
         >
-          All repositories on GitHub{' '}
-          <ArrowUpRight size={15} aria-hidden="true" />
+          All repositories on GitHub
+          <ArrowUpRight size={16} aria-hidden="true" />
         </a>
       </div>
     </section>

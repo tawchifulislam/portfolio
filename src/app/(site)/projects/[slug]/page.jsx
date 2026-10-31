@@ -22,6 +22,7 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description: project.summary,
+    keywords: project.tags,
     alternates: { canonical: url },
     openGraph: {
       type: 'article',
@@ -76,8 +77,6 @@ export default async function ProjectPage({ params }) {
       <ProjectDetail
         meta={project}
         content={<ProjectBody project={project} />}
-        index={index + 1}
-        total={projects.length}
         nextProject={nextProject}
       />
     </>

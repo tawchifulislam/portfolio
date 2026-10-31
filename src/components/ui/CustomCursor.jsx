@@ -2,9 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 
-const TEXT_FIELDS = 'input, textarea, select, [contenteditable="true"]';
-const INTERACTIVE = 'a, button, summary, [role="button"], label[for]';
-const FOLLOW_SPEED = 0.2;
+const INTERACTIVE = 'a, button, [role="button"], summary, label[for]';
+const TEXT_FIELDS = 'input, textarea, select';
 
 export default function CustomCursor() {
   const ringRef = useRef(null);
@@ -13,95 +12,75 @@ export default function CustomCursor() {
   useEffect(() => {
     const ring = ringRef.current;
     const label = labelRef.current;
-    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (!ring || !label || !canHover.matches || reducedMotion.matches) return;
+    if (!ring || !label) return;
 
-    let targetX = 0;
-    let targetY = 0;
-    let x = 0;
-    let y = 0;
+    const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!fine.matches || reduced.matches) return;
+
+    const target = { x: -100, y: -100 };
+    const current = { x: -100, y: -100 };
     let frame = 0;
-    let started = false;
-
-    const draw = () => {
-      ring.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-    };
 
     const tick = () => {
-      x += (targetX - x) * FOLLOW_SPEED;
-      y += (targetY - y) * FOLLOW_SPEED;
-      draw();
-      const settled =
-        Math.abs(targetX - x) < 0.1 && Math.abs(targetY - y) < 0.1;
-      frame = settled ? 0 : requestAnimationFrame(tick);
+      current.x += (target.x - current.x) * 0.2;
+      current.y += (target.y - current.y) * 0.2;
+      ring.style.transform = `translate3d(${current.x}px, ${current.y}px, 0)`;
+      frame = requestAnimationFrame(tick);
     };
 
-    const onMove = event => {
-      targetX = event.clientX;
-      targetY = event.clientY;
-      if (!started) {
-        started = true;
-        x = targetX;
-        y = targetY;
-        draw();
-        ring.dataset.visible = 'true';
+    const setState = element => {
+      if (!element) {
+        ring.dataset.state = 'idle';
+        return;
       }
-      if (!frame) frame = requestAnimationFrame(tick);
-    };
-
-    const onOver = event => {
-      const target = event.target;
-      if (!(target instanceof Element)) return;
-
-      if (target.closest(TEXT_FIELDS)) {
+      if (element.closest(TEXT_FIELDS)) {
         ring.dataset.state = 'text';
         return;
       }
-      if (target.closest(INTERACTIVE)) {
-        ring.dataset.state = 'link';
+      const view = element.closest('[data-cursor="view"]');
+      if (view) {
+        label.textContent = view.getAttribute('data-cursor-label') || 'View';
+        ring.dataset.state = 'view';
         return;
       }
-      const dragZone = target.closest('[data-cursor="drag"]');
-      if (dragZone) {
-        label.textContent = dragZone.dataset.cursorLabel ?? 'Drag';
-        ring.dataset.state = 'drag';
-        return;
-      }
-      ring.dataset.state = 'idle';
+      ring.dataset.state = element.closest(INTERACTIVE) ? 'link' : 'idle';
     };
 
+    const onMove = event => {
+      target.x = event.clientX;
+      target.y = event.clientY;
+      if (ring.dataset.visible !== 'true') {
+        current.x = event.clientX;
+        current.y = event.clientY;
+        ring.dataset.visible = 'true';
+      }
+    };
+    const onOver = event => setState(event.target);
+    const onLeave = () => {
+      ring.dataset.visible = 'false';
+    };
     const onDown = () => {
       ring.dataset.pressed = 'true';
     };
     const onUp = () => {
-      delete ring.dataset.pressed;
-    };
-    const onLeave = () => {
-      ring.dataset.visible = 'false';
-    };
-    const onEnter = () => {
-      if (started) ring.dataset.visible = 'true';
+      ring.dataset.pressed = 'false';
     };
 
-    const root = document.documentElement;
-    window.addEventListener('mousemove', onMove, { passive: true });
-    document.addEventListener('mouseover', onOver, { passive: true });
+    frame = requestAnimationFrame(tick);
+    window.addEventListener('pointermove', onMove, { passive: true });
+    window.addEventListener('pointerover', onOver, { passive: true });
     window.addEventListener('pointerdown', onDown);
     window.addEventListener('pointerup', onUp);
-    window.addEventListener('pointercancel', onUp);
-    root.addEventListener('mouseleave', onLeave);
-    root.addEventListener('mouseenter', onEnter);
+    document.documentElement.addEventListener('pointerleave', onLeave);
 
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseover', onOver);
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerover', onOver);
       window.removeEventListener('pointerdown', onDown);
       window.removeEventListener('pointerup', onUp);
-      window.removeEventListener('pointercancel', onUp);
-      root.removeEventListener('mouseleave', onLeave);
-      root.removeEventListener('mouseenter', onEnter);
+      document.documentElement.removeEventListener('pointerleave', onLeave);
     };
   }, []);
 
@@ -109,9 +88,9 @@ export default function CustomCursor() {
     <div
       ref={ringRef}
       aria-hidden="true"
+      className="cursor-ring"
       data-state="idle"
       data-visible="false"
-      className="cursor-ring"
     >
       <span ref={labelRef} className="cursor-ring__label" />
     </div>

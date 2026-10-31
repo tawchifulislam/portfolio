@@ -1,93 +1,103 @@
-import { mdxComponents } from '@/components/mdx/MDXComponents';
+const TOKEN = /(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g;
+const SAFE_URL = /^(https?:\/\/|mailto:|\/)/;
 
-const {
-  h2: H2,
-  p: P,
-  ul: Ul,
-  strong: Strong,
-  code: Code,
-  a: A,
-} = mdxComponents;
-
-// supports **bold**, `code` and [text](url) only
 function renderInline(text) {
-  const parts = String(text || '').split(
-    /(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g,
-  );
-
-  return parts.map((part, i) => {
-    if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
-      return <Strong key={i}>{part.slice(2, -2)}</Strong>;
-    }
-    if (part.startsWith('`') && part.endsWith('`') && part.length > 2) {
-      return <Code key={i}>{part.slice(1, -1)}</Code>;
-    }
-    const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
-    if (link) {
-      // only safe link types
-      if (/^(https?:|mailto:)/.test(link[2])) {
+  return String(text || '')
+    .split(TOKEN)
+    .map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
         return (
-          <A key={i} href={link[2]}>
-            {link[1]}
-          </A>
+          <strong key={index} className="font-semibold">
+            {part.slice(2, -2)}
+          </strong>
         );
       }
-      return link[1];
-    }
-    return part;
-  });
+      if (part.startsWith('`') && part.endsWith('`') && part.length > 2) {
+        return (
+          <code
+            key={index}
+            className="rounded-md bg-fg/10 px-1.5 py-0.5 text-[0.9em]"
+          >
+            {part.slice(1, -1)}
+          </code>
+        );
+      }
+      const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      if (link && SAFE_URL.test(link[2])) {
+        return (
+          <a
+            key={index}
+            href={link[2]}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link"
+          >
+            {link[1]}
+          </a>
+        );
+      }
+      return part;
+    });
 }
 
-function Paragraphs({ text }) {
-  return String(text || '')
-    .split(/\n{2,}/)
-    .filter(Boolean)
-    .map((paragraph, i) => <P key={i}>{renderInline(paragraph)}</P>);
+function Section({ title, children }) {
+  return (
+    <section className="border-t border-line py-10 first:border-t-0 first:pt-0">
+      <h2 className="mb-5 font-display text-h2 font-bold leading-tight tracking-[-0.02em]">
+        {title}
+      </h2>
+      {children}
+    </section>
+  );
+}
+
+function Paragraph({ text }) {
+  if (!text) return null;
+  return (
+    <p className="max-w-2xl text-lg leading-relaxed text-soft">
+      {renderInline(text)}
+    </p>
+  );
 }
 
 function List({ items }) {
+  if (!items?.length) return null;
   return (
-    <Ul>
-      {items.map((item, i) => (
-        <li key={i}>{renderInline(item)}</li>
+    <ul className="flex max-w-2xl flex-col gap-5">
+      {items.map(item => (
+        <li
+          key={item}
+          className="border-l-2 border-accent pl-5 text-lg leading-relaxed text-soft"
+        >
+          {renderInline(item)}
+        </li>
       ))}
-    </Ul>
+    </ul>
   );
 }
 
 export default function ProjectBody({ project }) {
   return (
-    <>
-      {project.problem && (
-        <>
-          <H2>Problem</H2>
-          <Paragraphs text={project.problem} />
-        </>
-      )}
-      {project.approach && (
-        <>
-          <H2>Approach</H2>
-          <Paragraphs text={project.approach} />
-        </>
-      )}
-      {project.keyDecisions.length > 0 && (
-        <>
-          <H2>Key Decisions</H2>
+    <div>
+      <Section title="The problem">
+        <Paragraph text={project.problem} />
+      </Section>
+      <Section title="The approach">
+        <Paragraph text={project.approach} />
+      </Section>
+      {project.keyDecisions?.length > 0 && (
+        <Section title="Key decisions">
           <List items={project.keyDecisions} />
-        </>
+        </Section>
       )}
-      {project.outcome && (
-        <>
-          <H2>Outcome</H2>
-          <Paragraphs text={project.outcome} />
-        </>
-      )}
-      {project.whatsNext.length > 0 && (
-        <>
-          <H2>What&apos;s Next</H2>
+      <Section title="The outcome">
+        <Paragraph text={project.outcome} />
+      </Section>
+      {project.whatsNext?.length > 0 && (
+        <Section title="What I would build next">
           <List items={project.whatsNext} />
-        </>
+        </Section>
       )}
-    </>
+    </div>
   );
 }

@@ -1,81 +1,72 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import Reveal from '@/components/ui/Reveal';
 import Mask from '@/components/ui/Mask';
-import Parallax from '@/components/ui/Parallax';
-import { pad } from '@/lib/copy';
 
-export default function ProjectDetail({
-  meta,
-  content,
-  index,
-  total,
-  nextProject,
-}) {
+export default function ProjectDetail({ meta, content, nextProject }) {
   const hasServer = Boolean(meta.serverUrl);
 
   return (
-    <main className="px-5 pb-20 pt-28 sm:px-8 lg:px-14">
-      <div className="mx-auto max-w-340">
-        <Link
-          href="/#work"
-          className="link inline-flex items-center gap-1.5 text-sm"
-        >
-          <ArrowLeft size={15} aria-hidden="true" /> All work
-        </Link>
+    <>
+      <div className="theme-chalk px-5 pb-24 pt-32 sm:px-8 lg:px-14 lg:pt-40">
+        <div className="mx-auto max-w-340">
+          <Link
+            href="/#work"
+            className="link inline-flex items-center gap-2 py-1.5 font-medium"
+          >
+            <ArrowLeft size={16} aria-hidden="true" /> All work
+          </Link>
 
-        <header className="mt-8">
-          <p className="eyebrow">
-            Case study · {pad(index)} / {pad(total)}
-          </p>
-          <h1 className="mb-6 mt-4 max-w-5xl font-display text-display leading-[1.02] tracking-tight">
-            {meta.title}
-          </h1>
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <p className="max-w-xl text-lg text-muted">{meta.summary}</p>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href={meta.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-              >
-                Live site <ArrowUpRight size={16} aria-hidden="true" />
-              </a>
-              <a
-                href={meta.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-outline"
-              >
-                <FaGithub size={16} aria-hidden="true" />
-                {hasServer ? 'Client repo' : 'Source on GitHub'}
-              </a>
-              {hasServer && (
+          <header className="mt-8">
+            <h1 className="mb-6 max-w-5xl font-display text-display font-extrabold leading-[1.0] tracking-[-0.04em]">
+              {meta.title}
+            </h1>
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+              <p className="max-w-xl text-xl text-soft">{meta.summary}</p>
+              <div className="flex flex-wrap gap-3">
                 <a
-                  href={meta.serverUrl}
+                  href={meta.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                >
+                  Live site <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+                <a
+                  href={meta.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-outline"
                 >
-                  <FaGithub size={16} aria-hidden="true" /> Server repo
+                  <FaGithub size={16} aria-hidden="true" />
+                  {hasServer ? 'Client code' : 'Source code'}
                 </a>
-              )}
+                {hasServer && (
+                  <a
+                    href={meta.serverUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline"
+                  >
+                    <FaGithub size={16} aria-hidden="true" /> Server code
+                  </a>
+                )}
+              </div>
             </div>
-          </div>
-        </header>
+          </header>
 
-        <a
-          href={meta.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Open ${meta.title} live site`}
-          className="mt-12 block"
-        >
-          <Mask className="relative aspect-4/3 overflow-hidden rounded-card border border-line bg-panel-2 sm:aspect-video lg:aspect-21/9">
-            <Parallax distance={7}>
+          <a
+            href={meta.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open ${meta.title} live site`}
+            data-cursor="view"
+            data-cursor-label="Open"
+            className="mt-12 block"
+          >
+            <Mask className="relative aspect-4/3 overflow-hidden bg-card sm:aspect-video lg:aspect-21/9">
               <Image
                 src={meta.image}
                 alt={`${meta.title} screenshot`}
@@ -85,50 +76,43 @@ export default function ProjectDetail({
                 quality={90}
                 className="object-cover object-top"
               />
-            </Parallax>
-          </Mask>
-        </a>
+            </Mask>
+          </a>
 
-        <div className="mt-16 grid grid-cols-1 gap-10 border-t border-line pt-12 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-16">
-          <aside className="lg:sticky lg:top-28 lg:self-start">
-            <p className="eyebrow mb-3">Built with</p>
-            <ul className="flex flex-wrap gap-2">
-              {meta.tags?.map(tag => (
-                <li key={tag} className="chip">
-                  {tag}
-                </li>
-              ))}
-            </ul>
-          </aside>
+          <div className="mt-16 grid grid-cols-1 gap-10 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-16">
+            <aside className="lg:sticky lg:top-28 lg:self-start">
+              <h2 className="mb-3 font-display text-lg font-bold">Built with</h2>
+              <ul className="flex flex-wrap gap-2">
+                {meta.tags?.map(tag => (
+                  <li key={tag} className="chip">
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </aside>
 
-          <div className="min-w-0">
-            <article className="max-w-2xl [counter-reset:section]">
-              {content}
-            </article>
+            <div className="min-w-0">{content}</div>
           </div>
         </div>
+      </div>
 
-        {nextProject && (
-          <Reveal y={48}>
+      {nextProject && (
+        <div className="theme-ink sheet px-5 sm:px-8 lg:px-14">
+          <Reveal y={40}>
             <Link
               href={`/projects/${nextProject.slug}`}
-              className="group mt-24 flex items-end justify-between gap-6 border-t border-line pt-10"
+              className="group mx-auto flex max-w-340 flex-col gap-6"
             >
-              <div>
-                <p className="eyebrow">Next case study</p>
-                <p className="mt-3 font-display text-huge leading-[1.02] tracking-[-0.02em] transition-colors group-hover:text-brass">
-                  {nextProject.title}
-                </p>
-              </div>
-              <ArrowRight
-                size={40}
-                aria-hidden="true"
-                className="shrink-0 text-soft transition-transform duration-300 group-hover:translate-x-2 group-hover:text-brass"
-              />
+              <span className="text-lg font-medium text-soft">
+                Next case study
+              </span>
+              <span className="font-display text-[clamp(2.5rem,1rem+6vw,7rem)] font-extrabold leading-[1.0] tracking-[-0.04em] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-4">
+                {nextProject.title}
+              </span>
             </Link>
           </Reveal>
-        )}
-      </div>
-    </main>
+        </div>
+      )}
+    </>
   );
 }

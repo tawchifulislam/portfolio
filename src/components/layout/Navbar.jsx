@@ -3,13 +3,12 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion } from 'motion/react';
 import { useLenis } from 'lenis/react';
 import { Menu, X } from 'lucide-react';
 import { navLinks, navCta } from '@/lib/data';
 import { SECTION_ID_LIST } from '@/lib/constants';
 import { useActiveSection } from '@/hooks/useActiveSection';
-import { scrollToSection } from '@/lib/utils';
-import { pad } from '@/lib/copy';
 import LogoMark from '@/components/ui/LogoMark';
 
 export default function Navbar() {
@@ -17,7 +16,6 @@ export default function Navbar() {
   const isHome = pathname === '/';
   const lenis = useLenis();
   const [menuPath, setMenuPath] = useState(null);
-  const [isScrolled, setIsScrolled] = useState(false);
   const progressRef = useRef(null);
   const menuRef = useRef(null);
   const toggleRef = useRef(null);
@@ -40,7 +38,6 @@ export default function Navbar() {
       if (progressRef.current) {
         progressRef.current.style.transform = `scaleX(${progress})`;
       }
-      setIsScrolled(window.scrollY > 24);
     };
 
     const schedule = () => {
@@ -103,84 +100,79 @@ export default function Navbar() {
     setMenuPath(null);
     if (!isHome) return;
     event.preventDefault();
+    const top = href === '#home';
     if (lenis) {
-      lenis.scrollTo(href, { offset: -72, force: true });
+      lenis.scrollTo(top ? 0 : href, { offset: -88, force: true });
     } else {
-      scrollToSection(href.replace('#', ''));
+      document.querySelector(top ? 'body' : href)?.scrollIntoView();
     }
     window.history.pushState(null, '', href);
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      {isOpen && (
-        <div
-          id="mobile-menu"
-          ref={menuRef}
-          data-lenis-prevent
-          className="drop-in fixed inset-0 z-0 overflow-y-auto bg-ink px-5 pb-10 pt-24 sm:px-8 md:hidden"
-        >
-          <ul className="flex flex-col">
-            {navLinks.map((link, index) => {
-              const isActive = activeSection === link.href.replace('#', '');
-              return (
-                <li key={link.name} className="border-b border-line">
-                  <Link
-                    href={hrefFor(link.href)}
-                    onClick={event => handleNavClick(event, link.href)}
-                    aria-current={isActive ? 'location' : undefined}
-                    className="flex items-baseline gap-4 py-5"
-                  >
-                    <span className="font-mono text-xs text-brass">
-                      {pad(index + 1)}
-                    </span>
-                    <span
-                      className={`font-display text-[clamp(2rem,1.4rem+3vw,3rem)] leading-none ${
-                        isActive ? 'text-paper' : 'text-soft'
+    <>
+      <div
+        ref={progressRef}
+        aria-hidden="true"
+        className="fixed inset-x-0 top-0 z-60 h-0.75 origin-left bg-signal"
+        style={{ transform: 'scaleX(0)' }}
+      />
+
+      <header className="fixed inset-x-0 top-4 z-50 px-4">
+        {isOpen && (
+          <div
+            id="mobile-menu"
+            ref={menuRef}
+            data-lenis-prevent
+            className="theme-cobalt drop-in fixed inset-0 z-0 overflow-y-auto px-5 pb-10 pt-28 sm:px-8 md:hidden"
+          >
+            <ul className="flex flex-col">
+              {navLinks.map(link => {
+                const isActive = activeSection === link.href.replace('#', '');
+                return (
+                  <li key={link.name} className="border-b border-line">
+                    <Link
+                      href={hrefFor(link.href)}
+                      onClick={event => handleNavClick(event, link.href)}
+                      aria-current={isActive ? 'location' : undefined}
+                      className={`block py-5 font-display text-[clamp(2.25rem,1.4rem+3.5vw,3.5rem)] font-extrabold leading-none tracking-[-0.03em] ${
+                        isActive ? 'text-accent' : 'text-fg'
                       }`}
                     >
                       {link.name}
-                    </span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-          <Link
-            href={hrefFor(navCta.href)}
-            onClick={event => handleNavClick(event, navCta.href)}
-            className="btn btn-primary mt-8 w-full"
-          >
-            {navCta.name}
-          </Link>
-        </div>
-      )}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <Link
+              href={hrefFor(navCta.href)}
+              onClick={event => handleNavClick(event, navCta.href)}
+              className="btn btn-primary mt-8 w-full"
+            >
+              {navCta.name}
+            </Link>
+          </div>
+        )}
 
-      <div
-        className={`relative z-10 border-b transition-colors duration-300 ${
-          isScrolled || isOpen
-            ? 'border-line bg-ink/85 backdrop-blur-md'
-            : 'border-transparent'
-        }`}
-      >
         <nav
           aria-label="Primary"
-          className="mx-auto flex h-16 max-w-340 items-center justify-between px-5 sm:h-18 sm:px-8 lg:px-14"
+          className="relative z-10 mx-auto flex max-w-3xl items-center justify-between gap-4 rounded-full border border-white/10 bg-night/90 py-2 pl-4 pr-2 text-chalk backdrop-blur-md"
         >
           <Link
             href={isHome ? '#home' : '/'}
             onClick={event => handleNavClick(event, '#home')}
             aria-label="Tawchiful Islam, home"
-            className="flex items-center gap-2.5 text-paper"
+            className="flex items-center gap-2.5"
           >
-            <LogoMark className="h-7 w-7" />
-            <span className="font-display text-xl font-bold">
-              Tawchiful<span className="text-brass">.</span>
+            <LogoMark className="h-8 w-8" />
+            <span className="font-display text-lg font-extrabold tracking-[-0.03em]">
+              Tawchiful<span className="text-signal">.</span>
             </span>
           </Link>
 
-          <ul className="hidden items-center gap-8 md:flex">
-            {navLinks.map((link, index) => {
+          <ul className="hidden items-center gap-1 md:flex">
+            {navLinks.map(link => {
               const isActive = activeSection === link.href.replace('#', '');
               return (
                 <li key={link.name}>
@@ -188,30 +180,31 @@ export default function Navbar() {
                     href={hrefFor(link.href)}
                     onClick={event => handleNavClick(event, link.href)}
                     aria-current={isActive ? 'location' : undefined}
-                    className={`relative inline-flex items-baseline gap-1.5 py-2 text-sm transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:bg-brass after:transition-transform after:duration-300 ${
-                      isActive
-                        ? 'text-paper after:scale-x-100'
-                        : 'text-soft after:scale-x-0 hover:text-paper hover:after:scale-x-100'
+                    className={`relative inline-flex rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                      isActive ? 'text-chalk' : 'text-chalk/70 hover:text-chalk'
                     }`}
                   >
-                    <span className="font-mono text-[0.625rem] text-brass">
-                      {pad(index + 1)}
-                    </span>
-                    {link.name}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active"
+                        className="absolute inset-0 rounded-full bg-white/10"
+                        transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
+                      />
+                    )}
+                    <span className="relative">{link.name}</span>
                   </Link>
                 </li>
               );
             })}
-            <li>
-              <Link
-                href={hrefFor(navCta.href)}
-                onClick={event => handleNavClick(event, navCta.href)}
-                className="btn btn-primary px-5 py-2.5 text-sm"
-              >
-                {navCta.name}
-              </Link>
-            </li>
           </ul>
+
+          <Link
+            href={hrefFor(navCta.href)}
+            onClick={event => handleNavClick(event, navCta.href)}
+            className="hidden rounded-full bg-signal px-5 py-2.5 text-sm font-semibold text-night transition-colors hover:bg-chalk md:inline-flex"
+          >
+            {navCta.name}
+          </Link>
 
           <button
             ref={toggleRef}
@@ -220,21 +213,12 @@ export default function Navbar() {
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-line-3 text-soft transition-colors hover:border-brass hover:text-paper md:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-chalk transition-colors hover:bg-signal hover:text-night md:hidden"
           >
             {isOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </nav>
-
-        <div
-          ref={progressRef}
-          aria-hidden="true"
-          className={`h-px origin-left bg-brass transition-opacity duration-300 ${
-            isScrolled ? 'opacity-100' : 'opacity-0'
-          }`}
-          style={{ transform: 'scaleX(0)' }}
-        />
-      </div>
-    </header>
+      </header>
+    </>
   );
 }

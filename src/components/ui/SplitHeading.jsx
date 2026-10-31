@@ -27,7 +27,7 @@ export default function SplitHeading({ id, text, className }) {
     >
       {words.map((word, index) => (
         <Fragment key={index}>
-          <span className="mb-[-0.12em] inline-block overflow-hidden pb-[0.12em] align-bottom">
+          <span className="-mb-[0.14em] inline-block overflow-hidden pb-[0.14em] align-bottom">
             <motion.span
               className="inline-block"
               variants={item}

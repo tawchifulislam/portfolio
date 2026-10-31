@@ -1,18 +1,11 @@
-import { pad } from '@/lib/copy';
 import SplitHeading from '@/components/ui/SplitHeading';
 
-export default function SectionHeading({ id, index, eyebrow, title }) {
+export default function SectionHeading({ id, title, className = '' }) {
   return (
-    <div className="mb-12 lg:mb-16">
-      <div className="mb-8 flex items-baseline justify-between border-b border-line pb-3 font-mono text-xs uppercase tracking-[0.08em] text-brass">
-        <span>({pad(index)})</span>
-        <span>({eyebrow})</span>
-      </div>
-      <SplitHeading
-        id={id}
-        text={title}
-        className="max-w-4xl font-display text-huge leading-[1.02] tracking-[-0.02em] text-balance"
-      />
-    </div>
+    <SplitHeading
+      id={id}
+      text={title}
+      className={`mb-12 max-w-5xl font-display text-huge font-extrabold leading-[1.04] tracking-[-0.03em] lg:mb-16 ${className}`}
+    />
   );
 }

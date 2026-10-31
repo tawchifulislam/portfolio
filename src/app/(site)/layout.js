@@ -1,4 +1,4 @@
-import localFont from 'next/font/local';
+import { Syne, Hanken_Grotesk } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -14,39 +14,20 @@ const SEO_TITLE = 'Tawchiful Islam | Full Stack Developer';
 const SEO_DESCRIPTION =
   'Full Stack Developer (Next.js, TypeScript, Node.js, PostgreSQL) open to remote junior and contract roles. Case studies: idempotent billing, concurrency-safe booking.';
 
-const bricolage = localFont({
-  src: '../../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2',
-  variable: '--font-bricolage',
-  weight: '200 800',
+const syne = Syne({
+  subsets: ['latin'],
+  variable: '--font-syne',
   display: 'swap',
 });
 
-const plexSans = localFont({
-  src: [
-    {
-      path: '../../../node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../../../node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-500-normal.woff2',
-      weight: '500',
-      style: 'normal',
-    },
-  ],
-  variable: '--font-plex-sans',
-  display: 'swap',
-});
-
-const plexMono = localFont({
-  src: '../../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2',
-  variable: '--font-plex-mono',
-  weight: '400',
+const hanken = Hanken_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-hanken',
   display: 'swap',
 });
 
 export const viewport = {
-  themeColor: '#0b1220',
+  themeColor: '#2a3cf2',
 };
 
 export const metadata = {
@@ -89,9 +70,10 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
     ],
     apple: [{ url: '/apple-touch-icon.png' }],
   },
@@ -107,10 +89,10 @@ export default async function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${syne.variable} ${hanken.variable} h-full antialiased`}
     >
       <body
-        className="min-h-full flex flex-col bg-ink text-paper"
+        className="flex min-h-full flex-col bg-canvas font-body text-fg"
         suppressHydrationWarning
       >
         <script

@@ -1,67 +1,48 @@
 import { ImageResponse } from 'next/og';
-import { getProjectList } from '@/lib/cms';
+import { getProject } from '@/lib/cms';
 
+export const alt = 'Project case study';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export async function generateStaticParams() {
-  const projects = await getProjectList();
-  return projects.map(project => ({ slug: project.slug }));
-}
-
-export default async function OpengraphImage({ params }) {
+export default async function Image({ params }) {
   const { slug } = await params;
-  const projects = await getProjectList();
-  const project = projects.find(p => p.slug === slug);
+  const project = await getProject(slug);
+  const title = project?.title ?? 'Project';
+  const summary = project?.summary ?? '';
 
   return new ImageResponse(
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: '64px',
-        background: '#0b1220',
-        color: '#f1ebdd',
-      }}
-    >
+    (
       <div
         style={{
+          width: '100%',
+          height: '100%',
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'space-between',
-          fontSize: 20,
-          color: '#8e9cb6',
+          padding: 72,
+          background: '#0a0f2e',
+          color: '#ffffff',
         }}
       >
-        <span>TAWCHIFUL ISLAM</span>
-        <span>CASE STUDY</span>
+        <div style={{ fontSize: 32, color: '#ffd23f' }}>Tawchiful Islam</div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div
+            style={{
+              fontSize: 120,
+              fontWeight: 800,
+              lineHeight: 1,
+              letterSpacing: -4,
+            }}
+          >
+            {title}
+          </div>
+          <div style={{ fontSize: 36, marginTop: 28, color: '#c9cdf5' }}>
+            {summary.slice(0, 120)}
+          </div>
+        </div>
       </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <span style={{ fontSize: 72, fontWeight: 700 }}>
-          {project?.title ?? 'Project'}
-        </span>
-        <span style={{ fontSize: 26, color: '#b7c2d8', maxWidth: 900 }}>
-          {project?.summary ?? ''}
-        </span>
-      </div>
-
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <div
-          style={{
-            width: 14,
-            height: 14,
-            borderRadius: 999,
-            background: '#e3a13a',
-          }}
-        />
-        <span style={{ fontSize: 20, color: '#8e9cb6' }}>
-          tawchif.vercel.app
-        </span>
-      </div>
-    </div>,
-    { ...size },
+    ),
+    size,
   );
 }

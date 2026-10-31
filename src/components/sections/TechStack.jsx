@@ -27,32 +27,33 @@ import { VscVscode } from 'react-icons/vsc';
 import { getSiteData } from '@/lib/cms';
 import SectionHeading from '@/components/ui/SectionHeading';
 
-const NEUTRAL = '#F1EBDD';
-const BRASS = '#E3A13A';
+const INK = '#0a0f2e';
 
 const techIcons = {
   HTML5: { icon: SiHtml5, color: '#E34F26' },
   CSS3: { icon: SiCss, color: '#1572B6' },
-  JavaScript: { icon: SiJavascript, color: '#F7DF1E' },
+  JavaScript: { icon: SiJavascript, color: '#C9B100' },
+  'JavaScript (ES6+)': { icon: SiJavascript, color: '#C9B100' },
   TypeScript: { icon: SiTypescript, color: '#3178C6' },
-  React: { icon: SiReact, color: '#61DAFB' },
-  'Next.js': { icon: SiNextdotjs, color: NEUTRAL },
-  'Tailwind CSS': { icon: SiTailwindcss, color: '#38BDF8' },
-  'Framer Motion': { icon: SiFramer, color: '#9C6FFF' },
-  Shadcn: { icon: SiShadcnui, color: NEUTRAL },
-  'Node.js': { icon: SiNodedotjs, color: '#6DA55F' },
-  'Express.js': { icon: SiExpress, color: NEUTRAL },
-  MongoDB: { icon: SiMongodb, color: '#47A248' },
-  PostgreSQL: { icon: SiPostgresql, color: '#4169E1' },
-  Prisma: { icon: SiPrisma, color: NEUTRAL },
-  JWT: { icon: SiJsonwebtokens, color: '#D63AFF' },
+  React: { icon: SiReact, color: '#0EA5C9' },
+  'React.js': { icon: SiReact, color: '#0EA5C9' },
+  'Next.js': { icon: SiNextdotjs, color: INK },
+  'Tailwind CSS': { icon: SiTailwindcss, color: '#0891B2' },
+  'Framer Motion': { icon: SiFramer, color: '#7C3AED' },
+  Shadcn: { icon: SiShadcnui, color: INK },
+  'Node.js': { icon: SiNodedotjs, color: '#4D8C3F' },
+  'Express.js': { icon: SiExpress, color: INK },
+  MongoDB: { icon: SiMongodb, color: '#2E8B3E' },
+  PostgreSQL: { icon: SiPostgresql, color: '#336791' },
+  Prisma: { icon: SiPrisma, color: INK },
+  JWT: { icon: SiJsonwebtokens, color: '#B515E0' },
   Git: { icon: SiGit, color: '#F05032' },
-  GitHub: { icon: SiGithub, color: NEUTRAL },
+  GitHub: { icon: SiGithub, color: INK },
   'VS Code': { icon: VscVscode, color: '#007ACC' },
-  Vercel: { icon: SiVercel, color: NEUTRAL },
-  Netlify: { icon: SiNetlify, color: '#00C7B7' },
+  Vercel: { icon: SiVercel, color: INK },
+  Netlify: { icon: SiNetlify, color: '#00A99D' },
   Docker: { icon: SiDocker, color: '#2496ED' },
-  Render: { icon: SiRender, color: '#46E3B7' },
+  Render: { icon: SiRender, color: '#1AAE8B' },
 };
 
 const iconBySlug = new Map(
@@ -67,24 +68,14 @@ function readableColor(hex) {
     0.299 * ((value >> 16) & 255) +
     0.587 * ((value >> 8) & 255) +
     0.114 * (value & 255);
-  return luminance < 70 ? NEUTRAL : `#${hex}`;
-}
-
-function brandColor(tech) {
-  const known = techIcons[tech.name];
-  if (known) return known.color;
-  const custom = iconBySlug.get(tech.icon);
-  return custom ? readableColor(custom.hex) : BRASS;
+  return luminance > 190 ? INK : `#${hex}`;
 }
 
 function TechIcon({ tech }) {
-  const className =
-    'text-subtle transition-colors duration-200 group-hover:text-(--brand)';
   const known = techIcons[tech.name];
-
   if (known) {
     const Icon = known.icon;
-    return <Icon size={18} aria-hidden="true" className={className} />;
+    return <Icon size={22} aria-hidden="true" color={known.color} />;
   }
 
   const custom = iconBySlug.get(tech.icon);
@@ -92,26 +83,18 @@ function TechIcon({ tech }) {
     return (
       <svg
         viewBox="0 0 24 24"
-        width={18}
-        height={18}
-        fill="currentColor"
+        width={22}
+        height={22}
+        fill={readableColor(custom.hex)}
         aria-hidden="true"
-        className={className}
       >
         <path d={custom.path} />
       </svg>
     );
   }
 
-  return <Package size={18} aria-hidden="true" className={className} />;
+  return <Package size={22} aria-hidden="true" />;
 }
-
-const groups = [
-  { key: 'frontend', label: 'Frontend' },
-  { key: 'backend', label: 'Backend' },
-  { key: 'database', label: 'Database' },
-  { key: 'tools', label: 'Tools' },
-];
 
 function Track({ items, duplicate }) {
   return (
@@ -122,8 +105,7 @@ function Track({ items, duplicate }) {
       {items.map(tech => (
         <li
           key={tech.name}
-          style={{ '--brand': brandColor(tech) }}
-          className="group inline-flex shrink-0 items-center gap-2.5 rounded-full border border-line-2 px-5 py-3 text-sm text-soft transition-colors hover:border-line-3 hover:bg-panel-2"
+          className="inline-flex shrink-0 items-center gap-3 rounded-full bg-card px-6 py-4 text-lg font-semibold shadow-sm"
         >
           <TechIcon tech={tech} />
           {tech.name}
@@ -133,27 +115,43 @@ function Track({ items, duplicate }) {
   );
 }
 
+const groups = [
+  { key: 'frontend', label: 'Frontend' },
+  { key: 'backend', label: 'Backend' },
+  { key: 'database', label: 'Database' },
+  { key: 'tools', label: 'Tools' },
+];
+
 export default async function TechStack() {
   const { techStack, sections } = await getSiteData();
+  const half = Math.ceil(techStack.length / 2);
+  const rowOne = techStack.slice(0, half);
+  const rowTwo = techStack.slice(half);
 
   return (
     <section
       id="techstack"
       aria-labelledby="stack-heading"
-      className="pb-8 pt-28"
+      className="theme-chalk sheet overflow-hidden"
     >
       <div className="mx-auto max-w-340 px-5 sm:px-8 lg:px-14">
-        <SectionHeading
-          id="stack-heading"
-          index={4}
-          eyebrow={sections.techStack.eyebrow}
-          title={sections.techStack.title}
-        />
+        <SectionHeading id="stack-heading" title={sections.techStack.title} />
       </div>
 
-      <div className="marquee">
-        <Track items={techStack} />
-        <Track items={techStack} duplicate />
+      <div className="flex flex-col gap-4">
+        <div className="marquee" style={{ '--marquee-speed': '55s' }}>
+          <Track items={rowOne} />
+          <Track items={rowOne} duplicate />
+        </div>
+        {rowTwo.length > 0 && (
+          <div
+            className="marquee marquee-reverse"
+            style={{ '--marquee-speed': '65s' }}
+          >
+            <Track items={rowTwo} />
+            <Track items={rowTwo} duplicate />
+          </div>
+        )}
       </div>
 
       <div className="sr-only">

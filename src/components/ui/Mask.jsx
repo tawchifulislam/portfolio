@@ -16,7 +16,7 @@ export default function Mask({ children, className = '', delay = 0 }) {
       whileInView={
         reduce
           ? { opacity: 1 }
-          : { opacity: 1, clipPath: 'inset(0% 0% 0% 0% round 20px)' }
+          : { opacity: 1, clipPath: 'inset(0% 0% 0% 0% round 24px)' }
       }
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}

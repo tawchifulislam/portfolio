@@ -9,7 +9,7 @@ function renderRich(text) {
     .split('**')
     .map((part, index) =>
       index % 2 === 1 ? (
-        <strong key={index} className="font-medium text-paper">
+        <strong key={index} className="font-semibold text-accent">
           {part}
         </strong>
       ) : (
@@ -25,31 +25,33 @@ export default async function Experience() {
     <section
       id="experience"
       aria-labelledby="experience-heading"
-      className="px-5 pb-8 pt-28 sm:px-8 lg:px-14"
+      className="theme-cobalt sheet px-5 sm:px-8 lg:px-14"
     >
       <div className="mx-auto max-w-340">
         <SectionHeading
           id="experience-heading"
-          index={3}
-          eyebrow={sections.experience.eyebrow}
           title={sections.experience.title}
         />
 
         <div className="flex flex-col">
           {experience.map(item => (
             <Reveal key={item.id}>
-              <article className="grid grid-cols-1 gap-6 border-y border-line py-9 md:grid-cols-[14rem_minmax(0,1fr)] md:gap-10">
-                <p className="font-mono text-xs uppercase tracking-[0.08em] text-brass">
-                  {item.period}
-                </p>
+              <article className="grid grid-cols-1 gap-8 border-t border-line py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
                 <div>
-                  <h3 className="font-display text-h2 leading-tight">
+                  <p className="mb-4 text-lg font-medium text-soft">
+                    {item.period}
+                  </p>
+                  <h3 className="font-display text-[clamp(2rem,1.2rem+2.8vw,3.75rem)] font-extrabold leading-[1.04] tracking-[-0.03em]">
                     {item.role}
                   </h3>
-                  <p className="mt-1.5 text-subtle">
-                    {item.organization} · {item.mode}
+                  <p className="mt-4 text-lg text-soft">
+                    {item.organization}
+                    {item.mode ? `, ${item.mode}` : ''}
                   </p>
-                  <p className="mt-5 max-w-xl text-soft">
+                </div>
+
+                <div>
+                  <p className="max-w-xl text-[clamp(1.25rem,1rem+0.8vw,1.75rem)] leading-snug">
                     {renderRich(item.highlights[0])}
                   </p>
                   <div className="sr-only">
@@ -57,17 +59,17 @@ export default async function Experience() {
                       <p key={highlight}>{renderRich(highlight)}</p>
                     ))}
                   </div>
-                  <ul className="mt-6 flex flex-wrap gap-2.5">
+                  <ul className="mt-8 flex flex-wrap gap-3">
                     {item.links.map(link => (
                       <li key={link.label}>
                         <a
                           href={link.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="chip inline-flex items-center gap-1.5 px-4 py-2 transition-colors hover:border-brass hover:text-brass-hover"
+                          className="btn btn-outline px-5 py-2.5 text-sm"
                         >
                           {link.label}
-                          <ArrowUpRight size={13} aria-hidden="true" />
+                          <ArrowUpRight size={15} aria-hidden="true" />
                         </a>
                       </li>
                     ))}
