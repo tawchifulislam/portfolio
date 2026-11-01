@@ -1,4 +1,5 @@
 import { Syne, Hanken_Grotesk } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -112,6 +113,7 @@ export default async function RootLayout({ children }) {
         <main id="main" tabIndex={-1} className="flex-1 outline-none">{children}</main>
         <Footer />
         <ScrollToTop />
+        <Analytics />
       </body>
     </html>
   );
