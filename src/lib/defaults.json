@@ -182,7 +182,7 @@
       "order": 3,
       "featured": false,
       "summary": "Role-based gym and fitness class platform for members, trainers and admins.",
-      "image": "/images/projects/brawnix.png",
+      "image": "/images/projects/brawnix-v2.png",
       "tags": [
         "Next.js",
         "React",
@@ -228,7 +228,7 @@
       "order": 4,
       "featured": false,
       "summary": "Bilingual minimalist blog where readers vote on what gets written next.",
-      "image": "/images/projects/tfknowledge.png",
+      "image": "/images/projects/tfknowledge-v2.png",
       "tags": [
         "Next.js",
         "Express.js",
@@ -275,7 +275,7 @@
       "order": 5,
       "featured": false,
       "summary": "Doctor appointment booking for patients and verified medical specialists.",
-      "image": "/images/projects/healync.png",
+      "image": "/images/projects/healync-v2.png",
       "tags": [
         "Next.js",
         "TypeScript",
