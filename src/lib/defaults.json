@@ -74,9 +74,59 @@
   },
   "projects": [
     {
+      "title": "DropCart",
+      "slug": "dropcart",
+      "order": 1,
+      "featured": true,
+      "summary": "Limited-drop store where products go on sale in scheduled, stock-limited drops, with live stock, hold timers, Stripe checkout and an AI shopping copilot.",
+      "image": "/images/projects/dropcart.png",
+      "tags": [
+        "Next.js",
+        "MongoDB",
+        "Stripe",
+        "Gemini API",
+        "TypeScript",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Node.js",
+        "Express.js"
+      ],
+      "liveUrl": "https://dropcart-client.vercel.app",
+      "githubUrl": "https://github.com/tawchifulislam/dropcart-client",
+      "serverUrl": "https://github.com/tawchifulislam/dropcart-server",
+      "problem": "In a limited drop, many shoppers press Reserve in the same second, and a store that checks stock and then updates it will sell units it does not have. DropCart is built so that exactly as many shoppers succeed as there are units in stock, while the interface keeps stock, countdowns and hold timers live and easy to follow.",
+      "approach": "A Next.js 16 and React 19 storefront with a separate Express and MongoDB API. Each unit is reserved atomically and held for five minutes while the shopper pays through hosted Stripe Checkout, then released back to the drop if unpaid. Three roles (shopper, admin, superadmin) get their own protected flows, and a Gemini-powered copilot searches the real catalog to suggest products within a budget and fill the cart. The interface is built around one idea, a torn ticket, with a token-based design system, light and dark themes and reduced-motion support.",
+      "keyDecisions": [
+        {
+          "text": "Made reservation a single atomic MongoDB update that checks the drop is live and stock remains in the same operation, instead of using locks. A scripted load test fires all requests at once and verifies that exactly as many succeed as there are units."
+        },
+        {
+          "text": "Routed all browser API calls through a Next.js rewrite so the session cookie stays first-party, which avoids CORS setup and third-party cookie problems. Hold timers use the remaining time sent by the server, so a wrong device clock never changes the countdown."
+        },
+        {
+          "text": "Grounded the AI copilot in real data. Product cards are built from database results rather than model text, product ids are validated on the server, and the user id always comes from the session, never from model arguments."
+        },
+        {
+          "text": "Built a design system on CSS variables exposed to Tailwind, with the theme applied before first paint so there is no flash, plus semantic landmarks, a skip link, live regions, labelled forms and reduced-motion support."
+        }
+      ],
+      "outcome": "A scripted load test fires all reservation requests at once and verifies that exactly as many succeed as there are units in stock. Shoppers browse live and upcoming drops, reserve a unit, pay before the timer ends and follow their receipts, while admins manage only their own products and drops and watch live stock and revenue. Stripe runs in test mode, with a built-in mock provider keeping the demo usable, and the API also ships with scripted tests for payments (duplicate webhooks and late payments) and copilot grounding.",
+      "whatsNext": [
+        {
+          "text": "Server-sent events instead of polling for stock and timers, to support very large audiences."
+        },
+        {
+          "text": "An image upload pipeline for product photos, replacing image URLs and static files."
+        },
+        {
+          "text": "A shared store such as Redis for rate limiting, and a local payment gateway behind the existing provider interface."
+        }
+      ]
+    },
+    {
       "title": "CarePoint",
       "slug": "carepoint",
-      "order": 1,
+      "order": 2,
       "featured": true,
       "summary": "Doctor appointment platform where patients book real, conflict-free time slots and pay online, with tools for doctors, clinics and admins.",
       "image": "/images/projects/carepoint.png",
@@ -129,8 +179,8 @@
     {
       "title": "Brawnix",
       "slug": "brawnix",
-      "order": 2,
-      "featured": true,
+      "order": 3,
+      "featured": false,
       "summary": "Role-based gym and fitness class platform for members, trainers and admins.",
       "image": "/images/projects/brawnix.png",
       "tags": [
@@ -175,7 +225,7 @@
     {
       "title": "Thirsty for Knowledge",
       "slug": "tfknowledge",
-      "order": 3,
+      "order": 4,
       "featured": false,
       "summary": "Bilingual minimalist blog where readers vote on what gets written next.",
       "image": "/images/projects/tfknowledge.png",
@@ -222,7 +272,7 @@
     {
       "title": "Healync",
       "slug": "healync",
-      "order": 4,
+      "order": 5,
       "featured": false,
       "summary": "Doctor appointment booking for patients and verified medical specialists.",
       "image": "/images/projects/healync.png",
