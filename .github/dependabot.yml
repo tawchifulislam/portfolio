@@ -11,7 +11,6 @@ updates:
     commit-message:
       prefix: 'chore(deps)'
     groups:
-      # these packages must always share one version
       payload:
         patterns:
           - 'payload'
@@ -27,7 +26,6 @@ updates:
           - '@types/react'
           - '@types/react-dom'
     ignore:
-      # major upgrades are done by hand
       - dependency-name: 'next'
         update-types: ['version-update:semver-major']
       - dependency-name: 'eslint-config-next'
@@ -43,4 +41,6 @@ updates:
       - dependency-name: 'typescript'
         update-types: ['version-update:semver-major']
       - dependency-name: 'eslint'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'graphql'
         update-types: ['version-update:semver-major']
