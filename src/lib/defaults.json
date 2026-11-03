@@ -14,24 +14,7 @@
     "headlineStart": "Hi, I'm Tawchiful. I build",
     "headlineHighlight": "whole products",
     "headlineEnd": ", front to back.",
-    "stats": [
-      {
-        "value": "8 → 1",
-        "label": "parallel requests, one usage event"
-      },
-      {
-        "value": "2 → 1",
-        "label": "simultaneous bookings, one wins"
-      },
-      {
-        "value": "3",
-        "label": "approved capstones"
-      },
-      {
-        "value": "20",
-        "label": "verified Anthropic Academy courses"
-      }
-    ]
+    "stats": []
   },
   "about": {
     "heading": "Self-taught, and building things that hold up.",
@@ -266,52 +249,6 @@
         },
         {
           "text": "An admin analytics dashboard tracking post performance and engagement trends."
-        }
-      ]
-    },
-    {
-      "title": "Healync",
-      "slug": "healync",
-      "order": 5,
-      "featured": false,
-      "summary": "Doctor appointment booking for patients and verified medical specialists.",
-      "image": "/images/projects/healync-v2.png",
-      "tags": [
-        "Next.js",
-        "TypeScript",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "Mongoose",
-        "BetterAuth",
-        "Nodemailer"
-      ],
-      "liveUrl": "https://healync.vercel.app",
-      "githubUrl": "https://github.com/tawchifulislam/healync-client",
-      "serverUrl": "https://github.com/tawchifulislam/healync-server",
-      "problem": "Booking a doctor's appointment usually still means a phone call or a manual hospital visit. Healync replaces that with a digital first flow that connects patients to verified specialists.",
-      "approach": "Patients browse verified specialists across multiple fields, book through a secure role protected flow, and manage their schedule in real time. An on demand Medical Companion service, automated email reminders via Nodemailer and node cron, and curated daily health tips round out the experience.",
-      "keyDecisions": [
-        {
-          "text": "Built a real time appointment dashboard so patients can view, update, or cancel bookings instantly without page reloads."
-        },
-        {
-          "text": "Folded the on demand Medical Companion request directly into the booking pipeline to keep the flow intuitive."
-        },
-        {
-          "text": "Automated email reminders with Nodemailer and scheduled cron jobs to proactively reduce no shows."
-        }
-      ],
-      "outcome": "A working booking platform that replaces manual scheduling with a self service, role protected flow between patients and specialists.",
-      "whatsNext": [
-        {
-          "text": "In app chat or video consultation for remote appointments."
-        },
-        {
-          "text": "SMS based reminders alongside the existing email system."
-        },
-        {
-          "text": "A dedicated admin and doctor dashboard for managing schedules, patient records, and companion assignments."
         }
       ]
     }

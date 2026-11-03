@@ -42,7 +42,6 @@ export const resetSiteHandler = async (req: any) => {
   const payload = req.payload;
   const origin = getOrigin(req);
 
-  // step 1: download every image first, so nothing is deleted if one is missing
   const paths = Array.from(
     new Set([defaults.profile.photo, ...defaults.projects.map(p => p.image)]),
   );
@@ -78,8 +77,8 @@ export const resetSiteHandler = async (req: any) => {
   }
 
   const uploaded = new Map<string, string>();
+  const stamp = Date.now().toString(36);
 
-  // upload an already downloaded image to the media library
   async function image(publicPath: string, alt: string) {
     if (uploaded.has(publicPath)) return uploaded.get(publicPath);
     const file = files.get(publicPath) as Downloaded;
@@ -89,7 +88,7 @@ export const resetSiteHandler = async (req: any) => {
       file: {
         data: file.data,
         mimetype: file.mimetype,
-        name: file.name,
+        name: file.name.replace(/(\.[^.]+)$/, `-${stamp}$1`),
         size: file.data.length,
       },
     });
@@ -98,12 +97,10 @@ export const resetSiteHandler = async (req: any) => {
   }
 
   try {
-    // step 2: wipe site content, users and messages stay untouched
     for (const collection of WIPE) {
       await payload.delete({ collection, where: { id: { exists: true } } });
     }
 
-    // step 3: single page sections
     const photo = await image(defaults.profile.photo, defaults.profile.name);
     await payload.updateGlobal({
       slug: 'profile',
@@ -115,7 +112,6 @@ export const resetSiteHandler = async (req: any) => {
       data: sectionDefaults,
     });
 
-    // step 4: lists
     for (const project of defaults.projects) {
       const projectImage = await image(
         project.image,
