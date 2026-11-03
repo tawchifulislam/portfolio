@@ -79,7 +79,7 @@
       "order": 1,
       "featured": true,
       "summary": "Limited-drop store where products go on sale in scheduled, stock-limited drops, with live stock, hold timers, Stripe checkout and an AI shopping copilot.",
-      "image": "/images/projects/dropcart.png",
+      "image": "/images/projects/dropcart-v2.png",
       "tags": [
         "Next.js",
         "MongoDB",
@@ -129,7 +129,7 @@
       "order": 2,
       "featured": true,
       "summary": "Doctor appointment platform where patients book real, conflict-free time slots and pay online, with tools for doctors, clinics and admins.",
-      "image": "/images/projects/carepoint.png",
+      "image": "/images/projects/carepoint-v2.png",
       "tags": [
         "Next.js",
         "Node.js",
