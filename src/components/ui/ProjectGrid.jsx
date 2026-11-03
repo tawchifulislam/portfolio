@@ -27,14 +27,14 @@ function Card({ project }) {
           sizes="(min-width: 1024px) 45vw, 92vw"
           className="object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
         />
-        {project.featured && (
-          <span className="absolute left-3 top-3 rounded-full bg-signal px-3 py-1 text-xs font-bold text-night">
-            Featured
-          </span>
-        )}
       </Link>
 
       <div className="flex flex-1 flex-col gap-4 px-2 pb-2 pt-6 sm:px-3">
+        {project.featured && (
+          <span className="chip -mb-1 self-start border-accent text-accent">
+            Featured
+          </span>
+        )}
         <div className="flex items-start justify-between gap-4">
           <h3 className="font-display text-[clamp(1.5rem,1.1rem+1vw,2rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">
             <Link href={caseStudy}>{project.title}</Link>
